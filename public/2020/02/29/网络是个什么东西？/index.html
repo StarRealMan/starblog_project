@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>网络是个什么东西？ | StarBlog!</title>
+  <meta name="author" content="Star YDY" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="假设某一天，世界上没了网络，那就不是你看不到我更新的问题了，生活的各个方面都会受到影响！网络可以说是离我们生活很近，但就是看不见摸不着理解不了的东西——我是怎么浏览到全国各地甚至世界范围的网页并且能够下载文件的？我和同学打游戏时，我们是怎么互相看到对方的？SSH是怎么远程链接上云端的主机的？带着这些 疑问，我粗浅滴浏览了一遍《计算机网络》这本书，做个很简单很简单的总结吧！ 计算机网络！作为个人用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络是个什么东西？">
+<meta property="og:url" content="http://example.com/2020/02/29/%E7%BD%91%E7%BB%9C%E6%98%AF%E4%B8%AA%E4%BB%80%E4%B9%88%E4%B8%9C%E8%A5%BF%EF%BC%9F/index.html">
+<meta property="og:site_name" content="StarBlog!">
+<meta property="og:description" content="假设某一天，世界上没了网络，那就不是你看不到我更新的问题了，生活的各个方面都会受到影响！网络可以说是离我们生活很近，但就是看不见摸不着理解不了的东西——我是怎么浏览到全国各地甚至世界范围的网页并且能够下载文件的？我和同学打游戏时，我们是怎么互相看到对方的？SSH是怎么远程链接上云端的主机的？带着这些 疑问，我粗浅滴浏览了一遍《计算机网络》这本书，做个很简单很简单的总结吧！ 计算机网络！作为个人用户">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:published_time" content="2020-02-29T02:39:00.000Z">
+<meta property="article:modified_time" content="2020-12-10T07:53:50.491Z">
+<meta property="article:author" content="Star YDY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null">
+<meta name="twitter:site" content="@Candiinya">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="StarBlog!" type="application/atom+xml">
+</head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <div class="nav-toggle"><a class="kratos-nav-toggle js-kratos-nav-toggle"><i></i></a></div>
+            <header id="kratos-header-section">
+                <div class="container">
+                    <div class="nav-header">
+                        <div class="color-logo"><a href="/">StarBlog!</a></div>
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://candinya.com">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>StarBlog!</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div class="row">
+                    
+        <div id="main">
+            <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">网络是个什么东西？</h1>
+                
+                <div class="kratos-post-meta text-center">
+                    <span>
+                        <i class="fa fa-calendar"></i> 2020-02-29
+                        <i class="fa fa-folder"></i> 分类于 <a class="label-link" href="/categories/web/">web</a>
+                        <i class="fa fa-user"></i> 作者 Star YDY
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~2.79K
+                        
+                        字
+                        
+                    </span>
+                </div>
+            </header>
+            <div class="kratos-post-content">
+                
+                <hr />
+                <p>假设某一天，世界上没了网络，那就不是你看不到我更新的问题了，生活的各个方面都会受到影响！<br>网络可以说是离我们生活很近，但就是看不见摸不着理解不了的东西——我是怎么浏览到全国各地甚至世界范围的网页并且能够下载文件的？我和同学打游戏时，我们是怎么互相看到对方的？SSH是怎么远程链接上云端的主机的？<br>带着这些 疑问，我粗浅滴浏览了一遍《计算机网络》这本书，做个很简单很简单的总结吧！</p>
+<h2 id="计算机网络！"><a href="#计算机网络！" class="headerlink" title="计算机网络！"></a>计算机网络！</h2><p>作为个人用户，我们要上网，就需要连接到本地的网络服务供应商ISP才可以，之后本地的ISP一级一级向上连接直到主干ISP，世界主流的主干ISP都是连接在一起的，他们再根据这些信息的目的地将信息传递到目的地。中国主要几个ISP就是中国电信、中国联通、中国移动等。向这些ISP交钱换来的是连接到ISP的网络中的权利（至于如何连接，则是接下来要讲解的），也获得了相当于与世界上所有其他计算机连接的权力（被墙的不算啊( ఠൠఠ )ﾉ）。<br>连接ISP，方式分为ADSL、LAN、FTTH、PON四种。<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/1060876639.png" alt="ispdis.PNG"></p>
+<p>要研究数据如何传送，就要了解网络传输的结构：<br>按照TCP/IP五层结构，由浅入深，从最底层到最表层地解释信息在网络中的传播<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/2664873141.png" alt="5ceng.PNG"><br>首先我们要理解为什么构建一个五层结构，这是因为每层的结构既得到了前面一层的支持，又为后面一层提供了服务，最终每一层看起来就像只在本层互相通信而不受其他层干扰一样。可以说分层是对其他层的一个抽象，使得你不用去管其他层是如何完成任务的。</p>
+<h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><p>首先最底层，就是物理层，在这个层次跑的是bit流，也可以理解为表示0与1的物理现象，可以是数字量的高低电平，也可以是被调制后的模拟信号，甚至可以是光信号（光纤网络），这些传播方式作为物理层为上层提供了很完善的信息传播途径。（这些0、1的规范协议也是属于物理层的范畴，类比串口的三根线、TTL电平规范以及传输前后的调制解调）<br>xDSL（数字用户线）技术就是属于物理层面上的，这种技术可以利用原本假设好的电话线进行网络通信，只需在电话线两端接上调制解调器（Modem也就是俗称的“猫”），ADSL也是用户连接到ISP（网络服务供应商）的方法之一。</p>
+<h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><p>在往上就到了数据链路层，在这一层主要是面对硬件（对网络来说硬件就是网卡）的，主要有两种协议工作在数据链路层，他们是点对点通信的PPP（Peer to Peer Protocol），以及面向局域网（以太网Ethernet）的MAC协议。<br>PPP是最常用的点对点通信协议，通常用在广域网通信上（比如ISP之间的通信？），还有大家经常说的PPPoE（PPP on Ethernet，基于以太网的点对点通讯协议），可以实现以太网中没有的身份验证、加密、压缩的功能，也用于ADSL宽带接入。<br>重点讨论MAC协议。每个硬件生产就被赋予了一个全世界唯一的编号，称之为硬件地址也就是MAC地址，MAC帧仅可被局域网中目标MAC地址对应的主机、路由器接收，达到使用MAC地址传输的作用。<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/506917544.png" alt="mac.PNG"></p>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><p>接下来我们来到了网络层（IP层），MAC地址用来访问局域网中的硬件，而IP地址则是整个互联网中独有的身份证。我们想要访问到世界上任意一台联网的计算机，必须使用这个32位的数字来确定目标。然而要确定这个目标就需要以下几个重要协议来支持：<br>ARPA协议，通过IP地址解析下一个目标主机、路由的MAC地址，来添加到MAC帧的首部，所有的设备都应可以从IP解析到MAC，因此ARPA成为数据链路层到网络层的中介；<br>路由表，记录在路由器中，在路由表中记录着本网络下的其他路由的信息，可以通过目标网络IP地址解析出下一跳最佳路由，是IP数据报传输的引导者。<br>路由器作为两个网络的连接者，拥有两个MAC地址和两个IP地址！<br>一个主机要通过局域网发送一封IP数据报，要经历一下步骤：<br>0.若通信双方处于同一网络，则可直接交付，不需经过路由。<br>1.找到本局域网下的默认路由（即网关gateway），把目标IP、本机IP连同数据一同发送给默认路由；<br>2.默认路由根据目标IP查询路由表，寻找下一跳路由的IP，以此类推；<br>3.直到路由器若发现目标IP属于同一个局域网，则进行直接交付，完成一次传输。<br>IP数据报（IPv4）的结构如图所示：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/4023551690.png" alt="IP.PNG"><br>上面介绍了局域网中主句的重要参数，IP地址、网关，还有一个重要参数：子网掩码（mask），一般为连续的1与连续的0组合，根据子网掩码可以得到主机所属的网络号和主机号，由此可以判断该主机处在那个网络，进而可以判断是该直接交付还是该查找路由表。<br>由于IP地址的紧缺，不能保证每台主机都能够分配到一个IP地址，我们在家上网使用的都是NAT（网络地址转换）技术产生的本地IP地址（内网IP），而不是互联网上的IP地址（公网IP）。如何区分一个IP是公网还是内网呢？IP在分配时已经作了规定，以下这些段的IP都用作内网使用，因此不会出现内网IP与公网IP冲突的情况。<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/2629826971.png" alt="zhuanyong.PNG"><br>只要本地互联网上的其中一个路由器接入到了公网，也就是其中一个IP地址为公网IP，则这个本地网络都能够访问到互联网，方法就是不同的主机占用那个路由器公网IP的不同端口，远程主机就像是在与这个IP的不同端口通信一样。但由于没有公网IP只能使用端口，这些本地网络中的主机不能作为互联网上的服务器使用，因为互联网上的客户无法请求本地网络中的服务器提供服务。<br>VPN（虚拟专用网）开始并不是用来“科学上网”的，而是通过使用互联网将多个分布在各地而不互相连接（仅通过互联网连接）的局域网虚拟地连接起来，使得这几个局域网好像在同一个局域网下一样，并且通过加密手段使在互联网上传输的数据也很安全。<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/2072343370.png" alt="vpn.PNG"></p>
+<h2 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h2><p>接着我们来谈运输层，运输层主要讲了两种传输方式，即无连接，尽最大努力交付的UDP与面向连接，可靠交付的TCP。<br>UDP就类似于我们在单片机通信中的协议，二者只管尽力发送，就算发送失败也不会做处理。而TCP则确保每一帧的完整接收，首先双方先建立连接，之后开始数据传送，每一帧数据发送后，接收方回复确认则表明收到，否则重新传送，传输完成后断开连接。由此可见，UDP快但不稳，TCP稳但不快，二者的应用方向不同！<br>运输层作为连接应用与网络的中介，引入了端口这一工具，通过端口，发送数据时IP地址得到了分用，接收数据时IP地址得到了复用，UDP与TCP都使用了端口，并且为了方便建立连接，TCP使用了套接字（socket）作为连接的端点，套接字就是IP+端口的组合。<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/923726181.png" alt="udp.PNG"><br><img src="http://www.starydy.xyz/usr/uploads/2020/02/3787159546.png" alt="tcp.PNG"></p>
+<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><p>最后到了应用层，有了前面几层的铺垫，应用层所需要完成的任务很简单，就单纯是建立与目标主机的连接（TCP），将数据封装成UDP或TCP帧，随后发送，就可以完成通信，其余完全是应用程序想干嘛干嘛。常见的应用层协议有FTP、TFTP、HTTP（用于万维网服务）、DHCP（自动配置IP，即插即用网络服务）等等等等。</p>
+
+            </div>
+            
+                <div class="kratos-copyright text-center clearfix">
+                    <h5>本作品采用 <a rel="license nofollow" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+                </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2020/02/29/%E7%BD%91%E7%BB%9C%E6%98%AF%E4%B8%AA%E4%BB%80%E4%B9%88%E4%B8%9C%E8%A5%BF%EF%BC%9F/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2020/02/29/%E7%BD%91%E7%BB%9C%E6%98%AF%E4%B8%AA%E4%BB%80%E4%B9%88%E4%B8%9C%E8%A5%BF%EF%BC%9F/";
+            const title         = "「网络是个什么东西？」";
+            const excerpt       = `假设某一天，世界上没了网络，那就不是你看不到我更新的问题了，生活的各个方面都会受到影响！网络可以说是离我们生活很近，但就是看不见摸不着理解不了的东西——我是怎么浏览到全国各地甚至世界范围的网页并且能够下载文件的？我和同学打游戏时，我们...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2020-12-10</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 3D物体是如何旋转滴2" href="/2020/02/29/3D物体是如何旋转滴2/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 立FLAG专用帖！" href="/2020/03/03/立FLAG专用帖！/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+        </div>
+                
+            <section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+                
+                    <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        
+            <p class="text-center"></p>
+        
+    </div>
+</aside>
+                
+                    <!-- Moved to about.ejs -->
+                
+                    
+  <aside id="krw-categories" class="widget widget-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/arm/">arm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/control/">control</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/daily/">daily</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/math-physics/">math-physics</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">5</span></li></ul>
+  </aside>
+
+
+                
+                    
+                
+                    
+  <aside id="krw-posts" class="widget widget-kratos-poststab">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2020/11/29/%E6%AF%95%E8%AE%BE%E5%BC%80%E5%9D%91%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%A4%A7%E5%AE%B6%E5%85%B3%E6%B3%A8/"><i class="fa  fa-book"></i> 毕设开坑，欢迎大家关注</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/18/%E4%BB%8E%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%88%B0%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/"><i class="fa  fa-book"></i> 从支持向量机到拉格朗日乘子对偶问题</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/13/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%A1%AC%E4%BB%B6%E5%B0%9D%E8%AF%95%E4%B9%8B%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/"><i class="fa  fa-book"></i> 第二次硬件尝试之开关电源</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/28/ROS%E5%85%A5%E9%97%A8/"><i class="fa  fa-book"></i> ROS入门</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/"><i class="fa  fa-book"></i> 利用ANSYS进行叶轮动态流场仿真分析实例</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+                
+            </section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer">
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://t.me/CandyUnion"><i class="fa fa-telegram"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://twitter.com/Candiinya"><i class="fa fa-twitter"></i></a></li>
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/Candinya"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2020 Star YDY 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Made with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by <a href="https://candinya.com" target="_blank" rel="nofollow">Candinya</a>.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+    </body>
+</html>

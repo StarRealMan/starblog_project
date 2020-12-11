@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>数字图像处理-课程设计 | StarBlog!</title>
+  <meta name="author" content="Star YDY" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="这是2020年春季学期我选的外专业课“数字图像处理”的课程设计，觉得比较有趣，故拿来记录留念。在这门课程中，我第一次对图像处理进行实践，老师讲得非常好，推荐大家选这门课，能学到不少知识。 课设题目天文摄影师常常用照相机对夜晚的天空进行拍摄。v1.avi和v2.avi是两段持续几秒的夜晚天空景象的视频。可以注意到，夜晚较暗的光照使得视频中有明显的噪声。设计一个算法用于去除这两组图像数据中的噪声。根据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字图像处理-课程设计">
+<meta property="og:url" content="http://example.com/2020/06/24/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86-%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="StarBlog!">
+<meta property="og:description" content="这是2020年春季学期我选的外专业课“数字图像处理”的课程设计，觉得比较有趣，故拿来记录留念。在这门课程中，我第一次对图像处理进行实践，老师讲得非常好，推荐大家选这门课，能学到不少知识。 课设题目天文摄影师常常用照相机对夜晚的天空进行拍摄。v1.avi和v2.avi是两段持续几秒的夜晚天空景象的视频。可以注意到，夜晚较暗的光照使得视频中有明显的噪声。设计一个算法用于去除这两组图像数据中的噪声。根据">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:published_time" content="2020-06-24T01:47:00.000Z">
+<meta property="article:modified_time" content="2020-12-10T07:53:51.471Z">
+<meta property="article:author" content="Star YDY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null">
+<meta name="twitter:site" content="@Candiinya">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="StarBlog!" type="application/atom+xml">
+</head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <div class="nav-toggle"><a class="kratos-nav-toggle js-kratos-nav-toggle"><i></i></a></div>
+            <header id="kratos-header-section">
+                <div class="container">
+                    <div class="nav-header">
+                        <div class="color-logo"><a href="/">StarBlog!</a></div>
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://candinya.com">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>StarBlog!</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div class="row">
+                    
+        <div id="main">
+            <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">数字图像处理-课程设计</h1>
+                
+                <div class="kratos-post-meta text-center">
+                    <span>
+                        <i class="fa fa-calendar"></i> 2020-06-24
+                        <i class="fa fa-folder"></i> 分类于 <a class="label-link" href="/categories/math-physics/">math-physics</a>
+                        <i class="fa fa-user"></i> 作者 Star YDY
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~6.53K
+                        
+                        字
+                        
+                    </span>
+                </div>
+            </header>
+            <div class="kratos-post-content">
+                
+                <hr />
+                <p>这是2020年春季学期我选的外专业课“数字图像处理”的课程设计，觉得比较有趣，故拿来记录留念。<br>在这门课程中，我第一次对图像处理进行实践，老师讲得非常好，推荐大家选这门课，能学到不少知识。</p>
+<h2 id="课设题目"><a href="#课设题目" class="headerlink" title="课设题目"></a>课设题目</h2><p>天文摄影师常常用照相机对夜晚的天空进行拍摄。v1.avi和v2.avi是两段持续几秒的夜晚天空景象的视频。可以注意到，夜晚较暗的光照使得视频中有明显的噪声。设计一个算法用于去除这两组图像数据中的噪声。<br>根据学过的图像处理知识可知，为了实现通过多帧图像数据获取一幅去除噪声后的图像，一种常用的方法是平均去噪法，即计算多帧图像的平均值。<br>分别计算这两组多帧图像数据的平均值，获得两幅去噪图像。<br>用上述方法可以发现去噪结果并不令人满意，原因是各帧图像间存在一定的偏移。请设计一个算法克服这种偏移同时获得较好的平均法去噪结果。</p>
+<h2 id="实验原理"><a href="#实验原理" class="headerlink" title="实验原理"></a>实验原理</h2><p>以视频中的第一帧为基准，逐帧遍历视频图片，由于图片位移间隔时间小，位移小，可以通过特殊方法获得当前帧图片与第一帧基准图片的相对运动大小，求出变换矩阵，通过变换的逆矩阵反向平移当前帧，即可认为观察者未运动，再使用平均值法去噪即可。<br>由于运动时间短，我们忽略运动的旋转部分，仅考虑平移运动。平移运动为二自由度，因此我们只需要找到两张图中一个对应的特征点，即可求得变换矩阵。</p>
+<h2 id="涉及的-MATLAB-函数"><a href="#涉及的-MATLAB-函数" class="headerlink" title="涉及的 MATLAB 函数"></a>涉及的 MATLAB 函数</h2><p><strong>VideoReader</strong>;<br>用于读取视频中的内容，将其每一帧都读出来。<br><strong>im2double</strong>；<br>将读入的图像转换为浮点形式，便于后期处理。<br><strong>rgb2gray</strong>；<br>将rgb图像转化为灰度图，便于后期处理。<br><strong>strel</strong>；<br>创建形态学操作的构造元素。<br><strong>imerode</strong>；<br>图像形态学腐蚀处理。<br><strong>edge</strong><br>边缘检测。<br><strong>find、max</strong>；<br>求得数组最大值并确定最大值的位置。 </p>
+<h2 id="实验内容与方法"><a href="#实验内容与方法" class="headerlink" title="实验内容与方法"></a>实验内容与方法</h2><p>首先观察两个视频，可以看出，视频中图像含有许多噪声：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2065354894.jpg" alt="Snipaste_2020-06-24_17-44-11.jpg"><br><img src="http://www.starydy.xyz/usr/uploads/2020/06/1235922839.jpg" alt="Snipaste_2020-06-24_17-44-38.jpg"><br>这些噪声分布均匀且均值基本为0，可以通过均值滤波的方法消除噪声。但是，由于视频拍摄的抖动导致直接进行多帧均值滤波会使运动物体产生模糊，导致滤波效果变差：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/4291764818.png" alt="3.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/06/4074491988.png" alt="4.png"><br>因此，想到了使用特征点的方法求出前后两帧的相对运动关系，将后一帧移动到前一帧对应的位置，以消除运动产生的影响。<br>首先使用im2double与rgb2gray将图像处理为浮点型的单值图，之后对两段视频分别选择寻找特征点的方法。<br>对于第一个视频，使用缩小范围的寻找特征点的方法，在原图中找到一个sector区域，作为特征点运动的范围。选取这个位置要保证范围内有且仅有一个比较明亮的点，并且在运动过程中这个点不会跑出这个范围。<br>sector = frame(421:472,681:728);<br>处理前的sector<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2270251422.png" alt="5.png"><br>对其进行处理，首先进行形态学的腐蚀处理<br>形态学操作可以改变物体形状<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/3183017928.png" alt="6.png"><br>形态学腐蚀就是求局部最小值的操作<br>se = strel(‘disk’,1);<br>sector = imerode(sector,se);<br>之后使用find函数找到图片中幅值最大的像素，以这个点的位置作为特征点。<br>[x_1,y_1] = find(sector == max(max(sector)));<br>处理后的sector<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/3043677073.png" alt="8.png"><br>选择这个点作为特征点进行唯一判断。<br>对于第二个视频，我们使用图中月亮的圆心作为特征点。<br>首先对图像进行canny边缘检测：<br>result_frame = edge(frame,’canny’,[0.3,0.5]);<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/1460216437.png" alt="9.png"><br>Canny边缘检测包含以下四个步骤：<br>1.高斯滤波<br>滤波的主要目的是降噪，一般的图像处理算法都需要先进行降噪。而高斯滤波主要使图像变得平滑（模糊），同时也有可能增大了边缘的宽度。<br>2.计算图片梯度<br>边缘一定就是图像中像素变化较快的区域，因此使用梯度就可以检测出边缘。我们使用sobel算子对图片进行滤波，就可以计算出它的梯度。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/385346141.png" alt="10.png"><br>3.过滤非最大值<br>在高斯滤波过程中，边缘有可能被放大了。这个步骤使用一个规则来过滤不是边缘的点，使边缘的宽度尽可能为1个像素点：如果一个像素点属于边缘，那么这个像素点在梯度方向上的梯度值是最大的。否则不是边缘，将灰度值设为0。这样就可以使检测到的边缘始终是一个像素。<br>4.使用上下阈值确定边缘<br>通过给定的上下阈值确定最终哪些地方属于边缘，哪些地方不是。梯度过小的地方不应该是边缘，而梯度过大的地方也不应被视为边缘 。</p>
+<p>想要检测图片中的圆首先想到，可以使用Hough圆变换来求解圆的圆心：<br>首先理解霍夫线变换。霍夫线变换的基本理论，就是二进制图片中每一个点都可能属于某些线。如果将过(x0,y0)的这些条线参数化为一个斜率为a，截距为b的线，由于这条线过这一点，可以将a，b作为变量，画出这个点对应的所有直线参数，在a，b平面中的形式：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2947829010.jpg" alt="Snipaste_2020-06-24_17-49-13.jpg"><br>也是一条直线，并且斜率与截距都是确定的。对于每一个图像中的非零点，都进行这样的操作，并且在a，b平面表示出来。当所有的非零点都表示出来，并进行累加后，a，b平面上数值比较大的点就是原图中可能的直线的参数。<br>同理，霍夫圆变换与直线变换的原理相同，先将圆参数化，只不过这时需要三个参数，得到的参数平面将会是一个三位体中的坐标。这样也是可行的，只不过运算缓慢，通常使用霍夫梯度法来检测圆。圆心是圆所有法线的交汇点，通过梯度，确定这些法线，并求出他们的交点中最有可能的那一个，就能检测到圆心。随后再判断圆心到圆周上点的距离，相同或相近距离数量多，就能确定圆的半径，并且也能检验圆心选择的正确性。<br>在思考过程中，又发现进行完canny边缘检测后，这张图像十分完美，故使用运算更为简便的方法进行圆检测。<br>使用扫描算法检测这个圆的圆心，具体方法为：<br>逐<strong>列</strong>遍历整个图像，若在每一<strong>列</strong>检测到两次白点，计算两个白点之间的距离，所有距离中最长的距离就是圆的直径，这时两个点中间的的那个点就是圆的圆心。</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>实验所使用代码（Matlab）如下：<br>对于第一个视频：</p>
+<pre><code>clear,clc;
+vidobj = VideoReader([&#39;v1&#39; &#39;.avi&#39;]);
+numFrames = vidobj.NumFrames;
+sum_frame = zeros(533,800,3);
+
+origin_frame = im2double(read(vidobj,1));
+frame = rgb2gray(origin_frame);
+sector = frame(421:472,681:728);
+se = strel(&#39;disk&#39;,1);
+sector = imerode(sector,se);
+[x_1,y_1] = find(sector == max(max(sector)));
+sum_frame = origin_frame;
+
+for i = 2:numFrames
+
+    origin_frame = im2double(read(vidobj,i));
+    frame = rgb2gray(origin_frame);
+
+    %find offset
+    sector = frame(421:472,681:728);
+    se = strel(&#39;disk&#39;,1);
+    sector = imerode(sector,se);
+    [x,y] = find(sector == max(max(sector)));
+
+    x_offset = x - x_1;
+    y_offset = y - y_1;
+
+    if x_offset &gt; 0 &amp;&amp; y_offset &gt; 0
+        origin_frame(1:533-x_offset,1:800-y_offset,:) = origin_frame(x_offset+1:533,y_offset+1:800,:);
+    elseif x_offset &lt; 0 &amp;&amp; y_offset &gt; 0
+        origin_frame(-x_offset+1:533,1:800-y_offset,:) = origin_frame(1:533+x_offset,y_offset+1:800,:);
+    elseif x_offset &gt; 0 &amp;&amp; y_offset &lt; 0
+        origin_frame(1:533-x_offset,-y_offset+1:800,:) = origin_frame(x_offset+1:533,1:800+y_offset,:);
+    elseif x_offset &lt; 0 &amp;&amp; y_offset &lt; 0
+        origin_frame(-x_offset+1:533,-y_offset+1:800,:) = origin_frame(1:533+x_offset,1:800+y_offset,:);
+    end
+
+
+    sum_frame = sum_frame + origin_frame;
+end
+
+sum_frame = sum_frame/60;
+imshow(sum_frame);</code></pre>
+<p> 对于第二个视频：</p>
+<pre><code>clear,clc;
+vidobj = VideoReader([&#39;v2&#39; &#39;.avi&#39;]);
+numFrames = vidobj.NumFrames;
+sum_frame = zeros(600,800,3);
+
+origin_frame = im2double(read(vidobj,1));
+frame = rgb2gray(origin_frame);
+result_frame = edge(frame,&#39;canny&#39;,[0.3,0.5]);
+
+%find x,y
+for j = 1:600
+    n = 0;
+    for k = 1:800
+        if result_frame(j,k) == 1
+            n = n+1;
+            if n == 1
+                startpoint = k;
+            else
+                if k - startpoint &gt; 10
+                    maxVal(j,1) = k - startpoint;
+                    maxVal(j,2) = startpoint;
+                else
+                    n = n-1;
+                end
+            end
+        end
+        if k == 800 &amp;&amp; (n == 1 || n == 0)
+            maxVal(j,1) = 0;
+            maxVal(j,2) = 0;
+        end
+    end
+end
+r = max(maxVal(:,1));
+xpos = find(maxVal(:,1)==r);
+xpos = int16(median(xpos));
+ypos = maxVal(xpos,2) + int16(r/2);
+
+baseX = xpos;
+baseY = ypos;
+
+sum_frame = origin_frame;
+
+
+for i = 2:numFrames
+    origin_frame = im2double(read(vidobj,i));
+    frame = rgb2gray(origin_frame);
+    result_frame = edge(frame,&#39;canny&#39;,[0.3,0.5]);
+
+   %find x,y
+    for j = 1:600
+        n = 0;
+        for k = 1:800
+            if result_frame(j,k) == 1
+                n = n+1;
+                if n == 1
+                    startpoint = k;
+                else
+                    if k - startpoint &gt; 10
+                        maxVal(j,1) = k - startpoint;
+                        maxVal(j,2) = startpoint;
+                    else
+                        n = n-1;
+                    end
+                end
+            end
+            if k == 800 &amp;&amp; (n == 1 || n == 0)
+                maxVal(j,1) = 0;
+                maxVal(j,2) = 0;
+            end
+        end
+    end
+    r = max(maxVal(:,1));
+    xpos = find(maxVal(:,1)==r);
+    xpos = int16(median(xpos));
+    ypos = maxVal(xpos,2) + int16(r/2);
+
+    x_offset = xpos - baseX;
+    y_offset = ypos - baseY;
+
+     if x_offset &gt; 0 &amp;&amp; y_offset &gt; 0
+        origin_frame(1:600-x_offset,1:800-y_offset,:) = origin_frame(x_offset+1:600,y_offset+1:800,:);
+    elseif x_offset &lt; 0 &amp;&amp; y_offset &gt; 0
+        origin_frame(-x_offset+1:600,1:800-y_offset,:) = origin_frame(1:600+x_offset,y_offset+1:800,:);
+    elseif x_offset &gt; 0 &amp;&amp; y_offset &lt; 0
+        origin_frame(1:600-x_offset,-y_offset+1:800,:) = origin_frame(x_offset+1:600,1:800+y_offset,:);
+    elseif x_offset &lt; 0 &amp;&amp; y_offset &lt; 0
+        origin_frame(-x_offset+1:600,-y_offset+1:800,:) = origin_frame(1:600+x_offset,1:800+y_offset,:);
+    end
+
+    sum_frame = sum_frame + origin_frame;
+
+end
+
+
+sum_frame = sum_frame/60;
+imshow(sum_frame);</code></pre>
+<p>运行结果：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/142298572.png" alt="11.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2236493176.png" alt="12.png"><br>可以看到，经过处理的图像噪声明显减少，并且并未受到观察者视角移动而出现动态模糊的影响。</p>
+
+            </div>
+            
+                <div class="kratos-copyright text-center clearfix">
+                    <h5>本作品采用 <a rel="license nofollow" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+                </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2020/06/24/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86-%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2020/06/24/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86-%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/";
+            const title         = "「数字图像处理-课程设计」";
+            const excerpt       = `这是2020年春季学期我选的外专业课“数字图像处理”的课程设计，觉得比较有趣，故拿来记录留念。在这门课程中，我第一次对图像处理进行实践，老师讲得非常好，推荐大家选这门课，能学到不少知识。
+课设题目天文摄影师常常用照相机对夜晚的天空进行...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2020-12-10</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 由LIT MOTORS平衡车获得的理力知识" href="/2020/06/18/由LIT MOTORS平衡车获得的理力知识/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 轨道交通领域的牛顿特斯拉之战和你坐地铁听到的“防空警报声”" href="/2020/06/30/轨道交通领域的牛顿特斯拉之战和你坐地铁听到的“防空警报声”/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+        </div>
+                
+            <section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+                
+                    <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        
+            <p class="text-center"></p>
+        
+    </div>
+</aside>
+                
+                    <!-- Moved to about.ejs -->
+                
+                    
+  <aside id="krw-categories" class="widget widget-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/arm/">arm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/control/">control</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/daily/">daily</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/math-physics/">math-physics</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">5</span></li></ul>
+  </aside>
+
+
+                
+                    
+                
+                    
+  <aside id="krw-posts" class="widget widget-kratos-poststab">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2020/11/29/%E6%AF%95%E8%AE%BE%E5%BC%80%E5%9D%91%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%A4%A7%E5%AE%B6%E5%85%B3%E6%B3%A8/"><i class="fa  fa-book"></i> 毕设开坑，欢迎大家关注</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/18/%E4%BB%8E%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%88%B0%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/"><i class="fa  fa-book"></i> 从支持向量机到拉格朗日乘子对偶问题</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/13/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%A1%AC%E4%BB%B6%E5%B0%9D%E8%AF%95%E4%B9%8B%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/"><i class="fa  fa-book"></i> 第二次硬件尝试之开关电源</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/28/ROS%E5%85%A5%E9%97%A8/"><i class="fa  fa-book"></i> ROS入门</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/"><i class="fa  fa-book"></i> 利用ANSYS进行叶轮动态流场仿真分析实例</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+                
+            </section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer">
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://t.me/CandyUnion"><i class="fa fa-telegram"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://twitter.com/Candiinya"><i class="fa fa-twitter"></i></a></li>
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/Candinya"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2020 Star YDY 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Made with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by <a href="https://candinya.com" target="_blank" rel="nofollow">Candinya</a>.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+    </body>
+</html>

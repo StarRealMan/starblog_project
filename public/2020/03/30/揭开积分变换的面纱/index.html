@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>揭开积分变换的面纱 | StarBlog!</title>
+  <meta name="author" content="Star YDY" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="从刚上大学开始，积分变换就无时无刻地萦绕在我们身旁，什么傅里叶变换。拉普拉斯变换，甚至小波变换等等。这些变换有什么意义？他们又是怎样实现的呢？这次我们多花点时间来理一理。 积分变换即基变换就如同线性代数所说那样，空间中任意一个向量都可由一组完备（个数充满R^n）的正交的基的线性组合来表示。如果把一个函数（信号）看作这个任意的向量（属于R^∞空间），那么这个函数也可以由R^∞空间下的一系列正交的基（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="揭开积分变换的面纱">
+<meta property="og:url" content="http://example.com/2020/03/30/%E6%8F%AD%E5%BC%80%E7%A7%AF%E5%88%86%E5%8F%98%E6%8D%A2%E7%9A%84%E9%9D%A2%E7%BA%B1/index.html">
+<meta property="og:site_name" content="StarBlog!">
+<meta property="og:description" content="从刚上大学开始，积分变换就无时无刻地萦绕在我们身旁，什么傅里叶变换。拉普拉斯变换，甚至小波变换等等。这些变换有什么意义？他们又是怎样实现的呢？这次我们多花点时间来理一理。 积分变换即基变换就如同线性代数所说那样，空间中任意一个向量都可由一组完备（个数充满R^n）的正交的基的线性组合来表示。如果把一个函数（信号）看作这个任意的向量（属于R^∞空间），那么这个函数也可以由R^∞空间下的一系列正交的基（">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:published_time" content="2020-03-29T22:26:00.000Z">
+<meta property="article:modified_time" content="2020-12-10T07:53:51.563Z">
+<meta property="article:author" content="Star YDY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null">
+<meta name="twitter:site" content="@Candiinya">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="StarBlog!" type="application/atom+xml">
+</head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <div class="nav-toggle"><a class="kratos-nav-toggle js-kratos-nav-toggle"><i></i></a></div>
+            <header id="kratos-header-section">
+                <div class="container">
+                    <div class="nav-header">
+                        <div class="color-logo"><a href="/">StarBlog!</a></div>
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://candinya.com">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>StarBlog!</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div class="row">
+                    
+        <div id="main">
+            <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">揭开积分变换的面纱</h1>
+                
+                <div class="kratos-post-meta text-center">
+                    <span>
+                        <i class="fa fa-calendar"></i> 2020-03-30
+                        <i class="fa fa-folder"></i> 分类于 <a class="label-link" href="/categories/math-physics/">math-physics</a>
+                        <i class="fa fa-user"></i> 作者 Star YDY
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~2.04K
+                        
+                        字
+                        
+                    </span>
+                </div>
+            </header>
+            <div class="kratos-post-content">
+                
+                <hr />
+                <p>从刚上大学开始，积分变换就无时无刻地萦绕在我们身旁，什么傅里叶变换。拉普拉斯变换，甚至小波变换等等。<br>这些变换有什么意义？他们又是怎样实现的呢？这次我们多花点时间来理一理。</p>
+<h2 id="积分变换即基变换"><a href="#积分变换即基变换" class="headerlink" title="积分变换即基变换"></a>积分变换即基变换</h2><p>就如同线性代数所说那样，空间中任意一个向量都可由一组完备（个数充满R^n）的正交的基的线性组合来表示。<br>如果把一个函数（信号）看作这个任意的向量（属于R^∞空间），那么这个函数也可以由R^∞空间下的一系列正交的基（也是函数、信号）来表示，这就是信号的基变换，也就是我们说的积分变换。这组正交基的选择，就是积分变换产生区别的地方，如何选择一组好用的基就成了我们要动脑筋的地方。<br>傅里叶、拉普拉斯等人选择到了一系列合适的正交基函数，使得进行基变换后表示的函数有着很好的性质（比如能量集中、方便微积分运算等等），于是成为了一系列经典的积分变换。由此我们看出，积分变换即基变换。</p>
+<p><strong>我们以傅里叶变换为例来进行研究</strong></p>
+<h2 id="连续周期信号的变换"><a href="#连续周期信号的变换" class="headerlink" title="连续周期信号的变换"></a>连续周期信号的变换</h2><p>对于连续周期信号，傅里叶选择用一组正交函数基来表示他们，可以获得由时域转移到频域的优秀性质。这组基就是三角函数集（也可以用复指数集来表示）<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1699646663.png" alt="Snipaste_2020-03-30_14-40-45.png"><br>这样我们可以得到一组长度为无穷的级数，就是傅里叶级数。<br>注意到这里选择的基函数的频率为nω0，也就是原周期信号的整数倍，也就是说连续周期信号的频谱是离散的。<br>傅里叶级数这样来表示：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/3703168680.png" alt="Snipaste_2020-03-30_18-05-26.png"><br>也可以表示成复指数形式：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1630131877.png" alt="Snipaste_2020-03-30_18-03-00.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/03/133748069.png" alt="Snipaste_2020-03-30_18-02-48.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1878500351.png" alt="Snipaste_2020-03-30_18-03-32.png"><br>cn可通过基正交的性质求得：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1580985861.png" alt="Snipaste_2020-03-30_18-02-33.png"><br>这个cn也就是输入函数的频谱，它的实数部分代表cos值，虚部代表sin值，也可以看作表示的是幅值与相位，如图：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/2845666079.png" alt="Snipaste_2020-03-30_18-04-03.png"><br>注！对于定义在有限区间的函数，将其进行周期延拓，也可将其看作周期信号，进行傅里叶级数展开。<br>看来基的选择还与原始信号有关，但当我输入一个非周期信号时，应该怎么选择这组基呢？</p>
+<h2 id="连续非周期信号的变换"><a href="#连续非周期信号的变换" class="headerlink" title="连续非周期信号的变换"></a>连续非周期信号的变换</h2><p>对于非周期信号，我们可以把它看作一个周期-&gt;∞的信号，此时的ω0-&gt;0。<br>由于T-&gt;∞，Fn-&gt;0，不再适合描述频率特性，因此我们选择TFn = F(nω0)作为描述频率特性的函数.<br>这代表什么呢？这代表着非周期信号的频谱间隔很小，也就可以看作是连续的，此时nω0就退化成了ω，就与傅里叶变换如下：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1453260522.png" alt="Snipaste_2020-03-30_18-13-20.png"><br>同样刻画了输入信号的频率特性。<br>因此得到傅里叶变换与反变换<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/2789109287.png" alt="Snipaste_2020-04-01_09-40-58.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/04/359761650.png" alt="Snipaste_2020-04-01_09-41-43.png"><br>可以看出来，此时的F(ω)不再代表着频谱，而是表示频谱的密度。<br>也就是说，非周期函数不能表示成cos、sin的线性组合（由于系数-&gt;0），但是可以使用傅里叶变换衡量其中各个频率的成分多少。</p>
+<h2 id="离散非周期信号的变换"><a href="#离散非周期信号的变换" class="headerlink" title="离散非周期信号的变换"></a>离散非周期信号的变换</h2><p>上述连续信号的傅里叶变换适用于模拟信号。随着数字控制的普及，我们如果想在一个离散的数字系统中进行傅里叶变换，必须进行离散的采样，采样可以用原信号*冲激序列来表示：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/1463504003.png" alt="Snipaste_2020-04-24_12-00-02.png"><br>注意这个信号仍属于连续的信号，只不过他有了一个可以对应的离散序列也就是x[n]<br>我们当让可以对这个连续的信号进行<strong>连续的</strong>傅里叶变换：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/2297105551.png" alt="Snipaste_2020-04-24_12-01-37.png"><br>这里交换积分号与求和号，化简可以得到：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/1469852139.png" alt="Snipaste_2020-04-24_12-02-28.png"><br>这里的离散序列x[n]就是由与之对应的冲激序列积分得来的，有x[n] = x(nTs)<br>这样一来我们就得到了离散信号的傅里叶变换，但是这个信号在频域上还是连续的，没办法用在数字处理器中：<br>一是因为这个求和是从-∞到+∞项的求和，需要知道信号时域的全部信息，这对于实时系统是不可能实现的；<br>二是由于频域上这个ω是连续的，也就是得到了频域上的全部信息（由于使用了信号时域的全部信息），离散系统ω是离散的，只能使用其中的一部分信息，造成了信息的冗余。<br>我们既然不能利用频域的全部信息，而却要求知道信号时域的全部信息，能否做一妥协，这时离散傅里叶变换出来救场了。</p>
+<h2 id="离散周期信号（有限长信号周期延拓）的变换"><a href="#离散周期信号（有限长信号周期延拓）的变换" class="headerlink" title="离散周期信号（有限长信号周期延拓）的变换"></a>离散周期信号（有限长信号周期延拓）的变换</h2><p>有限的时域信息表示有限的（离散的）频域信息，我们很自然地想到了周期函数的傅里叶级数。<br>同理，对于一个非无限长的信号（一张图片），或者是无限长信号的一段截取（实时数字系统本时刻的前N个采样周期信号的截取），我们可以对其进行延拓，这样就得到了一个无限长的周期信号。对这个周期信号进行傅里叶展开，就可以得到离散的频域表达了：<br>对这个离散的周期延拓进行傅里叶展开<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/536799533.png" alt="Snipaste_2020-04-24_12-32-14.png"><br>还是一样的计算方法，交换积分号与求和号，且有T = N<em>Ts，化简得到：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/2586712878.png" alt="Snipaste_2020-04-24_12-35-37.png"><br>这就是N点离散傅里叶变换DFT的表达式，并且这个离散序列是以N为周期的，我们只取第一个周期即可。<br>其中第k个点表示的是k</em>ω0/N频率分量，其中ω0 = 1/Ts。<br>可以看出，这就是DTFT的离散化表示！<br>当然对于本来就是周期序列的信号，可以直接进行离散傅里叶级数展开DFS。</p>
+<p>从上面的例子，我们看出，这种<strong>信息</strong>的守恒十分的美观：<br>时域的信息完备性体现在是否需要知道信号从出生到入死的全部（是否是周期的），而频域的信息完备性体现在频域表示是否是连续的。<br>或许这就是数学之美吧！！！！！</p>
+<p>总结一下时域频域函数的对应关系：</p>
+<ol>
+<li>时域连续-&gt;频域非周期</li>
+<li>时域离散-&gt;频域周期</li>
+<li>时域周期-&gt;频域离散</li>
+<li>时域非周期-&gt;频域连续<br>是不是也很美呢？</li>
+</ol>
+<h2 id="二维离散信号（图片）的变换"><a href="#二维离散信号（图片）的变换" class="headerlink" title="二维离散信号（图片）的变换"></a>二维离散信号（图片）的变换</h2><p>待更新!</p>
+
+            </div>
+            
+                <div class="kratos-copyright text-center clearfix">
+                    <h5>本作品采用 <a rel="license nofollow" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+                </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2020/03/30/%E6%8F%AD%E5%BC%80%E7%A7%AF%E5%88%86%E5%8F%98%E6%8D%A2%E7%9A%84%E9%9D%A2%E7%BA%B1/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2020/03/30/%E6%8F%AD%E5%BC%80%E7%A7%AF%E5%88%86%E5%8F%98%E6%8D%A2%E7%9A%84%E9%9D%A2%E7%BA%B1/";
+            const title         = "「揭开积分变换的面纱」";
+            const excerpt       = `从刚上大学开始，积分变换就无时无刻地萦绕在我们身旁，什么傅里叶变换。拉普拉斯变换，甚至小波变换等等。这些变换有什么意义？他们又是怎样实现的呢？这次我们多花点时间来理一理。
+积分变换即基变换就如同线性代数所说那样，空间中任意一个向量都可...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2020-12-10</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 重修线代的知识点总结" href="/2020/03/26/重修线代的知识点总结/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 中国加油！武汉加油！" href="/2020/04/04/中国加油！武汉加油！/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+        </div>
+                
+            <section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+                
+                    <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        
+            <p class="text-center"></p>
+        
+    </div>
+</aside>
+                
+                    <!-- Moved to about.ejs -->
+                
+                    
+  <aside id="krw-categories" class="widget widget-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/arm/">arm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/control/">control</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/daily/">daily</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/math-physics/">math-physics</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">5</span></li></ul>
+  </aside>
+
+
+                
+                    
+                
+                    
+  <aside id="krw-posts" class="widget widget-kratos-poststab">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2020/11/29/%E6%AF%95%E8%AE%BE%E5%BC%80%E5%9D%91%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%A4%A7%E5%AE%B6%E5%85%B3%E6%B3%A8/"><i class="fa  fa-book"></i> 毕设开坑，欢迎大家关注</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/18/%E4%BB%8E%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%88%B0%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/"><i class="fa  fa-book"></i> 从支持向量机到拉格朗日乘子对偶问题</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/13/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%A1%AC%E4%BB%B6%E5%B0%9D%E8%AF%95%E4%B9%8B%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/"><i class="fa  fa-book"></i> 第二次硬件尝试之开关电源</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/28/ROS%E5%85%A5%E9%97%A8/"><i class="fa  fa-book"></i> ROS入门</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/"><i class="fa  fa-book"></i> 利用ANSYS进行叶轮动态流场仿真分析实例</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+                
+            </section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer">
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://t.me/CandyUnion"><i class="fa fa-telegram"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://twitter.com/Candiinya"><i class="fa fa-twitter"></i></a></li>
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/Candinya"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2020 Star YDY 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Made with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by <a href="https://candinya.com" target="_blank" rel="nofollow">Candinya</a>.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+    </body>
+</html>

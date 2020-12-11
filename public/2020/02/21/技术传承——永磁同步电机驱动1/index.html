@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>技术传承——永磁同步电机驱动1 | StarBlog!</title>
+  <meta name="author" content="Star YDY" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="记得当时是2018年寒假，加入机器人队不满半年，老余前辈开发出了机器人队历史上第一款好用的永磁同步电机驱动，当时的我也是真的懵，电机种类也不懂，电机原理也不会，恰巧哨兵需要一款新的yaw轴云台电机，而我又是哨兵控制的负责人，顺理成章的我就成了这款驱动的第一个实验品。一开始我是把他当作一个产品来用的，但是在使用过程中难免不会产生一些问题，我要到了源码，开启了我无刷驱动研究的大坑在这一年间，我从开始的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术传承——永磁同步电机驱动1">
+<meta property="og:url" content="http://example.com/2020/02/21/%E6%8A%80%E6%9C%AF%E4%BC%A0%E6%89%BF%E2%80%94%E2%80%94%E6%B0%B8%E7%A3%81%E5%90%8C%E6%AD%A5%E7%94%B5%E6%9C%BA%E9%A9%B1%E5%8A%A81/index.html">
+<meta property="og:site_name" content="StarBlog!">
+<meta property="og:description" content="记得当时是2018年寒假，加入机器人队不满半年，老余前辈开发出了机器人队历史上第一款好用的永磁同步电机驱动，当时的我也是真的懵，电机种类也不懂，电机原理也不会，恰巧哨兵需要一款新的yaw轴云台电机，而我又是哨兵控制的负责人，顺理成章的我就成了这款驱动的第一个实验品。一开始我是把他当作一个产品来用的，但是在使用过程中难免不会产生一些问题，我要到了源码，开启了我无刷驱动研究的大坑在这一年间，我从开始的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:published_time" content="2020-02-21T04:16:00.000Z">
+<meta property="article:modified_time" content="2020-12-10T07:53:51.059Z">
+<meta property="article:author" content="Star YDY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null">
+<meta name="twitter:site" content="@Candiinya">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="StarBlog!" type="application/atom+xml">
+</head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <div class="nav-toggle"><a class="kratos-nav-toggle js-kratos-nav-toggle"><i></i></a></div>
+            <header id="kratos-header-section">
+                <div class="container">
+                    <div class="nav-header">
+                        <div class="color-logo"><a href="/">StarBlog!</a></div>
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://candinya.com">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>StarBlog!</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div class="row">
+                    
+        <div id="main">
+            <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">技术传承——永磁同步电机驱动1</h1>
+                
+                <div class="kratos-post-meta text-center">
+                    <span>
+                        <i class="fa fa-calendar"></i> 2020-02-21
+                        <i class="fa fa-folder"></i> 分类于 <a class="label-link" href="/categories/control/">control</a>
+                        <i class="fa fa-user"></i> 作者 Star YDY
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            1229
+                        
+                        字
+                        
+                    </span>
+                </div>
+            </header>
+            <div class="kratos-post-content">
+                
+                <hr />
+                <p>记得当时是2018年寒假，加入机器人队不满半年，老余前辈开发出了机器人队历史上第一款好用的永磁同步电机驱动，当时的我也是真的懵，电机种类也不懂，电机原理也不会，恰巧哨兵需要一款新的yaw轴云台电机，而我又是哨兵控制的负责人，顺理成章的我就成了这款驱动的第一个实验品。<br>一开始我是把他当作一个产品来用的，但是在使用过程中难免不会产生一些问题，我要到了源码，开启了我无刷驱动研究的大坑<br>在这一年间，我从开始的一点也不会，到中间的 啥都懂一点，啥都不明白，到现在的初识foc算法，逆变器原理等基础知识，真的是历尽千辛万苦，十分感谢老余带我走上了这条控制的不归路。<br>这次我主要讲一下 永磁同步电机中坐标变换的部分，有错误希望大家指出！<br>首先问大家个问题：为什么要坐标变换？</p>
+<ol>
+<li>Clark变换是为了将三相电流变换为两相正交电流，为Park变换做准备</li>
+<li>Park变换是为了将定子电流坐标变换到转子上，最终我们的所有控制都是在转子上的</li>
+<li>反Park变换时为了将控制量（电压）反推回定子端，以便进行SVPWM调制<br>由此可见，坐标变换体现在驱动的方方面面。<h2 id="Clark变换"><a href="#Clark变换" class="headerlink" title="Clark变换"></a>Clark变换</h2>Clark变换又分为两种形式：1、等幅值变换；2、等功率变换<br>为什么会这样分呢，我们先来看一下他们俩的不同。<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/2324103181.png" alt="Clark1.PNG"><br>等幅值变换<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/3086867647.png" alt="clark.PNG"><br>等功率变换</li>
+</ol>
+<p><strong>原来只是矩阵前面的系数有差别啊！</strong><br>我们能发现，Clark变换大体就是把三相电流都向alpha、beta两正交轴投影，再将其相加。但是这前面这个系数又是怎么来的呢？<br>但实际上，这个变换就是把原本存在三相上的电流抽象成了两项正交电流，而且为了保证抽象前后幅值不变，它带了一个系数2/3（由三相脉振磁场合成的旋转磁场幅值是原来的3/2），这就是等幅值变换<br>等功率变换又是什么呢？为了使变换前后功率相等，即电压*电流相等，最终变换的系数变为了sqrt(2/3),这就是等功率变换。<br>等幅值变换与等功率变换仅仅是两种不同的坐标变换，得到的电流有着不同的比例，其中等幅值变换拥有与测量电流同样的比例，所以我们一般使用等幅值变换。还要注意的是，使用两种变换由于电流比例不同，得到的力矩常数也不同，甚至永磁体磁链也不同，它们之间的都差一个常数sqrt（2/3）！</p>
+<h2 id="Park变换"><a href="#Park变换" class="headerlink" title="Park变换"></a>Park变换</h2><p><strong>相对于Clark变换，Park变换就更加容易理解了!</strong><br><img src="http://www.starydy.xyz/usr/uploads/2020/02/4018005133.png" alt="Park.PNG"><br>如上图所示，Park变换仅仅就是把定子坐标系变换到转子坐标系上，方便我们做控制（直接在定子上做其实也不是不行。。。），随后再用反变换变换到定子来输出电压。<br>要注意的一点是公式中的theta指的是电角度thetaP，即实际机械角度的p倍（p为电机极对数）<br>为什么要用thetP做变换呢？<br>对于p对极的电机，磁场的变化是每360°/p的机械角度变化一周期，也就是360°电角度变化一周期，<br>所以，永磁体磁链总是相对于转子静止的，力矩、强弱磁也仅仅是与q、d轴上的电流有关，所以我们要把电流变换到转子上。</p>
+<p><strong>今天这期我们主要讨论了基础的坐标变换理论，下期我们来讲解一下永磁电机中转子坐标下的控制方法。</strong></p>
+
+            </div>
+            
+                <div class="kratos-copyright text-center clearfix">
+                    <h5>本作品采用 <a rel="license nofollow" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+                </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2020/02/21/%E6%8A%80%E6%9C%AF%E4%BC%A0%E6%89%BF%E2%80%94%E2%80%94%E6%B0%B8%E7%A3%81%E5%90%8C%E6%AD%A5%E7%94%B5%E6%9C%BA%E9%A9%B1%E5%8A%A81/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2020/02/21/%E6%8A%80%E6%9C%AF%E4%BC%A0%E6%89%BF%E2%80%94%E2%80%94%E6%B0%B8%E7%A3%81%E5%90%8C%E6%AD%A5%E7%94%B5%E6%9C%BA%E9%A9%B1%E5%8A%A81/";
+            const title         = "「技术传承——永磁同步电机驱动1」";
+            const excerpt       = `记得当时是2018年寒假，加入机器人队不满半年，老余前辈开发出了机器人队历史上第一款好用的永磁同步电机驱动，当时的我也是真的懵，电机种类也不懂，电机原理也不会，恰巧哨兵需要一款新的yaw轴云台电机，而我又是哨兵控制的负责人，顺理成章的...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2020-12-10</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 计算机网络基础" href="/2020/02/21/计算机网络基础/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 技术传承——永磁同步电机驱动2" href="/2020/02/24/技术传承——永磁同步电机驱动2/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+        </div>
+                
+            <section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+                
+                    <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        
+            <p class="text-center"></p>
+        
+    </div>
+</aside>
+                
+                    <!-- Moved to about.ejs -->
+                
+                    
+  <aside id="krw-categories" class="widget widget-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/arm/">arm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/control/">control</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/daily/">daily</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/math-physics/">math-physics</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">5</span></li></ul>
+  </aside>
+
+
+                
+                    
+                
+                    
+  <aside id="krw-posts" class="widget widget-kratos-poststab">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2020/11/29/%E6%AF%95%E8%AE%BE%E5%BC%80%E5%9D%91%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%A4%A7%E5%AE%B6%E5%85%B3%E6%B3%A8/"><i class="fa  fa-book"></i> 毕设开坑，欢迎大家关注</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/18/%E4%BB%8E%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%88%B0%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/"><i class="fa  fa-book"></i> 从支持向量机到拉格朗日乘子对偶问题</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/13/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%A1%AC%E4%BB%B6%E5%B0%9D%E8%AF%95%E4%B9%8B%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/"><i class="fa  fa-book"></i> 第二次硬件尝试之开关电源</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/28/ROS%E5%85%A5%E9%97%A8/"><i class="fa  fa-book"></i> ROS入门</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/"><i class="fa  fa-book"></i> 利用ANSYS进行叶轮动态流场仿真分析实例</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+                
+            </section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer">
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://t.me/CandyUnion"><i class="fa fa-telegram"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://twitter.com/Candiinya"><i class="fa fa-twitter"></i></a></li>
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/Candinya"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2020 Star YDY 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Made with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by <a href="https://candinya.com" target="_blank" rel="nofollow">Candinya</a>.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+    </body>
+</html>

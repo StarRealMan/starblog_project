@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>现代控制理论总结2——NonLinear部分 | StarBlog!</title>
+  <meta name="author" content="Star YDY" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="学习完了比较简单的线性部分，我们来进一步探讨非线性系统的特性！本片所讲内容完全可以用在线性系统上，因为线性系统也算是一种特殊的非线性系统，这篇讲的是一种普适的方法！ 李雅普诺夫直接方法也叫做第二方法（第一方法是直接解微分方程）第二方法是这样判断一个系统稳定的：这样可以证明李雅普诺夫稳定（即有界稳定）这样可以证明渐进稳定 可以看到，二者仅仅区别于V_dot是半正定的还是正定的。那么这个V到底是什么呢">
+<meta property="og:type" content="article">
+<meta property="og:title" content="现代控制理论总结2——NonLinear部分">
+<meta property="og:url" content="http://example.com/2020/03/08/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA%E6%80%BB%E7%BB%932%E2%80%94%E2%80%94NonLinear%E9%83%A8%E5%88%86/index.html">
+<meta property="og:site_name" content="StarBlog!">
+<meta property="og:description" content="学习完了比较简单的线性部分，我们来进一步探讨非线性系统的特性！本片所讲内容完全可以用在线性系统上，因为线性系统也算是一种特殊的非线性系统，这篇讲的是一种普适的方法！ 李雅普诺夫直接方法也叫做第二方法（第一方法是直接解微分方程）第二方法是这样判断一个系统稳定的：这样可以证明李雅普诺夫稳定（即有界稳定）这样可以证明渐进稳定 可以看到，二者仅仅区别于V_dot是半正定的还是正定的。那么这个V到底是什么呢">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:published_time" content="2020-03-08T15:56:00.000Z">
+<meta property="article:modified_time" content="2020-12-10T07:53:52.351Z">
+<meta property="article:author" content="Star YDY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null">
+<meta name="twitter:site" content="@Candiinya">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="StarBlog!" type="application/atom+xml">
+</head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <div class="nav-toggle"><a class="kratos-nav-toggle js-kratos-nav-toggle"><i></i></a></div>
+            <header id="kratos-header-section">
+                <div class="container">
+                    <div class="nav-header">
+                        <div class="color-logo"><a href="/">StarBlog!</a></div>
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://candinya.com">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>StarBlog!</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div class="row">
+                    
+        <div id="main">
+            <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">现代控制理论总结2——NonLinear部分</h1>
+                
+                <div class="kratos-post-meta text-center">
+                    <span>
+                        <i class="fa fa-calendar"></i> 2020-03-08
+                        <i class="fa fa-folder"></i> 分类于 <a class="label-link" href="/categories/control/">control</a>
+                        <i class="fa fa-user"></i> 作者 Star YDY
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~2.05K
+                        
+                        字
+                        
+                    </span>
+                </div>
+            </header>
+            <div class="kratos-post-content">
+                
+                <hr />
+                <p>学习完了比较简单的线性部分，我们来进一步探讨非线性系统的特性！<br>本片所讲内容完全可以用在线性系统上，因为线性系统也算是一种特殊的非线性系统，这篇讲的是一种普适的方法！</p>
+<h2 id="李雅普诺夫直接方法"><a href="#李雅普诺夫直接方法" class="headerlink" title="李雅普诺夫直接方法"></a>李雅普诺夫直接方法</h2><p>也叫做第二方法（第一方法是直接解微分方程）<br>第二方法是这样判断一个系统稳定的：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1765616617.png" alt="lyapu.PNG"><br>这样可以证明李雅普诺夫稳定（即有界稳定）<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/2569806803.png" alt="assym.PNG"><br>这样可以证明渐进稳定</p>
+<p><strong>可以看到，二者仅仅区别于V_dot是半正定的还是正定的。</strong><br>那么这个V到底是什么呢？他是怎么来的呢？这个V将是贯穿整个非线性控制理论的一个东西。<br>我们把V叫做李雅普诺夫函数，这个V是自己选的，自己选择V来证明稳定，有些微妙呢（￣。。￣）<br>同样，我们也是要判断平衡点，即X_dot = 0 的点，一定要记住，在u = 0的情况下，稳定系统一定会收敛到平衡点上。<br>在加入控制量u之后，我们比较方便的能够把平衡点控制在0，所以当想要移动原来变量平衡点时，一般会转换状态变量到e或delta这样的误差变量上，最终就能达到移动原来变量平衡点的作用。<br>一般我们选择的V是包含需要稳定的量的，即V是e、δ……的函数V(e,δ)<br>V_dot = <img src="http://www.starydy.xyz/usr/uploads/2020/03/2883180973.png" alt="V_dot.PNG">，其中f(x)表示x的微分的函数<br>通常设计的V为系统在某个维度的能量，那么就表明能量大于0，能量衰减的系统就是稳定的！<br>这里要注意，x=0，指的是x1、x2、全部=0，这里判断ND、NSD时要注意！</p>
+<h2 id="拉塞尔不变性原理"><a href="#拉塞尔不变性原理" class="headerlink" title="拉塞尔不变性原理"></a>拉塞尔不变性原理</h2><p><strong>为了扩大直接方法判断渐进稳定的适用条件，引出拉塞尔不变性原理：</strong></p>
+<ol>
+<li>满足李雅普诺夫稳定</li>
+<li>除了x = 0，没有其他轨迹能够使V_dot = 0<br>判断方法也很简单，直接令V_dot = 0，计算满足的轨迹，如果除了x=0外还有满足的轨迹，那么就不符合，若仅有x=0这一条，则整个系统也是渐近稳定的。</li>
+</ol>
+<h2 id="非线性控制中心思想"><a href="#非线性控制中心思想" class="headerlink" title="非线性控制中心思想"></a>非线性控制中心思想</h2><p>对于x_dot = f(x) + u这种形式，简单粗暴滴构造一个u = f(x) - kx，就可以构造出x_dot = -kx这个线性的，必定稳定的系统。我们称之为反馈线性化（Feedback Linearization），是最简单证明稳定性的方法。<br>但有时反馈线性化不是最佳的，我们可以通过寻找V(x)来设计u，使得V与V_dot满足PD ND的条件即可</p>
+<h2 id="反步法"><a href="#反步法" class="headerlink" title="反步法"></a>反步法</h2><p>对于二阶系统，我们常用反步法（Back Stepping）来解决控制问题。微分表达式x_dot = f(x)，代表着x的变化受到f(x)的控制，这点是我们控制x的重要思想。当二阶系统构成一个Chain of Integrator，即x2在f1中，而u又在f2中，我们就可以通过控制u来控制x2，再通过控制x2来控制x1。（设计控制器时还是用上面的中心思想来实现）<br>反步法则与这个顺序相反，它先设计出x2控制x1的方法，找到一个x2d，再通过设计u来控制x2-&gt;x2d，最终实现目标。<br>在这两步中，第二步同时包含了x1与x2，我们在设计时要同时引入两个状态变量e与δ，而第一步就仅需要一个e，因为我们把其中的x2已经当作了输入量。并且，如果这两步中有一步是线性系统，我们完全可以用线性系统的思路来设计！<br>下面是反步法的具体设计步骤的一个例子：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/3099420731.png" alt="backstep.PNG"></p>
+<h2 id="自适应控制"><a href="#自适应控制" class="headerlink" title="自适应控制"></a>自适应控制</h2><p>有时我们再设计控制器时，总是要用到一些系统的参数，但当我们很难测得这些参数时，控制器就很难设计。<br>于是我们引入自适应控制（Adaptive Control）用一个p_hat来测量这个参数p（前提要有p_dot = 0），不妨设p_e = p_hat - p，我们把这个p_e也当作一个状态变量，就能够使p_hat-&gt;p，最终我们在u中使用p_hat代替p来做控制即可。（这里要先设计出一个假定已知p的输入u）<br>将含有x与p的f看作是由两个变量组成的系统，最终用包含p_e与e的李雅普诺夫函数V()满足PD ND，同时代入已设计好的u，即可得到a_hat或a_hat_dot的式子，大功告成！</p>
+<h2 id="鲁棒控制"><a href="#鲁棒控制" class="headerlink" title="鲁棒控制"></a>鲁棒控制</h2><p>上面的自适应控制用于p_dot = 0的情况，但当p不是一个定值，在随时间变换但却有界（ρ(x)，这个界可以是与x有关的，但是在非线性部分整体也有界的情况下通常取为一个常数ρ），我们就不能使用Adaptive的方法，这时就要使用鲁棒控制器（Robust Control）<br>鲁棒控制器有一个通用的形式：<br>u = -ke + xd_dot + uaux<br><strong>最常见的三种鲁棒控制器：</strong></p>
+<ol>
+<li>Sliding Mode：  uaux = ρ(x)sgn(x) （也就是大家经常听说的滑模控制器）</li>
+<li>High Gain：     uaux = 1/(ε)ρ(x)^2 * e</li>
+<li>High Frequency：uaux =  ρ(x)^2e/(ρ(x)abs(e) + ε)</li>
+</ol>
+<p><strong>这三个鲁棒控制器各有特点：</strong><br>SMC静差为零，而其他两个控制器都有与k和ε相关的静差<br>HGC收敛是最快的<br>HFC输入是最小的<br>我们也能够很简单地使用直接方法证明这三种控制器的稳定性。</p>
+<h2 id="总结一下，非线性控制的思想就是设计合适的u使得选择的李雅普诺夫函数V能够满足稳定条件，就是这么简单！"><a href="#总结一下，非线性控制的思想就是设计合适的u使得选择的李雅普诺夫函数V能够满足稳定条件，就是这么简单！" class="headerlink" title="总结一下，非线性控制的思想就是设计合适的u使得选择的李雅普诺夫函数V能够满足稳定条件，就是这么简单！"></a>总结一下，非线性控制的思想就是设计合适的u使得选择的李雅普诺夫函数V能够满足稳定条件，就是这么简单！</h2>
+            </div>
+            
+                <div class="kratos-copyright text-center clearfix">
+                    <h5>本作品采用 <a rel="license nofollow" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+                </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2020/03/08/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA%E6%80%BB%E7%BB%932%E2%80%94%E2%80%94NonLinear%E9%83%A8%E5%88%86/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2020/03/08/%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA%E6%80%BB%E7%BB%932%E2%80%94%E2%80%94NonLinear%E9%83%A8%E5%88%86/";
+            const title         = "「现代控制理论总结2——NonLinear部分」";
+            const excerpt       = `学习完了比较简单的线性部分，我们来进一步探讨非线性系统的特性！本片所讲内容完全可以用在线性系统上，因为线性系统也算是一种特殊的非线性系统，这篇讲的是一种普适的方法！
+李雅普诺夫直接方法也叫做第二方法（第一方法是直接解微分方程）第二方法...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2020-12-10</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 现代控制理论总结1——Linear部分" href="/2020/03/07/现代控制理论总结1——Linear部分/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" Python爬虫实战！" href="/2020/03/14/Python爬虫实战！/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+        </div>
+                
+            <section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+                
+                    <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        
+            <p class="text-center"></p>
+        
+    </div>
+</aside>
+                
+                    <!-- Moved to about.ejs -->
+                
+                    
+  <aside id="krw-categories" class="widget widget-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/arm/">arm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/control/">control</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/daily/">daily</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/math-physics/">math-physics</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">5</span></li></ul>
+  </aside>
+
+
+                
+                    
+                
+                    
+  <aside id="krw-posts" class="widget widget-kratos-poststab">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2020/11/29/%E6%AF%95%E8%AE%BE%E5%BC%80%E5%9D%91%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%A4%A7%E5%AE%B6%E5%85%B3%E6%B3%A8/"><i class="fa  fa-book"></i> 毕设开坑，欢迎大家关注</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/18/%E4%BB%8E%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%88%B0%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/"><i class="fa  fa-book"></i> 从支持向量机到拉格朗日乘子对偶问题</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/13/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%A1%AC%E4%BB%B6%E5%B0%9D%E8%AF%95%E4%B9%8B%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/"><i class="fa  fa-book"></i> 第二次硬件尝试之开关电源</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/28/ROS%E5%85%A5%E9%97%A8/"><i class="fa  fa-book"></i> ROS入门</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/"><i class="fa  fa-book"></i> 利用ANSYS进行叶轮动态流场仿真分析实例</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+                
+            </section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer">
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://t.me/CandyUnion"><i class="fa fa-telegram"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://twitter.com/Candiinya"><i class="fa fa-twitter"></i></a></li>
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/Candinya"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2020 Star YDY 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Made with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by <a href="https://candinya.com" target="_blank" rel="nofollow">Candinya</a>.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+    </body>
+</html>

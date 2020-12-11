@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>Python爬虫实战！ | StarBlog!</title>
+  <meta name="author" content="Star YDY" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="老早就有闻爬虫的鼎鼎大名，但一直找不到合适的机会去试一试。正好前几天刚学习了Python的语法，拿爬虫练练手正合适，顺便在网上找到了漫画的资源正好下载下来看一看，省了我几个漫读券了，一举两得，美滋滋！ Python requests库的基础使用爬虫的原理十分简单，就是将程序模拟为浏览器，来快速地获取网络上的资源，包括文字、图片、音频、视频都能被爬取到，也可见即可爬！那么怎样自动化地模拟浏览器进行网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫实战！">
+<meta property="og:url" content="http://example.com/2020/03/14/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98%EF%BC%81/index.html">
+<meta property="og:site_name" content="StarBlog!">
+<meta property="og:description" content="老早就有闻爬虫的鼎鼎大名，但一直找不到合适的机会去试一试。正好前几天刚学习了Python的语法，拿爬虫练练手正合适，顺便在网上找到了漫画的资源正好下载下来看一看，省了我几个漫读券了，一举两得，美滋滋！ Python requests库的基础使用爬虫的原理十分简单，就是将程序模拟为浏览器，来快速地获取网络上的资源，包括文字、图片、音频、视频都能被爬取到，也可见即可爬！那么怎样自动化地模拟浏览器进行网">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:published_time" content="2020-03-13T22:21:00.000Z">
+<meta property="article:modified_time" content="2020-12-10T07:53:51.419Z">
+<meta property="article:author" content="Star YDY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null">
+<meta name="twitter:site" content="@Candiinya">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="StarBlog!" type="application/atom+xml">
+</head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <div class="nav-toggle"><a class="kratos-nav-toggle js-kratos-nav-toggle"><i></i></a></div>
+            <header id="kratos-header-section">
+                <div class="container">
+                    <div class="nav-header">
+                        <div class="color-logo"><a href="/">StarBlog!</a></div>
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://candinya.com">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>StarBlog!</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div class="row">
+                    
+        <div id="main">
+            <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">Python爬虫实战！</h1>
+                
+                <div class="kratos-post-meta text-center">
+                    <span>
+                        <i class="fa fa-calendar"></i> 2020-03-14
+                        <i class="fa fa-folder"></i> 分类于 <a class="label-link" href="/categories/web/">web</a>
+                        <i class="fa fa-user"></i> 作者 Star YDY
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~2.32K
+                        
+                        字
+                        
+                    </span>
+                </div>
+            </header>
+            <div class="kratos-post-content">
+                
+                <hr />
+                <p>老早就有闻爬虫的鼎鼎大名，但一直找不到合适的机会去试一试。正好前几天刚学习了Python的语法，拿爬虫练练手正合适，顺便在网上找到了漫画的资源正好下载下来看一看，省了我几个漫读券了，一举两得，美滋滋！</p>
+<h2 id="Python-requests库的基础使用"><a href="#Python-requests库的基础使用" class="headerlink" title="Python requests库的基础使用"></a>Python requests库的基础使用</h2><p>爬虫的原理十分简单，就是将程序模拟为浏览器，来快速地获取网络上的资源，包括文字、图片、音频、视频都能被爬取到，也可见即可爬！<br>那么怎样自动化地模拟浏览器进行网络请求呢，答案就是Python第三方库——requests，这个库功能十分强大，提供了get、post等多种http、https请求，我们可以很简单地利用requests库来模拟浏览器的动作。<br>get(url,headers = header)方法用于使用get方法发出一个请求（注意get方法的数据显式地存放在url中，因此我们只需要提供url即可），使用headers参数来提供请求头（也是防反爬最基本的方法之一）；<br>post(url,data = data,headers = header)方法类似，用来发出post请求，数据存放于data中（通常为JSON字符串格式）；</p>
+<p>这两个类得到的实例就包含了服务器获得请求后返回的响应，我们称之为response，通过respons的text与content方法，我们就可以获得返回的数据了，而这二者的区别是text方法以字符串形式返回，通常用于我们来做数据分析的，当然也可以用来保存文字内容；而content方法返回二进制数据，通常用于我们保存文件，文字、图片、音频、视频均可。<br>这样我们就通过requests库获得了网页的内容啦！</p>
+<h2 id="内容的保存"><a href="#内容的保存" class="headerlink" title="内容的保存"></a>内容的保存</h2><p>获得了内容之后我们要将保存为文件，Python的文件操作非常方便<br>使用：with open(filename,method) as f:<br>可以以method所定义的方法打开filename这个文件。一般我们用于保存文件的method就是”w”和”wb”两种，区别在于”w”使用文本形式保存文件，而”wb”使用二进制字节流形式保存文件，我们的多媒体文件以及可执行文件都是以这种形式保存的！<br>打开文件后，我们可以使用f.write(content)方法向文件写入内容，也就是之前我们得到的response.text或response.content，这样，从网络上爬取数据并保存的工作就完成了！</p>
+<h2 id="数据的筛选-正则re与parsel库"><a href="#数据的筛选-正则re与parsel库" class="headerlink" title="数据的筛选 正则re与parsel库##"></a>数据的筛选 正则re与parsel库##</h2><p>互联网上数据众多，为了能够筛选出我想要的内容，比如我们只想要漫画网站上面的图片而不想要底下的评论，我们还需要对获取的数据进行筛选，这该如何是好呢？<br>最简单粗暴的办法，我们可以使用Python正则表达式库re中的findall方法来匹配我们想要的内容<br>用法就是——re.findall(“style”,text)，其中style就是正则要匹配的内容，text就是所要匹配的数据，style中()内的内容就会被返回，这样我们能够简单地提取出我们想要的内容，比如图片url啊、小说标题和文本啊等等，但是由于网站的元素实在过多，我们可能会匹配到错误的内容，需要一种更高级智能的匹配手段！<br>parsel库向我们提供了三种匹配手段，re、xpath与css选择器，我这里就主要解释一下css选择器的使用<br>网页上的html元素都有着不同的css标签，可以通过css标签来选择出我们想要的元素。parsel提供了Selector(text)方法，实例使用css(css_selector).getall()的方法可以获取到所有匹配的元素内容，所以我们只需要知道这一系列元素所共同具有的css选择器就可以了。<br>同理，xpath也是html元素的属性，也可以由浏览器调试获得！我们不过多赘述（好吧其实是因为不会(*￣;(￣ *)）</p>
+<h2 id="批量爬取"><a href="#批量爬取" class="headerlink" title="批量爬取"></a>批量爬取</h2><p>刚刚我们只获取到一页内容的数据，如果我们想翻页，或者想去自动地爬另一个内容，怎么办呢？<br>批量爬取是一只爬虫必备的能力，做到批量爬取，其实就是获取下一个想爬的url在一个循环里来回爬就行啦，获取url成为了我们的首要目标<br>如何获取url呢？最简单粗暴的办法就是，观察网页变化的<br>如果下一页是一个超链接，那就简单了，获取到下一页的url即可<br>如果下一页是get请求，也没啥太大问题，使用get方法，模拟网页发出一个一模一样的请求就行，当然get请求也是包含在url里面的，我们也可以直接获取url<br>如果下一页是个AJAX请求（即动态地在同一个url下面显示不同内容），抱歉目前我还不太会（＞人＜；）<br>获取到下一页内容后，再把他们循环起来，重复上面的工作就行啦！我们的爬虫就可以运行起来啦!</p>
+<h2 id="实战：爬取某网站整部漫画"><a href="#实战：爬取某网站整部漫画" class="headerlink" title="实战：爬取某网站整部漫画"></a>实战：爬取某网站整部漫画</h2><p>话不多说，直接上代码<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/340887529.png" alt="2020-03-14 20-05-24 的屏幕截图.png"><br>你没有看错，只用了29行（这就或许是Python的魅力吧）<br>原理也很简单</p>
+<ol>
+<li>查看是否存在文件夹image，没有则创建</li>
+<li>最外面的循环是章节循环，由于每一章网页url上面的数字是连起来的，简单的字符串拼接就可以遍历了</li>
+<li>再在image内创建一个名为章节号码的文件夹，用来存放图片</li>
+<li>首先请求一次，（注意这个get请求使用一个visitor_header的请求头，目的在于防止被反爬）</li>
+<li>这次请求获取当前章节的总页数，然后就可以遍历每一页啦</li>
+<li>再次get请求，使用css选择器获得符合要求的img的html元素（也就是漫画图片），再使用正则筛选出图片url（个人网站加个延时防止网站崩溃）</li>
+<li>最后按页数保存下来就大功告成啦！</li>
+</ol>
+<p><strong>最后运行的结果：</strong><br>（爬了租借女友的23到27话做个示范）<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/999894680.png" alt="2020-03-14 20-17-10 的屏幕截图.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/03/3846485483.png" alt="2020-03-14 20-17-15 的屏幕截图.png"></p>
+<p><strong>爬虫真的是一种便捷获取网络数据的利器！<br>但白嫖可耻，也请大家不要学习盗版行为！<br>真的已经在哔哩哔哩漫画补过票了！(❤ ω ❤)</strong></p>
+
+            </div>
+            
+                <div class="kratos-copyright text-center clearfix">
+                    <h5>本作品采用 <a rel="license nofollow" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+                </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2020/03/14/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98%EF%BC%81/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2020/03/14/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98%EF%BC%81/";
+            const title         = "「Python爬虫实战！」";
+            const excerpt       = `老早就有闻爬虫的鼎鼎大名，但一直找不到合适的机会去试一试。正好前几天刚学习了Python的语法，拿爬虫练练手正合适，顺便在网上找到了漫画的资源正好下载下来看一看，省了我几个漫读券了，一举两得，美滋滋！
+Python requests库...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2020-12-10</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 现代控制理论总结2——NonLinear部分" href="/2020/03/08/现代控制理论总结2——NonLinear部分/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 俺对卷积的粗鄙理解" href="/2020/03/23/俺对卷积的粗鄙理解/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+        </div>
+                
+            <section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+                
+                    <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        
+            <p class="text-center"></p>
+        
+    </div>
+</aside>
+                
+                    <!-- Moved to about.ejs -->
+                
+                    
+  <aside id="krw-categories" class="widget widget-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/arm/">arm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/control/">control</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/daily/">daily</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/math-physics/">math-physics</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">5</span></li></ul>
+  </aside>
+
+
+                
+                    
+                
+                    
+  <aside id="krw-posts" class="widget widget-kratos-poststab">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2020/11/29/%E6%AF%95%E8%AE%BE%E5%BC%80%E5%9D%91%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%A4%A7%E5%AE%B6%E5%85%B3%E6%B3%A8/"><i class="fa  fa-book"></i> 毕设开坑，欢迎大家关注</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/18/%E4%BB%8E%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%88%B0%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/"><i class="fa  fa-book"></i> 从支持向量机到拉格朗日乘子对偶问题</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/13/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%A1%AC%E4%BB%B6%E5%B0%9D%E8%AF%95%E4%B9%8B%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/"><i class="fa  fa-book"></i> 第二次硬件尝试之开关电源</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/28/ROS%E5%85%A5%E9%97%A8/"><i class="fa  fa-book"></i> ROS入门</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/"><i class="fa  fa-book"></i> 利用ANSYS进行叶轮动态流场仿真分析实例</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+                
+            </section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer">
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://t.me/CandyUnion"><i class="fa fa-telegram"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://twitter.com/Candiinya"><i class="fa fa-twitter"></i></a></li>
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/Candinya"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2020 Star YDY 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Made with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by <a href="https://candinya.com" target="_blank" rel="nofollow">Candinya</a>.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+    </body>
+</html>

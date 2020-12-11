@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>利用ANSYS进行叶轮动态流场仿真分析实例 | StarBlog!</title>
+  <meta name="author" content="Star YDY" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="大家好，我是Albert！没错，我又来了！最近题主正在做一个小项目，其中一个功能就是利用一个半开离心泵进行对一个有限固定水域（就是一个小泳池）进行水循环，我们都知道洗衣机滚筒就是一个典型的离心泵，所以有很大可能将离心泵开口后，里面的水有可能流不出来，或者说达不到预期参数，为了直观快速地看到整个流场情况以确定下一步迭代方向，题主选择了ANSYS中的Fluent作为仿真平台，借着这个项目正好分享一下动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用ANSYS进行叶轮动态流场仿真分析实例">
+<meta property="og:url" content="http://example.com/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/index.html">
+<meta property="og:site_name" content="StarBlog!">
+<meta property="og:description" content="大家好，我是Albert！没错，我又来了！最近题主正在做一个小项目，其中一个功能就是利用一个半开离心泵进行对一个有限固定水域（就是一个小泳池）进行水循环，我们都知道洗衣机滚筒就是一个典型的离心泵，所以有很大可能将离心泵开口后，里面的水有可能流不出来，或者说达不到预期参数，为了直观快速地看到整个流场情况以确定下一步迭代方向，题主选择了ANSYS中的Fluent作为仿真平台，借着这个项目正好分享一下动">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:published_time" content="2020-08-15T07:37:05.000Z">
+<meta property="article:modified_time" content="2020-12-10T07:53:51.707Z">
+<meta property="article:author" content="Star YDY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null">
+<meta name="twitter:site" content="@Candiinya">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="StarBlog!" type="application/atom+xml">
+</head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <div class="nav-toggle"><a class="kratos-nav-toggle js-kratos-nav-toggle"><i></i></a></div>
+            <header id="kratos-header-section">
+                <div class="container">
+                    <div class="nav-header">
+                        <div class="color-logo"><a href="/">StarBlog!</a></div>
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://candinya.com">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>StarBlog!</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div class="row">
+                    
+        <div id="main">
+            <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">利用ANSYS进行叶轮动态流场仿真分析实例</h1>
+                
+                <div class="kratos-post-meta text-center">
+                    <span>
+                        <i class="fa fa-calendar"></i> 2020-08-15
+                        <i class="fa fa-folder"></i> 分类于 <a class="label-link" href="/categories/daily/">daily</a>
+                        <i class="fa fa-user"></i> 作者 Star YDY
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~2.48K
+                        
+                        字
+                        
+                    </span>
+                </div>
+            </header>
+            <div class="kratos-post-content">
+                
+                <hr />
+                <p>大家好，我是Albert！没错，我又来了！最近题主正在做一个小项目，其中一个功能就是利用一个半开离心泵进行对一个有限固定水域（就是一个小泳池）进行水循环，我们都知道洗衣机滚筒就是一个典型的离心泵，所以有很大可能将离心泵开口后，里面的水有可能流不出来，或者说达不到预期参数，为了直观快速地看到整个流场情况以确定下一步迭代方向，题主选择了ANSYS中的Fluent作为仿真平台，借着这个项目正好分享一下动态仿真如何进行。下图是离心泵模型图和简化模型图（因为是几小时出的初稿，很丑）。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/615084051.png" alt="离心泵模型图.PNG"></p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/1060845710.png" alt="简化模型图.PNG"></p>
+<p><strong><em>一、模型前处理及导出</em></strong></p>
+<p>从上面两张图可以看出，简化模型主要保留了离心泵特征和开口尺寸等关键信息，这样的处理是为了减少计算量，突出问题主要矛盾。除此之外呢，可能比较注重细节的同学看到了简化模型有些许不同，在叶轮外加了一个圆柱体，这部分叫做仿真的前处理，在进行动态流场仿真的时候，流体的传递并不是像真实物理世界连续传递那样，那样的计算量过于庞大，效率很低，Fluent的解决方式是通过interface连接动域和静域，将流动流体（interior）交互到静止流体（interior）中，所以在前处理就是要建立流动域和静止域，方便后面几何处理，从简化模型中可以看出，圆柱体作为旋转域，外部的几何体为静止域，通过圆柱外表面作为interface进行交互。将简化后的模型导出为STEP格式、igs格式或Parasolid格式均可，即可进行下一步操作。</p>
+<p><strong><em>二、ANSYS中几何处理及划分网格</em></strong></p>
+<p>题主使用的版本是ANSYS 17.0，下一步就是打开Workbench，将Geometry模块拖入工作区然后打开Geometry后，将刚刚导出的模型文件导入Geometry中，结果就像下图所示，可能不同格式文件导入会出现一些不同，比如题主使用的是STEP格式，会导致圆柱面分离，即图中看到的圆柱壁面分成了两个面，这时候使用Tools下面的merge指令选择需要合并的面，合并一些面，做成连续面，这样处理也是为了减小运算量和避免一些玄学BUG。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/2072954433.png" alt="1.PNG"></p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/3016259840.png" alt="2.PNG"></p>
+<p>基本上模型处理成这样就可以了，下一步就要建立旋转域和静止域，这里用到的是Tools下的Enclosure指令，因为我们是自己创建的几何体，所以类型选择User Defined，这里面有一个点是需要关注，以旋转域为例，所谓旋转域就是由于叶轮运动而旋转的水，所以旋转域应当是圆柱体与叶轮实体的差集，在类型选择上，User Defined Body选择圆柱体，即基本几何轮廓，Target Body选择叶轮，即内部实体，两者取差集得到流动域。如下图所示。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/3614482147.png" alt="3.PNG"></p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/1639294894.png" alt="4.PNG"></p>
+<p>静止域的处理方法与旋转域相同，题主只把最后得到的效果放出来，这一步处理之后我们就可以close Geometry了，然后进入下一步了。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/4046785801.png" alt="5.PNG"></p>
+<p>此时返回Workbench主界面，将Fluid Flow（Fluent）拖入界面连接到Geometry上，并双击打开mesh进行网格划分。这里的mesh是ANSYS自带的网格划分软件，一些基本处理是可以完成的，是基于ICEM，所以和ICEM界面一样感人。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/482966380.png" alt="6.PNG"></p>
+<p>当我们进入mesh后，第一步在左侧结构树中先找到叶轮，将其suppress掉，方便后续处理，接下来是设置一下进出口面（inlet和outlet），目的是方便观察，还有就是气动仿真中会用到计算起点，对于液体来说就是方便观察。第二步是最关键的，即在旋转域中建立动力交互面interface，我们先把刚刚得到的旋转域独立出来（即将其余body隐藏掉），将光标选择换为Box Select。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/1083781610.png" alt="7.PNG"></p>
+<p>然后长按鼠标左键框选旋转域中的叶轮表面，记住此时的叶轮形状并不属于叶轮实体，而是旋转域的内壁表面，然后右键绿色区域，并Create Named Selection，这样导入Fluent就可以自动生成interface了。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/2373904712.png" alt="8.PNG"></p>
+<p>下一步就是自动划分网格了，直接点击mesh，generate即可，因为是自动划分的网格，所以网格尺寸较大，可根据需要调整尺寸大小，在Body Sizing中调整element size。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/350215919.png" alt="9.PNG"></p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/1791974604.png" alt="11.PNG"></p>
+<p> 网格划分完毕后，我们的前处理就完成了，即可进入Fluent里进行计算了。</p>
+<p><strong><em>三、仿真计算</em></strong></p>
+<p>我们close meshing后返回Workbench主界面，先update一下mesh文件，然后双击打开Setup，这里设置一下计算方式换为并行计算，将核数改为6，增加一个GPU，提高计算速度。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/437577698.png" alt="10.PNG"></p>
+<p>将General设置如下图，我们这次选择的是瞬时分析，由于流体是水，一定要加上重力加速度。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/3976439614.png" alt="12.PNG"></p>
+<p>粘性模型选择K-omega下的SST模型，在Model下的Viscous选项中选择，并在材料中，将液态水添加进流体类型中，关键步骤，设置旋转域旋转，旋转域转轴及转速，如下图所示，选择mesh motion，右侧是旋转轴方向，左侧是旋转轴相对于世界坐标系的偏移量，由于我的叶轮旋转轴与世界坐标系Y轴重合，即无需偏移，转速设置为25rad/s。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/502004202.png" alt="13.PNG"></p>
+<p>下一步就是进行初始化，选择Hybrid Initialization，初始化后的步骤就是preview，及观察叶轮是否转动，保证我们的计算是有效的。在preview中，设置步长0.01s，先跑10步。</p>
+<p><img src="http://www.starydy.xyz/usr/uploads/2020/08/4228770977.png" alt="14.PNG"></p>
+<p>preview验证 - 知乎<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/zvideo/1277979482393960448">https://www.zhihu.com/zvideo/1277979482393960448</a></p>
+<p>从preview的视频中看出，叶轮的转动是正常，我们就可以开始仿真了，由于仿真时间太长，收敛后是十分密的锯齿曲线，直接上结果，速度场变化的动画。从仿真视频中可以看出，水是可以从离心泵中流出来，但是流域不是很理想，这就需要后面慢慢改导流机构啦！（由于这个Blog添加不了视频，我就把视频放到了知乎上，后面的连接复制打开一下就能看到结果啦！）</p>
+<p>速度场结果 - 知乎<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/zvideo/1277981000899616768">https://www.zhihu.com/zvideo/1277981000899616768</a></p>
+<p>下次看个人情况更新机器人学或者SLAM十四讲的学习笔记吧！希望对你有用，bye！</p>
+
+            </div>
+            
+                <div class="kratos-copyright text-center clearfix">
+                    <h5>本作品采用 <a rel="license nofollow" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+                </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/";
+            const title         = "「利用ANSYS进行叶轮动态流场仿真分析实例」";
+            const excerpt       = `大家好，我是Albert！没错，我又来了！最近题主正在做一个小项目，其中一个功能就是利用一个半开离心泵进行对一个有限固定水域（就是一个小泳池）进行水循环，我们都知道洗衣机滚筒就是一个典型的离心泵，所以有很大可能将离心泵开口后，里面的水...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2020-12-10</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 从双网卡——到路由表" href="/2020/08/13/从双网卡——到路由表/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" ROS入门" href="/2020/08/28/ROS入门/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+        </div>
+                
+            <section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+                
+                    <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        
+            <p class="text-center"></p>
+        
+    </div>
+</aside>
+                
+                    <!-- Moved to about.ejs -->
+                
+                    
+  <aside id="krw-categories" class="widget widget-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/arm/">arm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/control/">control</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/daily/">daily</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/math-physics/">math-physics</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">5</span></li></ul>
+  </aside>
+
+
+                
+                    
+                
+                    
+  <aside id="krw-posts" class="widget widget-kratos-poststab">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2020/11/29/%E6%AF%95%E8%AE%BE%E5%BC%80%E5%9D%91%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%A4%A7%E5%AE%B6%E5%85%B3%E6%B3%A8/"><i class="fa  fa-book"></i> 毕设开坑，欢迎大家关注</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/18/%E4%BB%8E%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%88%B0%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/"><i class="fa  fa-book"></i> 从支持向量机到拉格朗日乘子对偶问题</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/13/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%A1%AC%E4%BB%B6%E5%B0%9D%E8%AF%95%E4%B9%8B%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/"><i class="fa  fa-book"></i> 第二次硬件尝试之开关电源</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/28/ROS%E5%85%A5%E9%97%A8/"><i class="fa  fa-book"></i> ROS入门</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/"><i class="fa  fa-book"></i> 利用ANSYS进行叶轮动态流场仿真分析实例</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+                
+            </section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer">
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://t.me/CandyUnion"><i class="fa fa-telegram"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://twitter.com/Candiinya"><i class="fa fa-twitter"></i></a></li>
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/Candinya"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2020 Star YDY 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Made with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by <a href="https://candinya.com" target="_blank" rel="nofollow">Candinya</a>.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+    </body>
+</html>

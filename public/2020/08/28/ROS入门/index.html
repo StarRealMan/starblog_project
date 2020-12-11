@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="">
+  <title>ROS入门 | StarBlog!</title>
+  <meta name="author" content="Star YDY" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="进入大四，终于要开启我的ROS之旅。接触了几天ROS，越发发觉它的便利，今天来记录一下最基础的ROS操作。（大部分来自ROS官网，俗话说官网是学习的最佳路径） ROS项目管理机制ROS使用Workspace+Package的方式来管理一个项目。比如以一个机器人为例，机器人的每一个功能（比如传感器数据接收，运动控制，导航感知，决策）都会对应一个Package，这些Package之间可能互相依赖，他们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS入门">
+<meta property="og:url" content="http://example.com/2020/08/28/ROS%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="StarBlog!">
+<meta property="og:description" content="进入大四，终于要开启我的ROS之旅。接触了几天ROS，越发发觉它的便利，今天来记录一下最基础的ROS操作。（大部分来自ROS官网，俗话说官网是学习的最佳路径） ROS项目管理机制ROS使用Workspace+Package的方式来管理一个项目。比如以一个机器人为例，机器人的每一个功能（比如传感器数据接收，运动控制，导航感知，决策）都会对应一个Package，这些Package之间可能互相依赖，他们">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:published_time" content="2020-08-28T06:08:00.000Z">
+<meta property="article:modified_time" content="2020-12-10T07:53:52.255Z">
+<meta property="article:author" content="Star YDY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null">
+<meta name="twitter:site" content="@Candiinya">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="StarBlog!" type="application/atom+xml">
+</head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <div class="nav-toggle"><a class="kratos-nav-toggle js-kratos-nav-toggle"><i></i></a></div>
+            <header id="kratos-header-section">
+                <div class="container">
+                    <div class="nav-header">
+                        <div class="color-logo"><a href="/">StarBlog!</a></div>
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://candinya.com">作者博客</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">项目链接</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>StarBlog!</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div class="row">
+                    
+        <div id="main">
+            <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">ROS入门</h1>
+                
+                <div class="kratos-post-meta text-center">
+                    <span>
+                        <i class="fa fa-calendar"></i> 2020-08-28
+                        <i class="fa fa-folder"></i> 分类于 <a class="label-link" href="/categories/linux/">linux</a>
+                        <i class="fa fa-user"></i> 作者 Star YDY
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~4.65K
+                        
+                        字
+                        
+                    </span>
+                </div>
+            </header>
+            <div class="kratos-post-content">
+                
+                <hr />
+                <p>进入大四，终于要开启我的ROS之旅。<br>接触了几天ROS，越发发觉它的便利，今天来记录一下最基础的ROS操作。（大部分来自<a target="_blank" rel="noopener" href="https://www.ros.org/">ROS官网</a>，俗话说官网是学习的最佳路径）</p>
+<h2 id="ROS项目管理机制"><a href="#ROS项目管理机制" class="headerlink" title="ROS项目管理机制"></a>ROS项目管理机制</h2><p>ROS使用Workspace+Package的方式来管理一个项目。比如以一个机器人为例，机器人的每一个功能（比如传感器数据接收，运动控制，导航感知，决策）都会对应一个Package，这些Package之间可能互相依赖，他们共同构成一个Workspace，就构成了这个机器人整体。<br>从零开始构建一个项目，首先需要构建一个Workspace，使用：</p>
+<pre><code>$ mkdir -p ~/catkin_ws/src        #用来存放Package
+$ cd ~/catkin_ws/
+$ catkin_make</code></pre>
+<p>在家目录构建一个空的，名为catkin_ws的Workspace，使用<strong>catkin_make</strong>可以自动生成一些所需的配置文件和目录（这个命令也充当着ROS管理工程中CMake的作用）。<br>如果想让ROS命令认识这个包，需要把他的位置加入到环境变量中去，这时我们就需要使用source（用来执行命令行脚本）执行～/catkin_ws/devel/中的 setup.bash命令了。这时$ROS_PACKAGE_PATH变量就包含了我们的工作区/src/目录。<br>如果想要使用官方的一些Package，他们的初始化脚本是/opt/ros/<distri>/setup.bash。（也可将其放入~/.bashrc中，在启动终端后自动执行）<br>对ROS的Package的一些操作：</p>
+<pre><code>$ rospack find [package_name]
+$ roscd [locationname[/subdir]]
+$ roscd log
+$ rosls [locationname[/subdir]]</code></pre>
+<p>如何创建一个Package？<br>一个Package由一个独立的文件夹内的package.xml和一个CMakeists.txt文件（以及其他必要文件）组成，如下所示：</p>
+<pre><code>workspace_folder/        -- WORKSPACE
+  src/                   -- SOURCE SPACE
+    CMakeLists.txt       -- &#39;Toplevel&#39; CMake file, provided by catkin
+    package_1/
+      CMakeLists.txt     -- CMakeLists.txt file for package_1
+      package.xml        -- Package manifest for package_1
+    ...
+    package_n/
+      CMakeLists.txt     -- CMakeLists.txt file for package_n
+      package.xml        -- Package manifest for package_n</code></pre>
+<p>如何自动创建这些文件？在~/catkin_ws/src目录中使用</p>
+<pre><code>$ catkin_create_pkg &lt;package_name&gt; [depend1] [depend2] [depend3]</code></pre>
+<p>创建一个依赖于dependx的Package。<br>使用</p>
+<pre><code>$ catkin_make
+$ . ~/catkin_ws/devel/setup.bash</code></pre>
+<p>build这个Workspace（内的所有Package），并且将其（内的所有Package）加入环境变量。</p>
+<p>这些Package都有着各自（直接）依赖的Package，catkin_create_pkg命令中的dependx会体现在package.xml中。<br>直接的依赖Package使用以下命令查看：<br>$ rospack depend1 [Package name]<br>间接的依赖Package使用以下命令查看：<br>$ rospack depends [Package name]<br>对于你自己的项目，可以通过修改package.xml和CMakeLists.txt来进行定制化的操作。（详细略）</p>
+<p>就如同CMake管理的项目一样，ROS管理的项目使用catkin_make进行项目的编译构建。<br>在～/catkin_ws/中使用：</p>
+<pre><code>$ catkin_make
+$ catkin_make install  # (optionally)</code></pre>
+<p>这个命令会build整个Workspace下的所有Package，与cmake命令有相同作用。</p>
+<h2 id="ROS通信机制-1"><a href="#ROS通信机制-1" class="headerlink" title="ROS通信机制 1##"></a>ROS通信机制 1##</h2><p>ROS不仅为我们提供了一种项目管理的功能，还提供了一种便利的多进程通讯机制。<br>要启用这个多进程通讯机制，首先我们要启动ROS内核，使用：</p>
+<pre><code>$ roscore</code></pre>
+<p>这个roscore进程是ROS进程间通讯的核心，起到了中继站的作用。一切ROS应用都少不了它。<br>ROS中，node代表一个可以进行通讯的节点，使用以下命令查看node属性：</p>
+<pre><code>$ rosnode list
+$ rosnode info /[node name]
+$ rosnode ping /[node name]</code></pre>
+<p>使用rosrun来运行一个Package中的node。</p>
+<pre><code>$ rosrun [package_name] [node_name]
+$ rosrun turtlesim turtlesim_node __name:=my_turtle</code></pre>
+<p>node之间通讯是通过node-msg-topic机制，两个或多个node向同一个topic发送消息msg，并接收其他node的特定的消息msg，就能实现通讯。<br>使用以下命令可以图形化查看当前运行中的node和topic：</p>
+<pre><code>$ rosrun rqt_graph rqt_graph</code></pre>
+<p>为了查看运行中topic中传递的数据和一些其他信息，使用：</p>
+<pre><code>$ rostopic echo [topic]
+$ rostopic list -h
+$ rostopic list -v
+$ rostopic type [topic]
+$ rosmsg show [msg type]
+$ rostopic hz
+$ rosrun rqt_plot rqt_plot</code></pre>
+<p>手动上传msg到指定的topic，使用：</p>
+<pre><code>$ rostopic pub [topic] [msg_type] [args]</code></pre>
+<p>（注意，我们在命令行中使用的一些命令也是通过创建节点来实现功能的）</p>
+<h2 id="ROS通信机制-2"><a href="#ROS通信机制-2" class="headerlink" title="ROS通信机制 2##"></a>ROS通信机制 2##</h2><p>除了node-msg-topic的通信方式，我们还可以通过service实现通信。<br>rosservice的基本使用方法：</p>
+<pre><code>$ rosservice list         print information about active services
+$ rosservice call         call the service with the provided args
+$ rosservice type         print service type
+$ rosservice find         find services by service type
+$ rosservice uri          print service ROSRPC uri</code></pre>
+<p>总而言之，每个Package会包含一些service，使用rosservice call可以调用这些service（可以理解为调用方法），实现某些功能。</p>
+<p>使用rosparam可以存储某个Package参数，调整Package的功能：</p>
+<pre><code>$ rosparam set            set parameter
+$ rosparam get            get parameter
+$ rosparam load           load parameters from file
+$ rosparam dump           dump parameters to file
+$ rosparam delete         delete parameter
+$ rosparam list           list parameter names</code></pre>
+<p>使用图形化界面管理ROS，使用如下命令：</p>
+<pre><code>$ rosrun rqt_console rqt_console
+$ rosrun rqt_logger_level rqt_logger_level</code></pre>
+<p>使用.launch文件一键启动整个项目：</p>
+<pre><code>$ roslaunch [package] [filename.launch]
+
+&lt;launch&gt;
+
+  &lt;group ns=&quot;turtlesim1&quot;&gt;
+    &lt;node pkg=&quot;turtlesim&quot; name=&quot;sim&quot; type=&quot;turtlesim_node&quot;/&gt;
+  &lt;/group&gt;
+
+  &lt;group ns=&quot;turtlesim2&quot;&gt;
+    &lt;node pkg=&quot;turtlesim&quot; name=&quot;sim&quot; type=&quot;turtlesim_node&quot;/&gt;
+  &lt;/group&gt;
+
+  &lt;node pkg=&quot;turtlesim&quot; name=&quot;mimic&quot; type=&quot;mimic&quot;&gt;
+    &lt;remap from=&quot;input&quot; to=&quot;turtlesim1/turtle1&quot;/&gt;
+    &lt;remap from=&quot;output&quot; to=&quot;turtlesim2/turtle1&quot;/&gt;
+  &lt;/node&gt;
+
+&lt;/launch&gt;</code></pre>
+<p>使用rosed进行编辑：</p>
+<pre><code>$ rosed [package_name] [filename]</code></pre>
+<p>创建Package_dir/msg/Num.msg文件，来规定传递的msg。<br>创建Package_dir/srv/AddTwoInts.srv文件，来规定service的类型。<br>（需要在package.xml和CMakeists.txt声明该文件）</p>
+<pre><code>$ rosmsg show [message type]
+$ rosmsg -h
+$ rossrv show &lt;service type&gt;</code></pre>
+<p>最后，我们可以在C++程序中使用ROS的库来实现msg和service的操作。<br>（对于我们添加的msg和srv，make后会自动生成对应的头文件，便于对其进行操作）</p>
+<pre><code>#include &quot;ros/ros.h&quot;
+#include &quot;std_msgs/String.h&quot;
+#include &quot;Package_dir/AddTwoInts.h&quot;</code></pre>
+
+            </div>
+            
+                <div class="kratos-copyright text-center clearfix">
+                    <h5>本作品采用 <a rel="license nofollow" target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+                </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://example.com/2020/08/28/ROS%E5%85%A5%E9%97%A8/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://example.com/2020/08/28/ROS%E5%85%A5%E9%97%A8/";
+            const title         = "「ROS入门」";
+            const excerpt       = `进入大四，终于要开启我的ROS之旅。接触了几天ROS，越发发觉它的便利，今天来记录一下最基础的ROS操作。（大部分来自ROS官网，俗话说官网是学习的最佳路径）
+ROS项目管理机制ROS使用Workspace+Package的方式来管理...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2020-12-10</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 利用ANSYS进行叶轮动态流场仿真分析实例" href="/2020/08/15/利用ANSYS进行叶轮动态流场仿真分析实例/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 第二次硬件尝试之开关电源" href="/2020/09/13/第二次硬件尝试之开关电源/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+        </div>
+                
+            <section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+                
+                    <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" />
+        </div>
+    </div>
+    <div class="textwidget">
+        
+            <p class="text-center"></p>
+        
+    </div>
+</aside>
+                
+                    <!-- Moved to about.ejs -->
+                
+                    
+  <aside id="krw-categories" class="widget widget-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/arm/">arm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/control/">control</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/daily/">daily</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/math-physics/">math-physics</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">5</span></li></ul>
+  </aside>
+
+
+                
+                    
+                
+                    
+  <aside id="krw-posts" class="widget widget-kratos-poststab">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2020/11/29/%E6%AF%95%E8%AE%BE%E5%BC%80%E5%9D%91%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%A4%A7%E5%AE%B6%E5%85%B3%E6%B3%A8/"><i class="fa  fa-book"></i> 毕设开坑，欢迎大家关注</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/18/%E4%BB%8E%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E5%88%B0%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/"><i class="fa  fa-book"></i> 从支持向量机到拉格朗日乘子对偶问题</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/13/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%A1%AC%E4%BB%B6%E5%B0%9D%E8%AF%95%E4%B9%8B%E5%BC%80%E5%85%B3%E7%94%B5%E6%BA%90/"><i class="fa  fa-book"></i> 第二次硬件尝试之开关电源</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/28/ROS%E5%85%A5%E9%97%A8/"><i class="fa  fa-book"></i> ROS入门</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/"><i class="fa  fa-book"></i> 利用ANSYS进行叶轮动态流场仿真分析实例</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+                
+            </section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer">
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://t.me/CandyUnion"><i class="fa fa-telegram"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://twitter.com/Candiinya"><i class="fa fa-twitter"></i></a></li>
+                        
+                        
+                        
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/Candinya"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2020 Star YDY 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Made with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by <a href="https://candinya.com" target="_blank" rel="nofollow">Candinya</a>.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async type="text/javascript" src="/js/snow.min.js"></script>
+    </div>
+
+<script async src="/js/candy.min.js"></script>
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+    </body>
+</html>
