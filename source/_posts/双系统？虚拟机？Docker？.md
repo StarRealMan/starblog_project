@@ -1,6 +1,6 @@
 title: 双系统？虚拟机？Docker？
 date: 2020-05-10 08:20:00
-categories: linux
+categories: 工具
 tags: []
 ---
 Linux环境由于它可移植性强，轻量化，底层化的特点，得到了开发者们广泛的应用。

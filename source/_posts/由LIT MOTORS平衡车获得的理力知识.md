@@ -1,6 +1,6 @@
 title: 由LIT MOTORS平衡车获得的理力知识
 date: 2020-06-18 12:02:00
-categories: math-physics
+categories: 物数
 tags: []
 ---
 第一次听到Lit Motors平衡车，是在东大四足机器人研讨会上，东大向我们介绍四足平衡的灵感，正是源于Lit Motors。

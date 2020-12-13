@@ -1,6 +1,6 @@
 title: 简简单单锁相环PLL
 date: 2020-04-23 01:20:00
-categories: control
+categories: 控制
 tags: []
 ---
 玩过单片机的同学们一定听说过锁相环（PLL）这个东西，就是这个锁相环的倍频作用使得我们能够仅仅使用8MHz或者12MHz的晶振获得几百甚至上千兆Hz的主频。

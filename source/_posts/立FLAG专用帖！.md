@@ -1,6 +1,6 @@
 title: 立FLAG专用帖！
 date: 2020-03-03 03:04:00
-categories: daily
+categories: 日常
 tags: []
 ---
 把想做的事情放到这里来！

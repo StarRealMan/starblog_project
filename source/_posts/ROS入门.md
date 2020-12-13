@@ -1,6 +1,6 @@
 title: ROS入门
 date: 2020-08-28 14:08:00
-categories: linux
+categories: 工具
 tags: []
 ---
 进入大四，终于要开启我的ROS之旅。

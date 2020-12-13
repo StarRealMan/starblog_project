@@ -1,6 +1,6 @@
 title: 现代控制理论总结2——NonLinear部分
 date: 2020-03-08 23:56:00
-categories: control
+categories: 控制
 tags: []
 ---
 学习完了比较简单的线性部分，我们来进一步探讨非线性系统的特性！

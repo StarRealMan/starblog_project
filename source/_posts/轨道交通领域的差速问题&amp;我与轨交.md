@@ -1,6 +1,6 @@
 title: 轨道交通领域的差速问题&amp;我与轨交
 date: 2020-07-16 16:07:40
-categories: daily
+categories: 日常
 tags: []
 ---
 大家好，我是那个喜欢火车的Captain。

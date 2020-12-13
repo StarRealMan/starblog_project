@@ -1,6 +1,6 @@
 title: 浅尝OpenGL
 date: 2020-06-05 02:17:00
-categories: api
+categories: 工具
 tags: []
 ---
 学习了OpenGL的一些基础知识，来分享一下!
