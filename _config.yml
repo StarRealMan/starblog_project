@@ -4,16 +4,16 @@
 
 # Site
 title: StarBlog!
-subtitle: ''
-description: ''
+subtitle: 'Blog for starydy'
+description: 'Recording my everyday life!'
 keywords:
 author: Star YDY
 language: en
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: http://example.com
+url: http://starydy.xyz
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
