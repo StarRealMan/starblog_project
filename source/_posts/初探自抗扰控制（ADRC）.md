@@ -76,14 +76,14 @@ z变换方法：![Snipaste_2020-04-15_14-41-42.png][2]
 
 
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/04/3257021255.jpg
-  [2]: http://www.starydy.xyz/usr/uploads/2020/04/2906032673.png
-  [3]: http://www.starydy.xyz/usr/uploads/2020/04/1299645001.png
-  [4]: http://www.starydy.xyz/usr/uploads/2020/04/2554124242.png
-  [5]: http://www.starydy.xyz/usr/uploads/2020/04/3960144680.png
-  [6]: http://www.starydy.xyz/usr/uploads/2020/04/1901336664.png
-  [7]: http://www.starydy.xyz/usr/uploads/2020/04/2682758795.png
-  [8]: http://www.starydy.xyz/usr/uploads/2020/04/3432493824.png
-  [9]: http://www.starydy.xyz/usr/uploads/2020/04/604554278.png
-  [10]: http://www.starydy.xyz/usr/uploads/2020/04/3271978332.png
-  [11]: http://www.starydy.xyz/usr/uploads/2020/04/2295689788.png
+  [1]: /old_images/2020/04/3257021255.jpg
+  [2]: /old_images/2020/04/2906032673.png
+  [3]: /old_images/2020/04/1299645001.png
+  [4]: /old_images/2020/04/2554124242.png
+  [5]: /old_images/2020/04/3960144680.png
+  [6]: /old_images/2020/04/1901336664.png
+  [7]: /old_images/2020/04/2682758795.png
+  [8]: /old_images/2020/04/3432493824.png
+  [9]: /old_images/2020/04/604554278.png
+  [10]: /old_images/2020/04/3271978332.png
+  [11]: /old_images/2020/04/2295689788.png

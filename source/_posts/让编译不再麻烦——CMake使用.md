@@ -122,5 +122,5 @@ CMake语句：
     target_link_libraries(common ${CERES_LIBRARIES})
     target_link_libraries(common ${G2O_LIBS})
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/06/3640866494.jpg
-  [2]: http://www.starydy.xyz/usr/uploads/2020/06/2855613712.jpg
+  [1]: /old_images/2020/06/3640866494.jpg
+  [2]: /old_images/2020/06/2855613712.jpg

@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-03-08T15:56:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:52.351Z">
+<meta property="article:modified_time" content="2020-12-12T15:07:58.428Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -148,15 +150,15 @@
                 
                 <hr />
                 <p>学习完了比较简单的线性部分，我们来进一步探讨非线性系统的特性！<br>本片所讲内容完全可以用在线性系统上，因为线性系统也算是一种特殊的非线性系统，这篇讲的是一种普适的方法！</p>
-<h2 id="李雅普诺夫直接方法"><a href="#李雅普诺夫直接方法" class="headerlink" title="李雅普诺夫直接方法"></a>李雅普诺夫直接方法</h2><p>也叫做第二方法（第一方法是直接解微分方程）<br>第二方法是这样判断一个系统稳定的：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1765616617.png" alt="lyapu.PNG"><br>这样可以证明李雅普诺夫稳定（即有界稳定）<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/2569806803.png" alt="assym.PNG"><br>这样可以证明渐进稳定</p>
-<p><strong>可以看到，二者仅仅区别于V_dot是半正定的还是正定的。</strong><br>那么这个V到底是什么呢？他是怎么来的呢？这个V将是贯穿整个非线性控制理论的一个东西。<br>我们把V叫做李雅普诺夫函数，这个V是自己选的，自己选择V来证明稳定，有些微妙呢（￣。。￣）<br>同样，我们也是要判断平衡点，即X_dot = 0 的点，一定要记住，在u = 0的情况下，稳定系统一定会收敛到平衡点上。<br>在加入控制量u之后，我们比较方便的能够把平衡点控制在0，所以当想要移动原来变量平衡点时，一般会转换状态变量到e或delta这样的误差变量上，最终就能达到移动原来变量平衡点的作用。<br>一般我们选择的V是包含需要稳定的量的，即V是e、δ……的函数V(e,δ)<br>V_dot = <img src="http://www.starydy.xyz/usr/uploads/2020/03/2883180973.png" alt="V_dot.PNG">，其中f(x)表示x的微分的函数<br>通常设计的V为系统在某个维度的能量，那么就表明能量大于0，能量衰减的系统就是稳定的！<br>这里要注意，x=0，指的是x1、x2、全部=0，这里判断ND、NSD时要注意！</p>
+<h2 id="李雅普诺夫直接方法"><a href="#李雅普诺夫直接方法" class="headerlink" title="李雅普诺夫直接方法"></a>李雅普诺夫直接方法</h2><p>也叫做第二方法（第一方法是直接解微分方程）<br>第二方法是这样判断一个系统稳定的：<br><img src="/old_images/2020/03/1765616617.png" alt="lyapu.PNG"><br>这样可以证明李雅普诺夫稳定（即有界稳定）<br><img src="/old_images/2020/03/2569806803.png" alt="assym.PNG"><br>这样可以证明渐进稳定</p>
+<p><strong>可以看到，二者仅仅区别于V_dot是半正定的还是正定的。</strong><br>那么这个V到底是什么呢？他是怎么来的呢？这个V将是贯穿整个非线性控制理论的一个东西。<br>我们把V叫做李雅普诺夫函数，这个V是自己选的，自己选择V来证明稳定，有些微妙呢（￣。。￣）<br>同样，我们也是要判断平衡点，即X_dot = 0 的点，一定要记住，在u = 0的情况下，稳定系统一定会收敛到平衡点上。<br>在加入控制量u之后，我们比较方便的能够把平衡点控制在0，所以当想要移动原来变量平衡点时，一般会转换状态变量到e或delta这样的误差变量上，最终就能达到移动原来变量平衡点的作用。<br>一般我们选择的V是包含需要稳定的量的，即V是e、δ……的函数V(e,δ)<br>V_dot = <img src="/old_images/2020/03/2883180973.png" alt="V_dot.PNG">，其中f(x)表示x的微分的函数<br>通常设计的V为系统在某个维度的能量，那么就表明能量大于0，能量衰减的系统就是稳定的！<br>这里要注意，x=0，指的是x1、x2、全部=0，这里判断ND、NSD时要注意！</p>
 <h2 id="拉塞尔不变性原理"><a href="#拉塞尔不变性原理" class="headerlink" title="拉塞尔不变性原理"></a>拉塞尔不变性原理</h2><p><strong>为了扩大直接方法判断渐进稳定的适用条件，引出拉塞尔不变性原理：</strong></p>
 <ol>
 <li>满足李雅普诺夫稳定</li>
 <li>除了x = 0，没有其他轨迹能够使V_dot = 0<br>判断方法也很简单，直接令V_dot = 0，计算满足的轨迹，如果除了x=0外还有满足的轨迹，那么就不符合，若仅有x=0这一条，则整个系统也是渐近稳定的。</li>
 </ol>
 <h2 id="非线性控制中心思想"><a href="#非线性控制中心思想" class="headerlink" title="非线性控制中心思想"></a>非线性控制中心思想</h2><p>对于x_dot = f(x) + u这种形式，简单粗暴滴构造一个u = f(x) - kx，就可以构造出x_dot = -kx这个线性的，必定稳定的系统。我们称之为反馈线性化（Feedback Linearization），是最简单证明稳定性的方法。<br>但有时反馈线性化不是最佳的，我们可以通过寻找V(x)来设计u，使得V与V_dot满足PD ND的条件即可</p>
-<h2 id="反步法"><a href="#反步法" class="headerlink" title="反步法"></a>反步法</h2><p>对于二阶系统，我们常用反步法（Back Stepping）来解决控制问题。微分表达式x_dot = f(x)，代表着x的变化受到f(x)的控制，这点是我们控制x的重要思想。当二阶系统构成一个Chain of Integrator，即x2在f1中，而u又在f2中，我们就可以通过控制u来控制x2，再通过控制x2来控制x1。（设计控制器时还是用上面的中心思想来实现）<br>反步法则与这个顺序相反，它先设计出x2控制x1的方法，找到一个x2d，再通过设计u来控制x2-&gt;x2d，最终实现目标。<br>在这两步中，第二步同时包含了x1与x2，我们在设计时要同时引入两个状态变量e与δ，而第一步就仅需要一个e，因为我们把其中的x2已经当作了输入量。并且，如果这两步中有一步是线性系统，我们完全可以用线性系统的思路来设计！<br>下面是反步法的具体设计步骤的一个例子：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/3099420731.png" alt="backstep.PNG"></p>
+<h2 id="反步法"><a href="#反步法" class="headerlink" title="反步法"></a>反步法</h2><p>对于二阶系统，我们常用反步法（Back Stepping）来解决控制问题。微分表达式x_dot = f(x)，代表着x的变化受到f(x)的控制，这点是我们控制x的重要思想。当二阶系统构成一个Chain of Integrator，即x2在f1中，而u又在f2中，我们就可以通过控制u来控制x2，再通过控制x2来控制x1。（设计控制器时还是用上面的中心思想来实现）<br>反步法则与这个顺序相反，它先设计出x2控制x1的方法，找到一个x2d，再通过设计u来控制x2-&gt;x2d，最终实现目标。<br>在这两步中，第二步同时包含了x1与x2，我们在设计时要同时引入两个状态变量e与δ，而第一步就仅需要一个e，因为我们把其中的x2已经当作了输入量。并且，如果这两步中有一步是线性系统，我们完全可以用线性系统的思路来设计！<br>下面是反步法的具体设计步骤的一个例子：<br><img src="/old_images/2020/03/3099420731.png" alt="backstep.PNG"></p>
 <h2 id="自适应控制"><a href="#自适应控制" class="headerlink" title="自适应控制"></a>自适应控制</h2><p>有时我们再设计控制器时，总是要用到一些系统的参数，但当我们很难测得这些参数时，控制器就很难设计。<br>于是我们引入自适应控制（Adaptive Control）用一个p_hat来测量这个参数p（前提要有p_dot = 0），不妨设p_e = p_hat - p，我们把这个p_e也当作一个状态变量，就能够使p_hat-&gt;p，最终我们在u中使用p_hat代替p来做控制即可。（这里要先设计出一个假定已知p的输入u）<br>将含有x与p的f看作是由两个变量组成的系统，最终用包含p_e与e的李雅普诺夫函数V()满足PD ND，同时代入已设计好的u，即可得到a_hat或a_hat_dot的式子，大功告成！</p>
 <h2 id="鲁棒控制"><a href="#鲁棒控制" class="headerlink" title="鲁棒控制"></a>鲁棒控制</h2><p>上面的自适应控制用于p_dot = 0的情况，但当p不是一个定值，在随时间变换但却有界（ρ(x)，这个界可以是与x有关的，但是在非线性部分整体也有界的情况下通常取为一个常数ρ），我们就不能使用Adaptive的方法，这时就要使用鲁棒控制器（Robust Control）<br>鲁棒控制器有一个通用的形式：<br>u = -ke + xd_dot + uaux<br><strong>最常见的三种鲁棒控制器：</strong></p>
 <ol>
@@ -255,7 +257,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -513,6 +515,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

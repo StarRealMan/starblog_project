@@ -13,4 +13,4 @@ tags: []
 
 
   [1]: https://www.zhihu.com/question/22263252
-  [2]: http://www.starydy.xyz/usr/uploads/2020/07/3074664648.jpg
+  [2]: /old_images/2020/07/3074664648.jpg

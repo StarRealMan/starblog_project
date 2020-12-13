@@ -65,7 +65,7 @@ HFC输入是最小的
 
 ## 总结一下，非线性控制的思想就是设计合适的u使得选择的李雅普诺夫函数V能够满足稳定条件，就是这么简单！ ##
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/03/1765616617.png
-  [2]: http://www.starydy.xyz/usr/uploads/2020/03/2569806803.png
-  [3]: http://www.starydy.xyz/usr/uploads/2020/03/2883180973.png
-  [4]: http://www.starydy.xyz/usr/uploads/2020/03/3099420731.png
+  [1]: /old_images/2020/03/1765616617.png
+  [2]: /old_images/2020/03/2569806803.png
+  [3]: /old_images/2020/03/2883180973.png
+  [4]: /old_images/2020/03/3099420731.png

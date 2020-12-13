@@ -44,9 +44,9 @@ x[k+1] <-> z*X(z)
 而对于控制器，最终得到的输出序列再经过零阶保持器，又变为连续信号输入被控系统。
 
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/04/2618287092.png
-  [2]: http://www.starydy.xyz/usr/uploads/2020/04/880508434.png
-  [3]: http://www.starydy.xyz/usr/uploads/2020/04/3285543330.png
-  [4]: http://www.starydy.xyz/usr/uploads/2020/04/3074183323.jpg
-  [5]: http://www.starydy.xyz/usr/uploads/2020/04/2449902183.png
-  [6]: http://www.starydy.xyz/usr/uploads/2020/04/1621410449.png
+  [1]: /old_images/2020/04/2618287092.png
+  [2]: /old_images/2020/04/880508434.png
+  [3]: /old_images/2020/04/3285543330.png
+  [4]: /old_images/2020/04/3074183323.jpg
+  [5]: /old_images/2020/04/2449902183.png
+  [6]: /old_images/2020/04/1621410449.png

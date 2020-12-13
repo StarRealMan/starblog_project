@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-02-28T08:46:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.327Z">
+<meta property="article:modified_time" content="2020-12-12T14:57:37.828Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -162,11 +164,11 @@
 <li>四元数</li>
 </ol>
 <p><strong>我们主要就是来讲解一下这几种旋转表示法————</strong></p>
-<h2 id="轴角表示法"><a href="#轴角表示法" class="headerlink" title="轴角表示法"></a>轴角表示法</h2><p><img src="http://www.starydy.xyz/usr/uploads/2020/02/2495871206.png" alt="zhoujiao.png"><br>轴角表示法，顾名思义，就是使用一个轴（可以认为是一个单位向量，也可认为是一条过原点的直线）加一个角度来表示旋转。<br>三维空间中，轴是二自由度的，角是一个自由度，所以一共三自由度，来表示这个旋转完全没有问题。<br>其实，我们在二维旋转中一直在使用轴角法，只不过轴恰好就是Z轴，而角就是那个角，放到三维也是很好理解滴！</p>
-<h2 id="欧拉角表示法"><a href="#欧拉角表示法" class="headerlink" title="欧拉角表示法"></a>欧拉角表示法</h2><p><img src="http://www.starydy.xyz/usr/uploads/2020/02/1473089206.jpg" alt="eular.jpg"><br>前面提到的轴角法将两个自由度的轴和一个自由度的角结合到了一起，而欧拉角则由三个旋转组成，即三个自由度都由角组成。<br>这三次旋转所绕的轴都是确定的，即坐标轴，根据选择轴的顺序、选择固定轴或者运动轴（即使用上次旋转后得到的新坐标系还是使用最初的坐标系）与选择三轴都转或者只转两轴，一共有24种欧拉角！<br>我们做控制最常用的一种欧拉角就是zxy，也就是在云台指向y轴的情况下先转yaw，再转pitch，再转roll（比如RM的云台角度解算用的就是这种）<br>要注意的是，在做结算之前，一定要先约定好欧拉角的类型，否则无论如何也得不到正确的角度！</p>
-<h2 id="旋转矩阵-方向余弦"><a href="#旋转矩阵-方向余弦" class="headerlink" title="旋转矩阵 方向余弦"></a>旋转矩阵 方向余弦</h2><p>二维情况——绕Z轴转动，可得到一个2X2的矩阵来表示这个旋转，我们称其为旋转矩阵；<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/3230677208.jpg" alt="2d.jpg"><br>三维情况下，如果也是绕坐标轴进行旋转，我们也可利用一个旋转矩阵（3X3）来表示，这就是接下来我们要讨论的旋转矩阵！<br>（注：由于旋转矩阵是正交矩阵，因此它的逆就是变换θ的符号，也就是反向旋转，因此要注意旋转矩阵的形式，顺时针OR逆时针）<br>本文讨论的向量或点都是列向量形式！<br>向量或点左乘旋转矩阵，得到的结果是向量或点旋转过后得到的新向量或点相对于原坐标系的坐标（即第二种理解方式，向量或点的旋转）<br>若要求得在坐标系旋转A后，一个固定的点相对于新坐标系的坐标变化（即第一种理解方式，坐标系的旋转），则需要左乘那个旋转矩阵的逆矩阵也就是A’，即相当于点的反向旋转！<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/1055054676.png" alt="z-rotate.PNG"><br>上面这些旋转矩阵都是逆时针为正的旋转。</p>
-<p>这三次旋转（每次都绕新得到的坐标系旋转，角度即为三个欧拉角）的最终结果可以用矩阵乘法来计算（乘积顺序由对应的欧拉角旋转顺序决定），最终我们可以得到一个总的旋转矩阵：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/4279915631.jpg" alt="multi.jpg"><br><img src="http://www.starydy.xyz/usr/uploads/2020/02/1451004919.jpg" alt="full.jpg"><br>（注意！有时我们在计算中会由于数值原因产生非正交的旋转矩阵，这时就要进行归一化，这点对任何正交矩阵数值计算都适用）<br>旋转矩阵也不是每次必须通过麻烦地三个矩阵乘积来计算，他还可以通过旋转前后坐标系之间的角度关系来推算，这时我们就称它为方向余弦矩阵（DCM），具体算法如下：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/3798843184.jpg" alt="dcm.jpg"><br>其中大写字母是原坐标系的坐标轴，而小写字母则是旋转后坐标系的坐标轴。<br>DCM与旋转矩阵是等价的！</p>
-<h2 id="四元数"><a href="#四元数" class="headerlink" title="四元数"></a>四元数</h2><p>终于到了重头戏四元数！<br>四元数表示法是所有旋转表示法中最完美的，它不受万向节锁（Gimbal Lock）的限制，可以把多个旋转合并，具有唯一性，可以说是融合了前几种方案的所有优点！可能真的是因为用三个数表示三自由度就会出问题所以我们要用四个吧o(<em>￣▽￣</em>)o<br>四元数的形式如下：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/855161026.jpg" alt="4vector.jpg"><br>与轴角法类似，四元数的数学意义也是绕轴旋转特定角度，只不过表示形式发生了变换：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/242777591.jpg" alt="4zhoujiao.jpg"><br>一个向量或点 可以用一个纯四元数来表示（θ=0，旋转了0°），而一个非纯四元数则表示一种旋转（θ!=0，旋转了非0°），其实把四元数可以看做是四维空间下的一个向量，而纯四元数则相当于在这个四维空间下的三位超平面上的一个点（很难以置信吧！）<br>四元数的运算与复数的运算十分类似，只不过i、j、k相当于不同的虚数轴，而求逆则相当于转-θ！<br>四元数这样表示一个旋转：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/817300143.jpg" alt="rotatef.jpg"><br>这里用的也是对旋转的第二种理解方式，若想旋转坐标系q，则需把q用q^-1替换来得到新的坐标。<br>（注：四元数轴向量u要是一个单位向量！）<br>下面这个图完美解释了为什么要左右都乘且为什么是θ/2：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/1356342890.jpg" alt="why.jpg"></p>
+<h2 id="轴角表示法"><a href="#轴角表示法" class="headerlink" title="轴角表示法"></a>轴角表示法</h2><p><img src="/old_images/2020/02/2495871206.png" alt="zhoujiao.png"><br>轴角表示法，顾名思义，就是使用一个轴（可以认为是一个单位向量，也可认为是一条过原点的直线）加一个角度来表示旋转。<br>三维空间中，轴是二自由度的，角是一个自由度，所以一共三自由度，来表示这个旋转完全没有问题。<br>其实，我们在二维旋转中一直在使用轴角法，只不过轴恰好就是Z轴，而角就是那个角，放到三维也是很好理解滴！</p>
+<h2 id="欧拉角表示法"><a href="#欧拉角表示法" class="headerlink" title="欧拉角表示法"></a>欧拉角表示法</h2><p><img src="/old_images/2020/02/1473089206.jpg" alt="eular.jpg"><br>前面提到的轴角法将两个自由度的轴和一个自由度的角结合到了一起，而欧拉角则由三个旋转组成，即三个自由度都由角组成。<br>这三次旋转所绕的轴都是确定的，即坐标轴，根据选择轴的顺序、选择固定轴或者运动轴（即使用上次旋转后得到的新坐标系还是使用最初的坐标系）与选择三轴都转或者只转两轴，一共有24种欧拉角！<br>我们做控制最常用的一种欧拉角就是zxy，也就是在云台指向y轴的情况下先转yaw，再转pitch，再转roll（比如RM的云台角度解算用的就是这种）<br>要注意的是，在做结算之前，一定要先约定好欧拉角的类型，否则无论如何也得不到正确的角度！</p>
+<h2 id="旋转矩阵-方向余弦"><a href="#旋转矩阵-方向余弦" class="headerlink" title="旋转矩阵 方向余弦"></a>旋转矩阵 方向余弦</h2><p>二维情况——绕Z轴转动，可得到一个2X2的矩阵来表示这个旋转，我们称其为旋转矩阵；<br><img src="/old_images/2020/02/3230677208.jpg" alt="2d.jpg"><br>三维情况下，如果也是绕坐标轴进行旋转，我们也可利用一个旋转矩阵（3X3）来表示，这就是接下来我们要讨论的旋转矩阵！<br>（注：由于旋转矩阵是正交矩阵，因此它的逆就是变换θ的符号，也就是反向旋转，因此要注意旋转矩阵的形式，顺时针OR逆时针）<br>本文讨论的向量或点都是列向量形式！<br>向量或点左乘旋转矩阵，得到的结果是向量或点旋转过后得到的新向量或点相对于原坐标系的坐标（即第二种理解方式，向量或点的旋转）<br>若要求得在坐标系旋转A后，一个固定的点相对于新坐标系的坐标变化（即第一种理解方式，坐标系的旋转），则需要左乘那个旋转矩阵的逆矩阵也就是A’，即相当于点的反向旋转！<br><img src="/old_images/2020/02/1055054676.png" alt="z-rotate.PNG"><br>上面这些旋转矩阵都是逆时针为正的旋转。</p>
+<p>这三次旋转（每次都绕新得到的坐标系旋转，角度即为三个欧拉角）的最终结果可以用矩阵乘法来计算（乘积顺序由对应的欧拉角旋转顺序决定），最终我们可以得到一个总的旋转矩阵：<br><img src="/old_images/2020/02/4279915631.jpg" alt="multi.jpg"><br><img src="/old_images/2020/02/1451004919.jpg" alt="full.jpg"><br>（注意！有时我们在计算中会由于数值原因产生非正交的旋转矩阵，这时就要进行归一化，这点对任何正交矩阵数值计算都适用）<br>旋转矩阵也不是每次必须通过麻烦地三个矩阵乘积来计算，他还可以通过旋转前后坐标系之间的角度关系来推算，这时我们就称它为方向余弦矩阵（DCM），具体算法如下：<br><img src="/old_images/2020/02/3798843184.jpg" alt="dcm.jpg"><br>其中大写字母是原坐标系的坐标轴，而小写字母则是旋转后坐标系的坐标轴。<br>DCM与旋转矩阵是等价的！</p>
+<h2 id="四元数"><a href="#四元数" class="headerlink" title="四元数"></a>四元数</h2><p>终于到了重头戏四元数！<br>四元数表示法是所有旋转表示法中最完美的，它不受万向节锁（Gimbal Lock）的限制，可以把多个旋转合并，具有唯一性，可以说是融合了前几种方案的所有优点！可能真的是因为用三个数表示三自由度就会出问题所以我们要用四个吧o(<em>￣▽￣</em>)o<br>四元数的形式如下：<br><img src="/old_images/2020/02/855161026.jpg" alt="4vector.jpg"><br>与轴角法类似，四元数的数学意义也是绕轴旋转特定角度，只不过表示形式发生了变换：<br><img src="/old_images/2020/02/242777591.jpg" alt="4zhoujiao.jpg"><br>一个向量或点 可以用一个纯四元数来表示（θ=0，旋转了0°），而一个非纯四元数则表示一种旋转（θ!=0，旋转了非0°），其实把四元数可以看做是四维空间下的一个向量，而纯四元数则相当于在这个四维空间下的三位超平面上的一个点（很难以置信吧！）<br>四元数的运算与复数的运算十分类似，只不过i、j、k相当于不同的虚数轴，而求逆则相当于转-θ！<br>四元数这样表示一个旋转：<br><img src="/old_images/2020/02/817300143.jpg" alt="rotatef.jpg"><br>这里用的也是对旋转的第二种理解方式，若想旋转坐标系q，则需把q用q^-1替换来得到新的坐标。<br>（注：四元数轴向量u要是一个单位向量！）<br>下面这个图完美解释了为什么要左右都乘且为什么是θ/2：<br><img src="/old_images/2020/02/1356342890.jpg" alt="why.jpg"></p>
 <p><strong>这次我们主要讨论了坐标表示法，下一篇我们将重点讲解利用四元数进行坐标解算，以及一些常用的互补滤波算法！</strong></p>
 
             </div>
@@ -257,7 +259,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -515,6 +517,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-07-11T06:41:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.227Z">
+<meta property="article:modified_time" content="2020-12-12T14:59:31.783Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -150,7 +152,7 @@
                 <p>转载以下知乎大佬们为我们带来的LCD与OLED大比拼：</p>
 <p>链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22263252">OLED 和 LCD 有什么区别？</a></p>
 <p>来源：知乎</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3074664648.jpg" alt="Snipaste_2020-07-11_22-41-15.jpg"></p>
+<p><img src="/old_images/2020/07/3074664648.jpg" alt="Snipaste_2020-07-11_22-41-15.jpg"></p>
 
             </div>
             
@@ -244,7 +246,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -502,6 +504,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

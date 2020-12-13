@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-08-28T06:08:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:52.255Z">
+<meta property="article:modified_time" content="2020-12-12T15:00:16.024Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -337,7 +339,7 @@ ROS项目管理机制ROS使用Workspace+Package的方式来管理...`;
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -595,6 +597,25 @@ ROS项目管理机制ROS使用Workspace+Package的方式来管理...`;
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

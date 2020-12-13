@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-02-26T05:07:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:50.599Z">
+<meta property="article:modified_time" content="2020-12-12T15:05:56.185Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -148,10 +150,10 @@
                 
                 <hr />
                 <p>上回我们讲完了驱动中电流闭环的问题，这次我们讲一下如何将我们得到的控制量输入给电机！<br>也就是SVPWM调制与逆变器的那些事。<br>前方高能，请握紧扶好，准备发车！</p>
-<h2 id="逆变器"><a href="#逆变器" class="headerlink" title="逆变器"></a>逆变器</h2><p>学过电力电子的同学肯定都听说过逆变器，为什么叫逆变呢？就是因为我们平常说的电的变换都是讨论的交流整流后变直流，而逆变器能将直流电变换为交流电，所以称其为逆变。<br>最常见的三相逆变器结构如图所示：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/4095688085.png" alt="converter.PNG"><br>可见，逆变器的电路结构很简单，由三个半桥构成，每个半桥都通过控制开关管的开通关断来控制输出电平高低，<br>通过控制占空比，即可控制输出任意大小的电压，为SVPWM电压调制提供了硬件基础。<br>关于逆变器的能量变化，可以通过忽略开关管压降，近似认为两端功率相同，<br>即直流部分的母线电压*母线电流=交流部分的电功率=alpha、beta轴（同时d、q轴）上的电压电流矢量积=上的电压电流矢量积，<br>注意这个功率可正可负，所以电流反向回灌母线是完全可能的（比如电机回馈制动时）。<br>而通过能量分析得到的这个母线电流的方向仅仅是个最终的表象（平均值），实际上的电流可能在不停地变化（由于电感的作用，电流不能突变，导致切换瞬间电流不变，母线电流方向就可能变化），到底如何变化这方面分析就涉及到电力电子方面的知识了。</p>
+<h2 id="逆变器"><a href="#逆变器" class="headerlink" title="逆变器"></a>逆变器</h2><p>学过电力电子的同学肯定都听说过逆变器，为什么叫逆变呢？就是因为我们平常说的电的变换都是讨论的交流整流后变直流，而逆变器能将直流电变换为交流电，所以称其为逆变。<br>最常见的三相逆变器结构如图所示：<br><img src="/old_images/2020/02/4095688085.png" alt="converter.PNG"><br>可见，逆变器的电路结构很简单，由三个半桥构成，每个半桥都通过控制开关管的开通关断来控制输出电平高低，<br>通过控制占空比，即可控制输出任意大小的电压，为SVPWM电压调制提供了硬件基础。<br>关于逆变器的能量变化，可以通过忽略开关管压降，近似认为两端功率相同，<br>即直流部分的母线电压*母线电流=交流部分的电功率=alpha、beta轴（同时d、q轴）上的电压电流矢量积=上的电压电流矢量积，<br>注意这个功率可正可负，所以电流反向回灌母线是完全可能的（比如电机回馈制动时）。<br>而通过能量分析得到的这个母线电流的方向仅仅是个最终的表象（平均值），实际上的电流可能在不停地变化（由于电感的作用，电流不能突变，导致切换瞬间电流不变，母线电流方向就可能变化），到底如何变化这方面分析就涉及到电力电子方面的知识了。</p>
 <hr>
-<h2 id="SVPWM"><a href="#SVPWM" class="headerlink" title="SVPWM"></a>SVPWM</h2><p>终于到了永磁同步电机的重头戏：SVPWM<br>首先明确，SVPWM的目的在于将Ualpha、Ubet两输出量输出给电机，需要把他们变成成三相电压；<br>同时，它也是为了把操纵逆变器，把直流电变成交流电。在逆变器上，这两个任务同时完成了。<br>我们先来了解一下SVPWM的调制过程，<br>我们想要输出任意方向、任意大小的电压矢量，就要通过相差120°的三相电压合成的方式来做到<br>三相全部关断，自然是零电压，记为0；<br>三相中一相开通时，会产生一个沿abc轴向的电压，记为1；<br>三相中两相开通时，会产生一个沿abc轴中线方向的电压，记为2；<br>三相全部开通时，互相抵消，则也相当于没有电压，记为3；<br>SVPWM基于软件的调制方式如下图：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/2697564545.png" alt="svpwm.PNG"><br>我们可以看到，这种方法总是按照0-1-2-3-3-2-1-0的顺序打开、关断开关管，这样做的原因是这样可以最低限度地减少开关管开关的次数，提高效率。<br>其中有效的仅有开一个和开两个的时候，只要我们计算出这两段的时间，并将垃圾时间用等长的0与3填充，就可以完成了，1、2的长度由矢量分解的方法来计算，如下图：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/3647791761.png" alt="vector.PNG"></p>
-<p><strong>SVPWM的具体步骤如下：</strong><br>第一步，我们要将360°的电角度分成六份，以方便我们选择合适的输出方式。<br>如何判断一个向量在那个分区呢，我们当然可以麻烦地计算角度，也可以用用的更多的方法——计算特征电压：<br>特征电压是指目标电压向量在三个垂直于abc轴得直线上的投影的长度，这个长度的正负决定了向量在abc三轴的哪一侧，得到了三个正负信息，组合起来就会有六种可能（两种不可能存在），这便对应着分区表的六个扇区。<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/2461771289.jpg" alt="IMG_20200226_205945.jpg"><br>分区表如下：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/423865379.png" alt="sector.PNG"><br>例如，在一号分区中，我们能使用的向量即a（1）与ab和（2）（同时确定能够使用的特征向量是+Uref2和+Uref1，正负号很重要！），我们根据分区就能确定所需要的向量。<br>之后，根据一个几何关系，再次利用特征电压得出占空比的分配，通过电压的值确定占空比的大小，完成一次SVPWM调制。<br>上面提到的几何关系如图，不太好解释：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/42703606.jpg" alt="IMG_20200226_210427.jpg"></p>
+<h2 id="SVPWM"><a href="#SVPWM" class="headerlink" title="SVPWM"></a>SVPWM</h2><p>终于到了永磁同步电机的重头戏：SVPWM<br>首先明确，SVPWM的目的在于将Ualpha、Ubet两输出量输出给电机，需要把他们变成成三相电压；<br>同时，它也是为了把操纵逆变器，把直流电变成交流电。在逆变器上，这两个任务同时完成了。<br>我们先来了解一下SVPWM的调制过程，<br>我们想要输出任意方向、任意大小的电压矢量，就要通过相差120°的三相电压合成的方式来做到<br>三相全部关断，自然是零电压，记为0；<br>三相中一相开通时，会产生一个沿abc轴向的电压，记为1；<br>三相中两相开通时，会产生一个沿abc轴中线方向的电压，记为2；<br>三相全部开通时，互相抵消，则也相当于没有电压，记为3；<br>SVPWM基于软件的调制方式如下图：<br><img src="/old_images/2020/02/2697564545.png" alt="svpwm.PNG"><br>我们可以看到，这种方法总是按照0-1-2-3-3-2-1-0的顺序打开、关断开关管，这样做的原因是这样可以最低限度地减少开关管开关的次数，提高效率。<br>其中有效的仅有开一个和开两个的时候，只要我们计算出这两段的时间，并将垃圾时间用等长的0与3填充，就可以完成了，1、2的长度由矢量分解的方法来计算，如下图：<br><img src="/old_images/2020/02/3647791761.png" alt="vector.PNG"></p>
+<p><strong>SVPWM的具体步骤如下：</strong><br>第一步，我们要将360°的电角度分成六份，以方便我们选择合适的输出方式。<br>如何判断一个向量在那个分区呢，我们当然可以麻烦地计算角度，也可以用用的更多的方法——计算特征电压：<br>特征电压是指目标电压向量在三个垂直于abc轴得直线上的投影的长度，这个长度的正负决定了向量在abc三轴的哪一侧，得到了三个正负信息，组合起来就会有六种可能（两种不可能存在），这便对应着分区表的六个扇区。<br><img src="/old_images/2020/02/2461771289.jpg" alt="IMG_20200226_205945.jpg"><br>分区表如下：<br><img src="/old_images/2020/02/423865379.png" alt="sector.PNG"><br>例如，在一号分区中，我们能使用的向量即a（1）与ab和（2）（同时确定能够使用的特征向量是+Uref2和+Uref1，正负号很重要！），我们根据分区就能确定所需要的向量。<br>之后，根据一个几何关系，再次利用特征电压得出占空比的分配，通过电压的值确定占空比的大小，完成一次SVPWM调制。<br>上面提到的几何关系如图，不太好解释：<br><img src="/old_images/2020/02/42703606.jpg" alt="IMG_20200226_210427.jpg"></p>
 
             </div>
             
@@ -242,7 +244,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -500,6 +502,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

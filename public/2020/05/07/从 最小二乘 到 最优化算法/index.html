@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-05-06T22:30:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.279Z">
+<meta property="article:modified_time" content="2020-12-12T15:02:05.135Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -149,13 +151,13 @@
                 <hr />
                 <p>在讲最小二乘之前我们先普及一下插值和拟合的含义</p>
 <h2 id="插值与拟合"><a href="#插值与拟合" class="headerlink" title="插值与拟合"></a>插值与拟合</h2><p>数值分析中，有两大利器在工程实际的数据处理中有着很重要的地位，它们就是<strong>插值</strong>和<strong>拟合</strong>。</p>
-<p>插值指的是对于已知的离散序列，使用<strong>同时过这个序列中的点</strong>的函数将其中间间隔的部分填充满，使任意一个点都有数值与其对应。<br>最常见的一种应用就是，在图像处理领域中，对图像进行线性变换（如放缩、旋转、仿射变换或透视变换等）后，原来对应整数坐标上的像素点可能在新的图像中处于非整数坐标，若想要构建变换后的图像，就需要依据这些已知像素还原出整数坐标上的未知像素，这里就用到了插值。<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/2016954707.jpg" alt="Snipaste_2020-05-07_21-58-33.jpg"><br>插值使用经过已知序列得函数填充中间部分</p>
-<p>同样是已知序列，若想要求得一个函数，能够最接近地表达出这个序列，但是<strong>不要求这个函数经过这个序列中的任一个点</strong>，这种方法就称作拟合。<br>拟合也有着重要得工程价值，在神经网络、系统辨识等领域均有应用。<br>下图展示了欠拟合、比较好的拟合和过拟合三种情况<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/4249439680.jpg" alt="Snipaste_2020-05-07_22-00-09.jpg"><br>拟合使用不一定经过已知序列的函数表达已知序列</p>
-<h2 id="最小二乘的原理"><a href="#最小二乘的原理" class="headerlink" title="最小二乘的原理"></a>最小二乘的原理</h2><p>最小二乘法是一种很常用的<strong>拟合</strong>手段。上面提到了，拟合是寻找一个函数，能够<strong>最接近地</strong>表达出这个序列，最小二乘算法对这个<strong>最接近地</strong>下了一个定义，即均方误差最小。<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/805442062.jpg" alt="Snipaste_2020-05-07_22-35-09.jpg"><br>通过数学表达就是这个ε最小</p>
-<p>想要进行最小二乘，就先要知道想要拟合的目标函数是怎样的。对于一个有n个未知参数，n个自变量的函数f（这个函数应该是n个自变量对于n个未知参数的<strong>线性</strong>组合），我们进行n阶最小二乘，这时我们的序列数据也应该是n维的（若小于n维，则应该根据拟合函数中变量的变化方法对其进行变化）<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/4289012251.jpg" alt="Snipaste_2020-05-07_22-45-30.jpg"><br>对非线性函数这样线性化</p>
-<p>这样一来，我们能够用矩阵方便的表示这个不存在的方程<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/2166186195.jpg" alt="Snipaste_2020-05-07_22-47-17.jpg"><br>X是序列中m个n维点组成的矩阵，其中m应该大于n，否则方程可解或多解，也就没有拟合的必要了；<br>β是n维线性函数f的系数矩阵；<br>y是m个n维点对应的纵坐标；<br>三者满足关系：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/1880372148.jpg" alt="Snipaste_2020-05-07_22-51-48.jpg"><br>通过这个方程求出β即求出拟合函数就是我们的目标，但由于m&gt;n，显然这个方程无解，我们根据最小二乘的条件<em>均方误差最小</em>，将等式相等换为一个要求更小的约束，即在β变化时，ε(β)取最小值。这样我们就将最小二乘法化简为一个求多元函数<strong>极值点</strong>的问题。<br>高中数学我们就学过，一个函数极值一定出现在导数为0的情况下，我们对ε(β)求导使其等于0，得到：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/1760421220.jpg" alt="Snipaste_2020-05-07_22-59-15.jpg"><br>这个β_hat代表对β的最佳估计（观测）值。</p>
-<h2 id="从另一个角度理解最小二乘"><a href="#从另一个角度理解最小二乘" class="headerlink" title="从另一个角度理解最小二乘"></a>从另一个角度理解最小二乘</h2><p>我们回到得到一个无解的矩阵方程这一步：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/1880372148.jpg" alt="Snipaste_2020-05-07_22-51-48.jpg"><br>无解，则代表着没有一组对于X向量组的线性组合能够表示y向量，本质上是由于y向量不在X矩阵的列空间中。但是，如果选择一个y’，使其是y在X矩阵列空间的投影，这样Xβ = y’就有解，我们也许就能最近似地<strong>“求出”</strong>这个方程组的解。利用向量投影的法则，我们得到了和上面方法同样的结果：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/1760421220.jpg" alt="Snipaste_2020-05-07_22-59-15.jpg"><br>数学真的很神奇！</p>
-<h2 id="从-最小二乘-到-最优化（Optimal）算法"><a href="#从-最小二乘-到-最优化（Optimal）算法" class="headerlink" title="从 最小二乘 到 最优化（Optimal）算法"></a>从 最小二乘 到 最优化（Optimal）算法</h2><p>最优化算法是什么？最简单的理解，就是通过改变方法与参数，使得某个特定的代价函数（cost function）取地最小值（即代价最小），这样确定的参数，就是最优化系统中的最优解。<br>最小二乘拟合的过程，也可以看作一个最优化问题，这个过程的代价函数就是ε(β)。类比推出，求取最优解的一个思路就是对代价函数求导，在其导数等于0的位置，就是代价函数的极值点，也就是可能的最优解。<br>对于带有约束的问题，使用拉格朗日乘子法来解决<br>拉格朗日乘子法本质上就是是：在满足约束条件时<strong>梯度相等</strong>的位置就是最优解。如下图：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/10186376.jpg" alt="Snipaste_2020-05-07_23-16-30.jpg"><br>最优化问题是一个很深奥、很复杂的问题，但是从最小二乘切入来理解，也是一个不错的思路</p>
+<p>插值指的是对于已知的离散序列，使用<strong>同时过这个序列中的点</strong>的函数将其中间间隔的部分填充满，使任意一个点都有数值与其对应。<br>最常见的一种应用就是，在图像处理领域中，对图像进行线性变换（如放缩、旋转、仿射变换或透视变换等）后，原来对应整数坐标上的像素点可能在新的图像中处于非整数坐标，若想要构建变换后的图像，就需要依据这些已知像素还原出整数坐标上的未知像素，这里就用到了插值。<br><img src="/old_images/2020/05/2016954707.jpg" alt="Snipaste_2020-05-07_21-58-33.jpg"><br>插值使用经过已知序列得函数填充中间部分</p>
+<p>同样是已知序列，若想要求得一个函数，能够最接近地表达出这个序列，但是<strong>不要求这个函数经过这个序列中的任一个点</strong>，这种方法就称作拟合。<br>拟合也有着重要得工程价值，在神经网络、系统辨识等领域均有应用。<br>下图展示了欠拟合、比较好的拟合和过拟合三种情况<br><img src="/old_images/2020/05/4249439680.jpg" alt="Snipaste_2020-05-07_22-00-09.jpg"><br>拟合使用不一定经过已知序列的函数表达已知序列</p>
+<h2 id="最小二乘的原理"><a href="#最小二乘的原理" class="headerlink" title="最小二乘的原理"></a>最小二乘的原理</h2><p>最小二乘法是一种很常用的<strong>拟合</strong>手段。上面提到了，拟合是寻找一个函数，能够<strong>最接近地</strong>表达出这个序列，最小二乘算法对这个<strong>最接近地</strong>下了一个定义，即均方误差最小。<br><img src="/old_images/2020/05/805442062.jpg" alt="Snipaste_2020-05-07_22-35-09.jpg"><br>通过数学表达就是这个ε最小</p>
+<p>想要进行最小二乘，就先要知道想要拟合的目标函数是怎样的。对于一个有n个未知参数，n个自变量的函数f（这个函数应该是n个自变量对于n个未知参数的<strong>线性</strong>组合），我们进行n阶最小二乘，这时我们的序列数据也应该是n维的（若小于n维，则应该根据拟合函数中变量的变化方法对其进行变化）<br><img src="/old_images/2020/05/4289012251.jpg" alt="Snipaste_2020-05-07_22-45-30.jpg"><br>对非线性函数这样线性化</p>
+<p>这样一来，我们能够用矩阵方便的表示这个不存在的方程<br><img src="/old_images/2020/05/2166186195.jpg" alt="Snipaste_2020-05-07_22-47-17.jpg"><br>X是序列中m个n维点组成的矩阵，其中m应该大于n，否则方程可解或多解，也就没有拟合的必要了；<br>β是n维线性函数f的系数矩阵；<br>y是m个n维点对应的纵坐标；<br>三者满足关系：<br><img src="/old_images/2020/05/1880372148.jpg" alt="Snipaste_2020-05-07_22-51-48.jpg"><br>通过这个方程求出β即求出拟合函数就是我们的目标，但由于m&gt;n，显然这个方程无解，我们根据最小二乘的条件<em>均方误差最小</em>，将等式相等换为一个要求更小的约束，即在β变化时，ε(β)取最小值。这样我们就将最小二乘法化简为一个求多元函数<strong>极值点</strong>的问题。<br>高中数学我们就学过，一个函数极值一定出现在导数为0的情况下，我们对ε(β)求导使其等于0，得到：<br><img src="/old_images/2020/05/1760421220.jpg" alt="Snipaste_2020-05-07_22-59-15.jpg"><br>这个β_hat代表对β的最佳估计（观测）值。</p>
+<h2 id="从另一个角度理解最小二乘"><a href="#从另一个角度理解最小二乘" class="headerlink" title="从另一个角度理解最小二乘"></a>从另一个角度理解最小二乘</h2><p>我们回到得到一个无解的矩阵方程这一步：<br><img src="/old_images/2020/05/1880372148.jpg" alt="Snipaste_2020-05-07_22-51-48.jpg"><br>无解，则代表着没有一组对于X向量组的线性组合能够表示y向量，本质上是由于y向量不在X矩阵的列空间中。但是，如果选择一个y’，使其是y在X矩阵列空间的投影，这样Xβ = y’就有解，我们也许就能最近似地<strong>“求出”</strong>这个方程组的解。利用向量投影的法则，我们得到了和上面方法同样的结果：<br><img src="/old_images/2020/05/1760421220.jpg" alt="Snipaste_2020-05-07_22-59-15.jpg"><br>数学真的很神奇！</p>
+<h2 id="从-最小二乘-到-最优化（Optimal）算法"><a href="#从-最小二乘-到-最优化（Optimal）算法" class="headerlink" title="从 最小二乘 到 最优化（Optimal）算法"></a>从 最小二乘 到 最优化（Optimal）算法</h2><p>最优化算法是什么？最简单的理解，就是通过改变方法与参数，使得某个特定的代价函数（cost function）取地最小值（即代价最小），这样确定的参数，就是最优化系统中的最优解。<br>最小二乘拟合的过程，也可以看作一个最优化问题，这个过程的代价函数就是ε(β)。类比推出，求取最优解的一个思路就是对代价函数求导，在其导数等于0的位置，就是代价函数的极值点，也就是可能的最优解。<br>对于带有约束的问题，使用拉格朗日乘子法来解决<br>拉格朗日乘子法本质上就是是：在满足约束条件时<strong>梯度相等</strong>的位置就是最优解。如下图：<br><img src="/old_images/2020/05/10186376.jpg" alt="Snipaste_2020-05-07_23-16-30.jpg"><br>最优化问题是一个很深奥、很复杂的问题，但是从最小二乘切入来理解，也是一个不错的思路</p>
 <p>延申阅读：<a target="_blank" rel="noopener" href="https://blog.csdn.net/chan_cyx/article/details/80274747">凸优化</a>、<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/38586401">拉格朗日乘子</a></p>
 
             </div>
@@ -248,7 +250,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -506,6 +508,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

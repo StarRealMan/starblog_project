@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-09-17T19:11:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:50.855Z">
+<meta property="article:modified_time" content="2020-12-12T15:01:48.208Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -148,10 +150,10 @@
                 
                 <hr />
                 <p>很早以前就在林哥那儿听过支持向量机这个神奇的名字，是用来识别（分类）装甲板数字的，当时觉得很高深，很硬核。<br>最近在研读周志华老师所著的《机器学习》，又看到了这个熟悉而又陌生的名词——支持向量机。这次终于能够更深入地了解它了。写此文章来记录。</p>
-<h2 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h2><p>首先考虑一个二分类问题，我们有一组有标记的样本，分布在样本空间中，假设是一个二维的样本空间，那么它们看起来可能是这样的：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/3898272400.jpg" alt="2019-04-29-134021.jpg"><br>其中我们可以认为三角代表正类而圆圈代表反类。<br>怎样找到一条直线能够最大程度上地区分正类和反类呢？很容易想到我们需要一条直线（超平面），使它的一侧全是正类，另一侧全是反类。这种情况叫做线性可分的情况，等一会儿我们会讨论基本线性可分与非线性情况。<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/3032572949.png" alt="1.1.png"><br>不过这样的直线（超平面）有很多，哪一条更好呢？这里的更好代表着对于新来的样本也能有很好的划分能力，所以我们启发式地想，找一条能够划分样本，并且两边样本到直线最近距离最大且相等的直线。<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/4055019828.png" alt="2.1.png"><br>这些据直线最近的样本的位置（向量）就叫做支持向量。<br>用更严谨的数学表示就是：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/1161417211.jpg" alt="Snipaste_2020-10-05_21-09-28.jpg"><br><img src="http://www.starydy.xyz/usr/uploads/2020/10/513067831.jpg" alt="Snipaste_2020-10-05_21-09-43.jpg"><br>不要忘记我们能够划分样本的条件：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/2013533644.jpg" alt="Snipaste_2020-10-05_21-09-17.jpg"><br>细心的我们可以发现，我们定义的这个直线理应具有dim(w)个自由度，而实际上却有dim(w)+1个参数（别忘了截距b），我们很容易想到，同时放大缩小w与b，直线是不变的，但是对于直线wx+b=1，却是在变化的，因此我们仅仅优化|w|²看似不合理，实际上整条直线已经在条件中进行了限制，所以b也会被考虑进去的。</p>
-<p>于是我们使用支持向量机把二分类模型训练问题转化为了一个带不等式约束的优化问题。<br>我们知道对于等式约束的优化问题我们可以用拉格朗日乘子法进行解决，但是对于不等式约束，我们又该怎样解决呢？<br>我们称这个优化问题为原始问题，解决办法就是使用拉格朗日乘子法找到一个对偶问题，解决对偶问题并且在满足KKT条件的情况下，我们就能解决原始问题。<br>那么具体怎么做呢？<br>首先还是使用拉格朗日乘子法，找到拉格朗日函数：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/3422282407.jpg" alt="Snipaste_2020-10-05_21-27-07.jpg"><br>为了把不等式约束消解掉，我们分情况讨论：<br>如果求得的直线不满足不等式约束，则L取得max只需要α-&gt;∞，就有：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/2634073253.jpg" alt="Snipaste_2020-10-05_21-28-01.jpg"><br>如果满足不等式约束，则有L取得max发生在α=0的情况下，即：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/1816268613.jpg" alt="Snipaste_2020-10-05_21-28-08.jpg"><br>所以我们把不等式约束的优化问题化为双重最值的优化问题：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/2296969013.jpg" alt="Snipaste_2020-10-05_21-28-13.jpg"><br>根据对偶原理，它的对偶问题为：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/270394888.jpg" alt="Snipaste_2020-10-05_21-34-33.jpg"><br>同时还要满足KKT条件：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/2604642185.jpg" alt="Snipaste_2020-10-05_21-35-19.jpg"><br>解得最终的超平面为：（具体方法略）<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/1506103335.jpg" alt="Snipaste_2020-10-05_21-35-19.jpg"><br>我们还得到一个结论，就是最终发挥作用的样本点只有支持向量，这点我们也能直观地感受到。</p>
-<h2 id="还有一些没解决的问题"><a href="#还有一些没解决的问题" class="headerlink" title="还有一些没解决的问题"></a>还有一些没解决的问题</h2><p>上面一节我们只讨论了线性可分的情况，如果遇到基本上线性可分的情况（有有限个点被分错），或者非线性可分的情况<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/1768418527.jpg" alt="2019-03-08-010339.jpg"><br>我们该怎么办呢？</p>
-<p>1.软间隔法<br>对于基本上线性可分的情况，我们可以改进优化参数，使其允许一些错误出现，但是要尽最大可能避免这些错误，比如这样：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/2773680925.jpg" alt="Snipaste_2020-10-05_21-41-57.jpg"><br>在优化函数中引入惩罚项，惩罚那些超过界限的样本点。<br>2.核方法<br>对于非线性的方法，软间隔就不能用了，比如这种情况：<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/2447629851.jpg" alt="Snipaste_2020-10-05_21-44-07.jpg"><br>但是我们可以使用一个映射将样本转换到另一个空间中<br><img src="http://www.starydy.xyz/usr/uploads/2020/10/2420399875.jpg" alt="Snipaste_2020-10-05_21-45-04.jpg"><br><img src="http://www.starydy.xyz/usr/uploads/2020/10/3031661130.png" alt="下载.png"><br>这样就能解决非线性可分的问题了。</p>
+<h2 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h2><p>首先考虑一个二分类问题，我们有一组有标记的样本，分布在样本空间中，假设是一个二维的样本空间，那么它们看起来可能是这样的：<br><img src="/old_images/2020/10/3898272400.jpg" alt="2019-04-29-134021.jpg"><br>其中我们可以认为三角代表正类而圆圈代表反类。<br>怎样找到一条直线能够最大程度上地区分正类和反类呢？很容易想到我们需要一条直线（超平面），使它的一侧全是正类，另一侧全是反类。这种情况叫做线性可分的情况，等一会儿我们会讨论基本线性可分与非线性情况。<br><img src="/old_images/2020/10/3032572949.png" alt="1.1.png"><br>不过这样的直线（超平面）有很多，哪一条更好呢？这里的更好代表着对于新来的样本也能有很好的划分能力，所以我们启发式地想，找一条能够划分样本，并且两边样本到直线最近距离最大且相等的直线。<br><img src="/old_images/2020/10/4055019828.png" alt="2.1.png"><br>这些据直线最近的样本的位置（向量）就叫做支持向量。<br>用更严谨的数学表示就是：<br><img src="/old_images/2020/10/1161417211.jpg" alt="Snipaste_2020-10-05_21-09-28.jpg"><br><img src="/old_images/2020/10/513067831.jpg" alt="Snipaste_2020-10-05_21-09-43.jpg"><br>不要忘记我们能够划分样本的条件：<br><img src="/old_images/2020/10/2013533644.jpg" alt="Snipaste_2020-10-05_21-09-17.jpg"><br>细心的我们可以发现，我们定义的这个直线理应具有dim(w)个自由度，而实际上却有dim(w)+1个参数（别忘了截距b），我们很容易想到，同时放大缩小w与b，直线是不变的，但是对于直线wx+b=1，却是在变化的，因此我们仅仅优化|w|²看似不合理，实际上整条直线已经在条件中进行了限制，所以b也会被考虑进去的。</p>
+<p>于是我们使用支持向量机把二分类模型训练问题转化为了一个带不等式约束的优化问题。<br>我们知道对于等式约束的优化问题我们可以用拉格朗日乘子法进行解决，但是对于不等式约束，我们又该怎样解决呢？<br>我们称这个优化问题为原始问题，解决办法就是使用拉格朗日乘子法找到一个对偶问题，解决对偶问题并且在满足KKT条件的情况下，我们就能解决原始问题。<br>那么具体怎么做呢？<br>首先还是使用拉格朗日乘子法，找到拉格朗日函数：<br><img src="/old_images/2020/10/3422282407.jpg" alt="Snipaste_2020-10-05_21-27-07.jpg"><br>为了把不等式约束消解掉，我们分情况讨论：<br>如果求得的直线不满足不等式约束，则L取得max只需要α-&gt;∞，就有：<br><img src="/old_images/2020/10/2634073253.jpg" alt="Snipaste_2020-10-05_21-28-01.jpg"><br>如果满足不等式约束，则有L取得max发生在α=0的情况下，即：<br><img src="/old_images/2020/10/1816268613.jpg" alt="Snipaste_2020-10-05_21-28-08.jpg"><br>所以我们把不等式约束的优化问题化为双重最值的优化问题：<br><img src="/old_images/2020/10/2296969013.jpg" alt="Snipaste_2020-10-05_21-28-13.jpg"><br>根据对偶原理，它的对偶问题为：<br><img src="/old_images/2020/10/270394888.jpg" alt="Snipaste_2020-10-05_21-34-33.jpg"><br>同时还要满足KKT条件：<br><img src="/old_images/2020/10/2604642185.jpg" alt="Snipaste_2020-10-05_21-35-19.jpg"><br>解得最终的超平面为：（具体方法略）<br><img src="/old_images/2020/10/1506103335.jpg" alt="Snipaste_2020-10-05_21-35-19.jpg"><br>我们还得到一个结论，就是最终发挥作用的样本点只有支持向量，这点我们也能直观地感受到。</p>
+<h2 id="还有一些没解决的问题"><a href="#还有一些没解决的问题" class="headerlink" title="还有一些没解决的问题"></a>还有一些没解决的问题</h2><p>上面一节我们只讨论了线性可分的情况，如果遇到基本上线性可分的情况（有有限个点被分错），或者非线性可分的情况<br><img src="/old_images/2020/10/1768418527.jpg" alt="2019-03-08-010339.jpg"><br>我们该怎么办呢？</p>
+<p>1.软间隔法<br>对于基本上线性可分的情况，我们可以改进优化参数，使其允许一些错误出现，但是要尽最大可能避免这些错误，比如这样：<br><img src="/old_images/2020/10/2773680925.jpg" alt="Snipaste_2020-10-05_21-41-57.jpg"><br>在优化函数中引入惩罚项，惩罚那些超过界限的样本点。<br>2.核方法<br>对于非线性的方法，软间隔就不能用了，比如这种情况：<br><img src="/old_images/2020/10/2447629851.jpg" alt="Snipaste_2020-10-05_21-44-07.jpg"><br>但是我们可以使用一个映射将样本转换到另一个空间中<br><img src="/old_images/2020/10/2420399875.jpg" alt="Snipaste_2020-10-05_21-45-04.jpg"><br><img src="/old_images/2020/10/3031661130.png" alt="下载.png"><br>这样就能解决非线性可分的问题了。</p>
 
             </div>
             
@@ -241,7 +243,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -499,6 +501,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

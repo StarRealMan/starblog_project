@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-03-06T20:34:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:50.807Z">
+<meta property="article:modified_time" content="2020-12-12T15:07:44.960Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -147,23 +149,23 @@
             <div class="kratos-post-content">
                 
                 <hr />
-                <p>从去年这时候第一次从老余那儿听说到<a target="_blank" rel="noopener" href="https://space.bilibili.com/230105574?spm_id_from=333.788.b_765f7570696e666f.1">DR_CAN</a>这个人，开始看他的视频，到现在，我已经把这部分内容反复看了4遍了，没有什么额外的原因，纯粹就是因为看不懂，看懂了就忘( ´･･)ﾉ(._.`),所以现在来这里总结一下！<br>这里超级感谢DR_CAN先生，这个up是真真正正的宝藏up，人帅，又有才华（特别推荐<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av15795540">爱情中的数学</a>这一期，老少皆宜），他也算是帮助我半只脚进入控制世界的大门的引路人吧ヾ(≧▽≦*)o<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/9722286.png" alt="drcan.PNG"><br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1272507004.png" alt="mathinlove.PNG"><br>经典之作——love and math</p>
+                <p>从去年这时候第一次从老余那儿听说到<a target="_blank" rel="noopener" href="https://space.bilibili.com/230105574?spm_id_from=333.788.b_765f7570696e666f.1">DR_CAN</a>这个人，开始看他的视频，到现在，我已经把这部分内容反复看了4遍了，没有什么额外的原因，纯粹就是因为看不懂，看懂了就忘( ´･･)ﾉ(._.`),所以现在来这里总结一下！<br>这里超级感谢DR_CAN先生，这个up是真真正正的宝藏up，人帅，又有才华（特别推荐<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av15795540">爱情中的数学</a>这一期，老少皆宜），他也算是帮助我半只脚进入控制世界的大门的引路人吧ヾ(≧▽≦*)o<br><img src="/old_images/2020/03/9722286.png" alt="drcan.PNG"><br><img src="/old_images/2020/03/1272507004.png" alt="mathinlove.PNG"><br>经典之作——love and math</p>
 <p>这期内容分两篇文章，分别对应LTI与Non-Linear，期待期待！</p>
-<h2 id="状态方程与传递函数"><a href="#状态方程与传递函数" class="headerlink" title="状态方程与传递函数"></a>状态方程与传递函数</h2><p>学过经典控制理论的肯定对传递函数有所了解，传递函数描述了一个系统的性质，系统是否稳定，有没有震荡，收敛的快慢都可以由传递函数分析得出。<br>而在现代控制理论中，和传函同等地位的就数状态方程了，状态方程也可以描述这个系统。<br>状态方程的形式是这样的：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1837004197.png" alt="zhuangtai1.PNG"><br>状态方程<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1797764618.png" alt="zhuangtai2.PNG"><br>输出方程</p>
-<p>其中，决定系统性质的，有着和传递函数分母相同作用的，就是A矩阵，它的特征值就是对应传函的极点，这条性质十分重要！<br>我们以二阶系统为例，若将X进行坐标变化，X=PY,使得Xdot=AX变换为Ydot=P^-1APY,使得P^（-1）AP为一个对角矩阵，这个对角矩阵的两个非零元素就是A的特征值，X变到Y，即完成了一个解耦，方便了我们分析，X，Y变化趋势相同，仅仅相差一个坐标变换，就像下面这样：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/1201115831.png" alt="trans.PNG"><br>解耦后的系统相图一般有以下几种形式，对应不同的特征值：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/691907800.png" alt="pplane.PNG"></p>
-<h2 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h2><p>在了解稳定性之前，我们先来理解一下平衡点的概念——<br>平衡点也是个很重要的概念：Xdot=0，即为平衡点，若系统初始在了平衡点，它的状态就永远不会变换，并且系统若是稳定，最终一定会趋近平衡点<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/2233313056.png" alt="stability.PNG"><br>等幅振荡——不稳定——最终收敛的情况。</p>
-<p>稳定性的数学定义如下：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/2313483864.png" alt="stable.PNG"><br>第一种，也就是李雅普诺夫稳定（Lyapunov Stable），简单地理解就是将等幅振荡也算作稳定了，即最终x有界<br>第二种，也就是渐近稳定（Asymptotic Stable），简单地理解就是x最终必须收敛。<br>对于线性系统来讲，判断稳定性的方法很简单，就是观察A阵特征值的正负，全部小于等于0，则可以达到李雅普诺夫稳定，而若是全部小于0，则达到了渐近稳定的要求。<br>而对于非线性系统，就比较麻烦了，分为李雅普诺夫第一方法（解系统的微分方程，比较难）与李雅普诺夫第二方法（直接方法，通过寻找李雅普诺夫函数来判定），这方面我们将在下一篇中仔细理解。</p>
+<h2 id="状态方程与传递函数"><a href="#状态方程与传递函数" class="headerlink" title="状态方程与传递函数"></a>状态方程与传递函数</h2><p>学过经典控制理论的肯定对传递函数有所了解，传递函数描述了一个系统的性质，系统是否稳定，有没有震荡，收敛的快慢都可以由传递函数分析得出。<br>而在现代控制理论中，和传函同等地位的就数状态方程了，状态方程也可以描述这个系统。<br>状态方程的形式是这样的：<br><img src="/old_images/2020/03/1837004197.png" alt="zhuangtai1.PNG"><br>状态方程<br><img src="/old_images/2020/03/1797764618.png" alt="zhuangtai2.PNG"><br>输出方程</p>
+<p>其中，决定系统性质的，有着和传递函数分母相同作用的，就是A矩阵，它的特征值就是对应传函的极点，这条性质十分重要！<br>我们以二阶系统为例，若将X进行坐标变化，X=PY,使得Xdot=AX变换为Ydot=P^-1APY,使得P^（-1）AP为一个对角矩阵，这个对角矩阵的两个非零元素就是A的特征值，X变到Y，即完成了一个解耦，方便了我们分析，X，Y变化趋势相同，仅仅相差一个坐标变换，就像下面这样：<br><img src="/old_images/2020/03/1201115831.png" alt="trans.PNG"><br>解耦后的系统相图一般有以下几种形式，对应不同的特征值：<br><img src="/old_images/2020/03/691907800.png" alt="pplane.PNG"></p>
+<h2 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h2><p>在了解稳定性之前，我们先来理解一下平衡点的概念——<br>平衡点也是个很重要的概念：Xdot=0，即为平衡点，若系统初始在了平衡点，它的状态就永远不会变换，并且系统若是稳定，最终一定会趋近平衡点<br><img src="/old_images/2020/03/2233313056.png" alt="stability.PNG"><br>等幅振荡——不稳定——最终收敛的情况。</p>
+<p>稳定性的数学定义如下：<br><img src="/old_images/2020/03/2313483864.png" alt="stable.PNG"><br>第一种，也就是李雅普诺夫稳定（Lyapunov Stable），简单地理解就是将等幅振荡也算作稳定了，即最终x有界<br>第二种，也就是渐近稳定（Asymptotic Stable），简单地理解就是x最终必须收敛。<br>对于线性系统来讲，判断稳定性的方法很简单，就是观察A阵特征值的正负，全部小于等于0，则可以达到李雅普诺夫稳定，而若是全部小于0，则达到了渐近稳定的要求。<br>而对于非线性系统，就比较麻烦了，分为李雅普诺夫第一方法（解系统的微分方程，比较难）与李雅普诺夫第二方法（直接方法，通过寻找李雅普诺夫函数来判定），这方面我们将在下一篇中仔细理解。</p>
 <h2 id="可控性与控制器"><a href="#可控性与控制器" class="headerlink" title="可控性与控制器"></a>可控性与控制器</h2><p>上面我们讨论了在零输入的状态下，系统的稳定性，可见，对于任意的一个系统，稳定性是不能确定的，即使稳定，平衡点可能也不能满足我们的要求，于是我们就要加入控制变量来使得系统能够稳定，甚至能够改变系统的平衡点。<br>引入最简单的反馈控制器U = -kX，其中k = [k1,k2]，这样我们新的系统就变成了Xdot=(A-Bk)X，我们就可以配置(A-Bk)的特征值，来计算k，使得新的系统满足我们的要求。<br>另外，控制器k的设计不仅能够由特征值配置（在经典理论中称为极点配置）得到，在最优控制（Optimal Control）中，考虑输入的情况下，通过使Cost Function最小而计算出k1、k2的值，我们称这种方法为LQR Control。</p>
 <p>但是这样做有一个前提，即保证k有解，这就需要我们的系统满足可控性，系统具有可控性，就是系统状态变量在相平面上可以在输入的作用下达到任意的点，具体推导公式是DR_CAN用离散的方法推出来的，连续的方法我这里也不太会，希望知道的同学能来教教我，(≧∇≦)ﾉ<br><strong>直接给出可控性的条件</strong><br>当Co = [B AB A^2B ……A^nB]满秩时（即Rank = n时），即可证明k有解，也就是系统可控！<br>注意！！在相平面上，可控指的是点对点的可控，而不是轨迹上的可控！</p>
 <p>可以控制系统稳定性之后，我们就想着要控制系统的轨迹，进行轨迹跟踪，也就是改变系统的平衡点！<br>引入误差变量e，有</p>
 <p>e = x1d - x1<br>edot = x1ddot - x1dot</p>
-<p>用新的状态变量e来表示系统方程则会得到：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/3142260807.jpg" alt="IMG_20200307_151604 (2).jpg"><br>此时，只需要我们调节输入U，使得BU在抵消最后面一个矩阵后还能够做到反馈控制调节系统特征值的作用，就需要U = -kX - a/e*x1d。须注意三点：</p>
+<p>用新的状态变量e来表示系统方程则会得到：<br><img src="/old_images/2020/03/3142260807.jpg" alt="IMG_20200307_151604 (2).jpg"><br>此时，只需要我们调节输入U，使得BU在抵消最后面一个矩阵后还能够做到反馈控制调节系统特征值的作用，就需要U = -kX - a/e*x1d。须注意三点：</p>
 <ol>
 <li>这里的X是新的包含误差的状态变量；</li>
 <li>仅有在e、f，a、c成比例，或者对应有0的时候才能完全消去常数，我大胆猜测，这里就对应着经典控制理论中的稳态误差；</li>
 <li>x1ddot这一项的补偿就相当于速度前馈！<br>这样我们就能够做到轨迹跟踪了！</li>
 </ol>
-<h2 id="能观性与观测器"><a href="#能观性与观测器" class="headerlink" title="能观性与观测器"></a>能观性与观测器</h2><p><strong>上面内容全部建立在状态向量能够通过传感器测量的前提下，在我们不能够通过传感器获取到一些变量时，我们该如何进行反馈控制？使用观测器！</strong><br>观测器首先构造一个虚拟的系统进行更新：<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/4226968886.png" alt="observer.PNG"><br>与实际系统做差，可得到如下方程<br>E_dot = (A-LC)E<br>其中E = X_hat - X<br>我们又构造出这样一种形式，同样，只要配置矩阵的特征值，计算出相应的L，即可使E收敛到0，也就是X_hat收敛到X。<br>这样我们成功观测了状态变量X。<br>与控制器相同，观测器也需要满足能观性，就是要使L有解，<br>O = [C CA CA^2 …… CA^n]^T，需要满足O满秩（即Rank = n）<br>根据分离原理，我们可以使用观测到的值来做状态反馈控制，这样做的时候控制器与观测器特征值不互相影响，仍与原本设计相同！（但我们仍希望能使观测器时间常数小于控制器！）</p>
+<h2 id="能观性与观测器"><a href="#能观性与观测器" class="headerlink" title="能观性与观测器"></a>能观性与观测器</h2><p><strong>上面内容全部建立在状态向量能够通过传感器测量的前提下，在我们不能够通过传感器获取到一些变量时，我们该如何进行反馈控制？使用观测器！</strong><br>观测器首先构造一个虚拟的系统进行更新：<br><img src="/old_images/2020/03/4226968886.png" alt="observer.PNG"><br>与实际系统做差，可得到如下方程<br>E_dot = (A-LC)E<br>其中E = X_hat - X<br>我们又构造出这样一种形式，同样，只要配置矩阵的特征值，计算出相应的L，即可使E收敛到0，也就是X_hat收敛到X。<br>这样我们成功观测了状态变量X。<br>与控制器相同，观测器也需要满足能观性，就是要使L有解，<br>O = [C CA CA^2 …… CA^n]^T，需要满足O满秩（即Rank = n）<br>根据分离原理，我们可以使用观测到的值来做状态反馈控制，这样做的时候控制器与观测器特征值不互相影响，仍与原本设计相同！（但我们仍希望能使观测器时间常数小于控制器！）</p>
 <h2 id="总结下来，现代控制理论要实现的就是通过变换使系统状态方程变为Xdot-AclX-的形式，通过配置Acl的特征值，使系统具有所需性质！"><a href="#总结下来，现代控制理论要实现的就是通过变换使系统状态方程变为Xdot-AclX-的形式，通过配置Acl的特征值，使系统具有所需性质！" class="headerlink" title="总结下来，现代控制理论要实现的就是通过变换使系统状态方程变为Xdot = AclX 的形式，通过配置Acl的特征值，使系统具有所需性质！"></a>总结下来，现代控制理论要实现的就是通过变换使系统状态方程变为Xdot = AclX 的形式，通过配置Acl的特征值，使系统具有所需性质！</h2>
             </div>
             
@@ -253,7 +255,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -511,6 +513,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

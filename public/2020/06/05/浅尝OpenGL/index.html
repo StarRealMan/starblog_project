@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-06-04T18:17:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:52.159Z">
+<meta property="article:modified_time" content="2020-12-12T15:05:45.136Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -148,9 +150,9 @@
                 
                 <hr />
                 <p>学习了OpenGL的一些基础知识，来分享一下!<br><a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/">Learn OpenGL</a><br>首先，OpenGL到底是什么？<br>OpenGL是API，没错，但OpenGL更被认为是一种标准，然后每个显卡公司，会针对这种标准，编写自己的一套API函数。<br>这就带来了一个麻烦，代码的可以执行问题。对于不同的一套显卡设备，API函数不同，让移植变得很困难。因此，在进行OpenGL开发之前，通常使用一种函数映射的库将硬件对应函数对应到一套公用的函数上，只要使用一套公用的函数API，就能够方便地进行移植（也方便了学习）。因此我们先将glad库（正是负责函数映射库）加入到工程中。配合使用的OpenGl库是glfw库，矩阵运算库选择的是glm库，图片操作库选择的是stb_image库，这些库都需要用户先安装。至此，我们的OpenGL开发环境就搭建完成了。</p>
-<h2 id="坐标变换"><a href="#坐标变换" class="headerlink" title="坐标变换"></a>坐标变换</h2><p>OpenGL的最基础元素是顶点元素，三个顶点可以组成一个三角形，构成了最基础的图形，OpenGL的所有图形均是由三角形构成的，这点一定要明确！（即使我想要一个正方形，我也只能通过两个三角形来构建）<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/4288438894.jpg" alt="Snipaste_2020-06-10_16-55-32.jpg"><br>首先我们通过某种方式（自己定义在内存中、导入各种格式的模型等）得到一个物体的顶点坐标，这个顶点坐标称为局部空间（Local Space），也就是最初物体的坐标，一般将物体坐标放在中央。我们通过坐标变换，对每个顶点进行变换（Model Matrix），让他出现在应该出现的世界坐标的位置，这个变换包括6个自由度，分别确定了物体在世界坐标下的三维位置与姿态（称之为位姿）。之后，需要将这些点再次变换到以摄像机为中心的坐标系下 （View Matrix），以实现摄像机的自由运动。但是这样直接显示在屏幕上，OpenGL会直接去掉这些点的Z坐标，会有一种不真实的感觉（总而言之就是没有近大远小的感觉），我们再使用投影变换，再将结果同时÷Z坐标，将每个平截头体内点变换到屏幕上，这样我们就得到了一个三维点在二维平面上的坐标了，OpenGL将其画出来就行了。（甚至你可以直接使用小孔模型进行变换）<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/890806100.jpg" alt="Snipaste_2020-06-10_20-03-07.jpg"></p>
-<h2 id="着色器Shader"><a href="#着色器Shader" class="headerlink" title="着色器Shader"></a>着色器Shader</h2><p>机器是如何把图像画出来的呢？学习OpenGL，其中重要的一点就是学习Shader的编程（GLSL语言）以及它的工作流程（渲染流水线）<br>下面这张图展示了渲染流水线的工作流程：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/1099674099.jpg" alt="Snipaste_2020-06-10_16-52-24.jpg"><br>上图每一个着色器对应一个shader文件，但是大部分情况下我们只需要顶点着色器（VERTEX SHADER，简称为VS）和片段着色器（FRAGMENT SHADER，简称为FS）即可，顶点着色器用于绘制点，片段着色器用于绘制光栅化后三角形内每一个像素的颜色。<br>我们在程序里使用API函数编译、链接这些SHADER文件，构成一个SHADER项目，供我们在渲染中使用（SHADER是跑在GPU中的！）。<br>VS接受程序存在内存中的点的坐标（不只是位置，还可以包括颜色、法向量等其他属性），对其进行坐标变换，将结果送入FS，FS接受VS处理的结果，并在整个三角形中对接收数据进行插值，<strong>相当于接收到的数据不再是三个顶点而是光栅化后的三角形内的许多像素</strong>，再依据程序对这些像素进行运算（需要GPU并行加速），输出每个像素的颜色，进行渲染。</p>
-<h2 id="光照与纹理"><a href="#光照与纹理" class="headerlink" title="光照与纹理"></a>光照与纹理</h2><p>有了上面的基础，在OpenGL中实现光照效果就很简单了（因为我们已经知道如何操作每一个像素的颜色），重中之重在于找到合适的光照模型：<br>在这里我们使用冯氏光照模型，一个物体的颜色由三个分量加权得到：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2875422330.jpg" alt="Snipaste_2020-06-10_20-32-35.jpg"><br>ambient：环境光<br>占有分量最少，描述的是物体在完全黑暗处由于极少量反射呈现的颜色。颜色取决于物体颜色。<br>diffuse：漫反射<br>占有分量最多，强度大小由光源向量与面的法向量的内积确定。颜色取决于物体颜色。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/1829637362.jpg" alt="Snipaste_2020-06-10_20-37-22.jpg"><br>specular：镜面反射<br>占有份量也比较多，强度大小取决于反射后的光线向量与<strong>视角向量</strong>的内积。颜色同时取决于光源颜色与物体颜色。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/4103478537.jpg" alt="Snipaste_2020-06-10_20-37-13.jpg"></p>
+<h2 id="坐标变换"><a href="#坐标变换" class="headerlink" title="坐标变换"></a>坐标变换</h2><p>OpenGL的最基础元素是顶点元素，三个顶点可以组成一个三角形，构成了最基础的图形，OpenGL的所有图形均是由三角形构成的，这点一定要明确！（即使我想要一个正方形，我也只能通过两个三角形来构建）<br><img src="/old_images/2020/06/4288438894.jpg" alt="Snipaste_2020-06-10_16-55-32.jpg"><br>首先我们通过某种方式（自己定义在内存中、导入各种格式的模型等）得到一个物体的顶点坐标，这个顶点坐标称为局部空间（Local Space），也就是最初物体的坐标，一般将物体坐标放在中央。我们通过坐标变换，对每个顶点进行变换（Model Matrix），让他出现在应该出现的世界坐标的位置，这个变换包括6个自由度，分别确定了物体在世界坐标下的三维位置与姿态（称之为位姿）。之后，需要将这些点再次变换到以摄像机为中心的坐标系下 （View Matrix），以实现摄像机的自由运动。但是这样直接显示在屏幕上，OpenGL会直接去掉这些点的Z坐标，会有一种不真实的感觉（总而言之就是没有近大远小的感觉），我们再使用投影变换，再将结果同时÷Z坐标，将每个平截头体内点变换到屏幕上，这样我们就得到了一个三维点在二维平面上的坐标了，OpenGL将其画出来就行了。（甚至你可以直接使用小孔模型进行变换）<br><img src="/old_images/2020/06/890806100.jpg" alt="Snipaste_2020-06-10_20-03-07.jpg"></p>
+<h2 id="着色器Shader"><a href="#着色器Shader" class="headerlink" title="着色器Shader"></a>着色器Shader</h2><p>机器是如何把图像画出来的呢？学习OpenGL，其中重要的一点就是学习Shader的编程（GLSL语言）以及它的工作流程（渲染流水线）<br>下面这张图展示了渲染流水线的工作流程：<br><img src="/old_images/2020/06/1099674099.jpg" alt="Snipaste_2020-06-10_16-52-24.jpg"><br>上图每一个着色器对应一个shader文件，但是大部分情况下我们只需要顶点着色器（VERTEX SHADER，简称为VS）和片段着色器（FRAGMENT SHADER，简称为FS）即可，顶点着色器用于绘制点，片段着色器用于绘制光栅化后三角形内每一个像素的颜色。<br>我们在程序里使用API函数编译、链接这些SHADER文件，构成一个SHADER项目，供我们在渲染中使用（SHADER是跑在GPU中的！）。<br>VS接受程序存在内存中的点的坐标（不只是位置，还可以包括颜色、法向量等其他属性），对其进行坐标变换，将结果送入FS，FS接受VS处理的结果，并在整个三角形中对接收数据进行插值，<strong>相当于接收到的数据不再是三个顶点而是光栅化后的三角形内的许多像素</strong>，再依据程序对这些像素进行运算（需要GPU并行加速），输出每个像素的颜色，进行渲染。</p>
+<h2 id="光照与纹理"><a href="#光照与纹理" class="headerlink" title="光照与纹理"></a>光照与纹理</h2><p>有了上面的基础，在OpenGL中实现光照效果就很简单了（因为我们已经知道如何操作每一个像素的颜色），重中之重在于找到合适的光照模型：<br>在这里我们使用冯氏光照模型，一个物体的颜色由三个分量加权得到：<br><img src="/old_images/2020/06/2875422330.jpg" alt="Snipaste_2020-06-10_20-32-35.jpg"><br>ambient：环境光<br>占有分量最少，描述的是物体在完全黑暗处由于极少量反射呈现的颜色。颜色取决于物体颜色。<br>diffuse：漫反射<br>占有分量最多，强度大小由光源向量与面的法向量的内积确定。颜色取决于物体颜色。<br><img src="/old_images/2020/06/1829637362.jpg" alt="Snipaste_2020-06-10_20-37-22.jpg"><br>specular：镜面反射<br>占有份量也比较多，强度大小取决于反射后的光线向量与<strong>视角向量</strong>的内积。颜色同时取决于光源颜色与物体颜色。<br><img src="/old_images/2020/06/4103478537.jpg" alt="Snipaste_2020-06-10_20-37-13.jpg"></p>
 <p>由于FS中获得的是VS传来值的插值，也就能够获得每个像素点的坐标，因此在FS中进行光照计算能够使得光照更加真实，但是运算量也会更大。</p>
 <p>这样一来，每个像素经过渲染流水线就能够产生一个特定的颜色，显示在我们的屏幕上。</p>
 <p>最后我们就可以实现一些简单的渲染啦，不要说我技能点点歪了，学习渲染也可以图形化一些问题，也是解题的一大工具呢！</p>
@@ -517,7 +519,7 @@ glad.o:$(SOURCE_PATH)/glad.c
 clean:
     rm *.o
     rm main</code></pre>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/09/3319805378.png" alt="QQ图片20200914195150.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/09/2082677778.png" alt="QQ图片20200914195155.png"></p>
+<p><img src="/old_images/2020/09/3319805378.png" alt="QQ图片20200914195150.png"><br><img src="/old_images/2020/09/2082677778.png" alt="QQ图片20200914195155.png"></p>
 
             </div>
             
@@ -607,7 +609,7 @@ clean:
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -865,6 +867,25 @@ clean:
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

@@ -68,17 +68,17 @@ tags: []
 [神奇立方体 - 可以跳起来、保持平衡和自我运动 @柚子木字幕组][14]
 
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/06/2328185984.jpg
-  [2]: http://www.starydy.xyz/usr/uploads/2020/06/679760522.jpg
-  [3]: http://www.starydy.xyz/usr/uploads/2020/06/2743383745.jpg
-  [4]: http://www.starydy.xyz/usr/uploads/2020/06/334535609.jpg
+  [1]: /old_images/2020/06/2328185984.jpg
+  [2]: /old_images/2020/06/679760522.jpg
+  [3]: /old_images/2020/06/2743383745.jpg
+  [4]: /old_images/2020/06/334535609.jpg
   [5]: https://www.bilibili.com/video/BV1Ps411U7dM?from=search&seid=13553174638326717597
-  [6]: http://www.starydy.xyz/usr/uploads/2020/06/1785132415.jpg
-  [7]: http://www.starydy.xyz/usr/uploads/2020/06/1821389100.jpg
-  [8]: http://www.starydy.xyz/usr/uploads/2020/06/3567944637.jpg
-  [9]: http://www.starydy.xyz/usr/uploads/2020/06/1955986387.jpg
-  [10]: http://www.starydy.xyz/usr/uploads/2020/06/2792304263.jpg
-  [11]: http://www.starydy.xyz/usr/uploads/2020/06/3236832836.jpg
-  [12]: http://www.starydy.xyz/usr/uploads/2020/06/2780367333.jpg
-  [13]: http://www.starydy.xyz/usr/uploads/2020/06/1911627333.jpg
+  [6]: /old_images/2020/06/1785132415.jpg
+  [7]: /old_images/2020/06/1821389100.jpg
+  [8]: /old_images/2020/06/3567944637.jpg
+  [9]: /old_images/2020/06/1955986387.jpg
+  [10]: /old_images/2020/06/2792304263.jpg
+  [11]: /old_images/2020/06/3236832836.jpg
+  [12]: /old_images/2020/06/2780367333.jpg
+  [13]: /old_images/2020/06/1911627333.jpg
   [14]: https://www.bilibili.com/video/BV1qW411i7Mj/?spm_id_from=333.788.videocard.1

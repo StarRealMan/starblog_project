@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-02-21T04:16:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.059Z">
+<meta property="article:modified_time" content="2020-12-12T15:05:59.492Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -151,10 +153,10 @@
 <ol>
 <li>Clark变换是为了将三相电流变换为两相正交电流，为Park变换做准备</li>
 <li>Park变换是为了将定子电流坐标变换到转子上，最终我们的所有控制都是在转子上的</li>
-<li>反Park变换时为了将控制量（电压）反推回定子端，以便进行SVPWM调制<br>由此可见，坐标变换体现在驱动的方方面面。<h2 id="Clark变换"><a href="#Clark变换" class="headerlink" title="Clark变换"></a>Clark变换</h2>Clark变换又分为两种形式：1、等幅值变换；2、等功率变换<br>为什么会这样分呢，我们先来看一下他们俩的不同。<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/2324103181.png" alt="Clark1.PNG"><br>等幅值变换<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/3086867647.png" alt="clark.PNG"><br>等功率变换</li>
+<li>反Park变换时为了将控制量（电压）反推回定子端，以便进行SVPWM调制<br>由此可见，坐标变换体现在驱动的方方面面。<h2 id="Clark变换"><a href="#Clark变换" class="headerlink" title="Clark变换"></a>Clark变换</h2>Clark变换又分为两种形式：1、等幅值变换；2、等功率变换<br>为什么会这样分呢，我们先来看一下他们俩的不同。<br><img src="/old_images/2020/02/2324103181.png" alt="Clark1.PNG"><br>等幅值变换<br><img src="/old_images/2020/02/3086867647.png" alt="clark.PNG"><br>等功率变换</li>
 </ol>
 <p><strong>原来只是矩阵前面的系数有差别啊！</strong><br>我们能发现，Clark变换大体就是把三相电流都向alpha、beta两正交轴投影，再将其相加。但是这前面这个系数又是怎么来的呢？<br>但实际上，这个变换就是把原本存在三相上的电流抽象成了两项正交电流，而且为了保证抽象前后幅值不变，它带了一个系数2/3（由三相脉振磁场合成的旋转磁场幅值是原来的3/2），这就是等幅值变换<br>等功率变换又是什么呢？为了使变换前后功率相等，即电压*电流相等，最终变换的系数变为了sqrt(2/3),这就是等功率变换。<br>等幅值变换与等功率变换仅仅是两种不同的坐标变换，得到的电流有着不同的比例，其中等幅值变换拥有与测量电流同样的比例，所以我们一般使用等幅值变换。还要注意的是，使用两种变换由于电流比例不同，得到的力矩常数也不同，甚至永磁体磁链也不同，它们之间的都差一个常数sqrt（2/3）！</p>
-<h2 id="Park变换"><a href="#Park变换" class="headerlink" title="Park变换"></a>Park变换</h2><p><strong>相对于Clark变换，Park变换就更加容易理解了!</strong><br><img src="http://www.starydy.xyz/usr/uploads/2020/02/4018005133.png" alt="Park.PNG"><br>如上图所示，Park变换仅仅就是把定子坐标系变换到转子坐标系上，方便我们做控制（直接在定子上做其实也不是不行。。。），随后再用反变换变换到定子来输出电压。<br>要注意的一点是公式中的theta指的是电角度thetaP，即实际机械角度的p倍（p为电机极对数）<br>为什么要用thetP做变换呢？<br>对于p对极的电机，磁场的变化是每360°/p的机械角度变化一周期，也就是360°电角度变化一周期，<br>所以，永磁体磁链总是相对于转子静止的，力矩、强弱磁也仅仅是与q、d轴上的电流有关，所以我们要把电流变换到转子上。</p>
+<h2 id="Park变换"><a href="#Park变换" class="headerlink" title="Park变换"></a>Park变换</h2><p><strong>相对于Clark变换，Park变换就更加容易理解了!</strong><br><img src="/old_images/2020/02/4018005133.png" alt="Park.PNG"><br>如上图所示，Park变换仅仅就是把定子坐标系变换到转子坐标系上，方便我们做控制（直接在定子上做其实也不是不行。。。），随后再用反变换变换到定子来输出电压。<br>要注意的一点是公式中的theta指的是电角度thetaP，即实际机械角度的p倍（p为电机极对数）<br>为什么要用thetP做变换呢？<br>对于p对极的电机，磁场的变化是每360°/p的机械角度变化一周期，也就是360°电角度变化一周期，<br>所以，永磁体磁链总是相对于转子静止的，力矩、强弱磁也仅仅是与q、d轴上的电流有关，所以我们要把电流变换到转子上。</p>
 <p><strong>今天这期我们主要讨论了基础的坐标变换理论，下期我们来讲解一下永磁电机中转子坐标下的控制方法。</strong></p>
 
             </div>
@@ -245,7 +247,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -503,6 +505,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

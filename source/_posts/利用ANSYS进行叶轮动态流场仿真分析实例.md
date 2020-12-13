@@ -80,19 +80,19 @@ https://www.zhihu.com/zvideo/1277981000899616768
 下次看个人情况更新机器人学或者SLAM十四讲的学习笔记吧！希望对你有用，bye！
 
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/08/615084051.png
-  [2]: http://www.starydy.xyz/usr/uploads/2020/08/1060845710.png
-  [3]: http://www.starydy.xyz/usr/uploads/2020/08/2072954433.png
-  [4]: http://www.starydy.xyz/usr/uploads/2020/08/3016259840.png
-  [5]: http://www.starydy.xyz/usr/uploads/2020/08/3614482147.png
-  [6]: http://www.starydy.xyz/usr/uploads/2020/08/1639294894.png
-  [7]: http://www.starydy.xyz/usr/uploads/2020/08/4046785801.png
-  [8]: http://www.starydy.xyz/usr/uploads/2020/08/482966380.png
-  [9]: http://www.starydy.xyz/usr/uploads/2020/08/1083781610.png
-  [10]: http://www.starydy.xyz/usr/uploads/2020/08/2373904712.png
-  [11]: http://www.starydy.xyz/usr/uploads/2020/08/350215919.png
-  [12]: http://www.starydy.xyz/usr/uploads/2020/08/1791974604.png
-  [13]: http://www.starydy.xyz/usr/uploads/2020/08/437577698.png
-  [14]: http://www.starydy.xyz/usr/uploads/2020/08/3976439614.png
-  [15]: http://www.starydy.xyz/usr/uploads/2020/08/502004202.png
-  [16]: http://www.starydy.xyz/usr/uploads/2020/08/4228770977.png
+  [1]: /old_images/2020/08/615084051.png
+  [2]: /old_images/2020/08/1060845710.png
+  [3]: /old_images/2020/08/2072954433.png
+  [4]: /old_images/2020/08/3016259840.png
+  [5]: /old_images/2020/08/3614482147.png
+  [6]: /old_images/2020/08/1639294894.png
+  [7]: /old_images/2020/08/4046785801.png
+  [8]: /old_images/2020/08/482966380.png
+  [9]: /old_images/2020/08/1083781610.png
+  [10]: /old_images/2020/08/2373904712.png
+  [11]: /old_images/2020/08/350215919.png
+  [12]: /old_images/2020/08/1791974604.png
+  [13]: /old_images/2020/08/437577698.png
+  [14]: /old_images/2020/08/3976439614.png
+  [15]: /old_images/2020/08/502004202.png
+  [16]: /old_images/2020/08/4228770977.png

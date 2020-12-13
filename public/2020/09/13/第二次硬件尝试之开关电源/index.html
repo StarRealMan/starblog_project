@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-09-12T19:45:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:50.239Z">
+<meta property="article:modified_time" content="2020-12-12T15:02:18.461Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -148,9 +150,9 @@
                 
                 <hr />
                 <p>为了能使树莓派脱离有线的束缚，我这次就做一个简单的锂电池充放电电路来练练手(●ˇ∀ˇ●)<br>（第一次做了更为简单的STM32-UARTHUB）<br>电源芯片选择的是珠海智融科技有限公司的SW6124，SW6124是一款高度集成的电源管理IC，适用于快速充电移动电源应用。 它集成了4A开关充电器，18W同步升压，PD / QC / FCP / PE / SFCP快速充电协议，电量计和电源控制器。 SW6124借助简单的外部组件，为快速充电电池管理提供了交钥匙的高效解决方案。</p>
-<p>手册最后给出了电池管理充放电应用电路图：<br><img src="http://www.starydy.xyz/usr/uploads/2020/09/2522050574.jpg" alt="Snipaste_2020-09-13_15-05-50.jpg"><br>已经比较符合我们的需求了，我们在其之上稍作更改，去掉了USB-A和Micro USB的接口，仅保留USB Type-C接口。并且使用一个单刀双置开关切换USB供电与电池供电。<br>原理很简单，在插入USB TypeC时，使用开关将5V输出直接与TypeC电源连接，直接向树莓派供电，与此同时，TypeC电源也向电池充电。在未插入USB时，使5V输出与Boost电路输出端相连接，使用电池进行供电。<br>画出原理图：<br><img src="http://www.starydy.xyz/usr/uploads/2020/09/1356202506.jpg" alt="Snipaste_2020-09-13_15-10-15.jpg"><br>TypeC接口部分；<br><img src="http://www.starydy.xyz/usr/uploads/2020/09/2234319971.jpg" alt="Snipaste_2020-09-13_15-10-54.jpg"><br>开关，树莓派插针部分；<br><img src="http://www.starydy.xyz/usr/uploads/2020/09/2393108645.jpg" alt="Snipaste_2020-09-13_15-11-29.jpg"><br>芯片电量显示部分；<br><img src="http://www.starydy.xyz/usr/uploads/2020/09/2995037215.jpg" alt="Snipaste_2020-09-13_15-11-48.jpg"><br>芯片Boost电路（3.7V-&gt;5V）及控制部分。<br>这个电路最重要的部分就是开关电源部分，好在SW6124集成了开关管以及控制电路，我们只需要外加一个电感就能实现Boost升压的功能。</p>
-<p>最后就是PCB绘制：<br>首先进行布局布线。简单的PCB布局可以按照原理图的分布进行，并且要合理设计接口位置，注意芯片手册上的说明和注意事项。布线过程中注意根据线所流经的电流大小调整线的粗细，上层下层横纵交错，GND网络使用覆铜进行连接。<br><img src="http://www.starydy.xyz/usr/uploads/2020/09/2369037501.jpg" alt="Snipaste_2020-09-13_15-23-20.jpg"></p>
-<p>接下来是覆铜。对于信号要求较高的板子，最好分离信号地与电源地，并且在覆铜结束后检查是否留有未接通的GND网络，进行微调（比如打过孔）。<br>最终一个简单的锂电池充放电电路板就绘制完成了，接下来就是焊接和调试啦！<br><img src="http://www.starydy.xyz/usr/uploads/2020/09/1988211125.jpg" alt="Snipaste_2020-09-13_15-27-03.jpg"></p>
+<p>手册最后给出了电池管理充放电应用电路图：<br><img src="/old_images/2020/09/2522050574.jpg" alt="Snipaste_2020-09-13_15-05-50.jpg"><br>已经比较符合我们的需求了，我们在其之上稍作更改，去掉了USB-A和Micro USB的接口，仅保留USB Type-C接口。并且使用一个单刀双置开关切换USB供电与电池供电。<br>原理很简单，在插入USB TypeC时，使用开关将5V输出直接与TypeC电源连接，直接向树莓派供电，与此同时，TypeC电源也向电池充电。在未插入USB时，使5V输出与Boost电路输出端相连接，使用电池进行供电。<br>画出原理图：<br><img src="/old_images/2020/09/1356202506.jpg" alt="Snipaste_2020-09-13_15-10-15.jpg"><br>TypeC接口部分；<br><img src="/old_images/2020/09/2234319971.jpg" alt="Snipaste_2020-09-13_15-10-54.jpg"><br>开关，树莓派插针部分；<br><img src="/old_images/2020/09/2393108645.jpg" alt="Snipaste_2020-09-13_15-11-29.jpg"><br>芯片电量显示部分；<br><img src="/old_images/2020/09/2995037215.jpg" alt="Snipaste_2020-09-13_15-11-48.jpg"><br>芯片Boost电路（3.7V-&gt;5V）及控制部分。<br>这个电路最重要的部分就是开关电源部分，好在SW6124集成了开关管以及控制电路，我们只需要外加一个电感就能实现Boost升压的功能。</p>
+<p>最后就是PCB绘制：<br>首先进行布局布线。简单的PCB布局可以按照原理图的分布进行，并且要合理设计接口位置，注意芯片手册上的说明和注意事项。布线过程中注意根据线所流经的电流大小调整线的粗细，上层下层横纵交错，GND网络使用覆铜进行连接。<br><img src="/old_images/2020/09/2369037501.jpg" alt="Snipaste_2020-09-13_15-23-20.jpg"></p>
+<p>接下来是覆铜。对于信号要求较高的板子，最好分离信号地与电源地，并且在覆铜结束后检查是否留有未接通的GND网络，进行微调（比如打过孔）。<br>最终一个简单的锂电池充放电电路板就绘制完成了，接下来就是焊接和调试啦！<br><img src="/old_images/2020/09/1988211125.jpg" alt="Snipaste_2020-09-13_15-27-03.jpg"></p>
 
             </div>
             
@@ -240,7 +242,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -498,6 +500,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

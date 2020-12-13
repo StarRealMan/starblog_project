@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-03-13T22:21:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.419Z">
+<meta property="article:modified_time" content="2020-12-12T14:59:59.252Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -153,7 +155,7 @@
 <h2 id="内容的保存"><a href="#内容的保存" class="headerlink" title="内容的保存"></a>内容的保存</h2><p>获得了内容之后我们要将保存为文件，Python的文件操作非常方便<br>使用：with open(filename,method) as f:<br>可以以method所定义的方法打开filename这个文件。一般我们用于保存文件的method就是”w”和”wb”两种，区别在于”w”使用文本形式保存文件，而”wb”使用二进制字节流形式保存文件，我们的多媒体文件以及可执行文件都是以这种形式保存的！<br>打开文件后，我们可以使用f.write(content)方法向文件写入内容，也就是之前我们得到的response.text或response.content，这样，从网络上爬取数据并保存的工作就完成了！</p>
 <h2 id="数据的筛选-正则re与parsel库"><a href="#数据的筛选-正则re与parsel库" class="headerlink" title="数据的筛选 正则re与parsel库##"></a>数据的筛选 正则re与parsel库##</h2><p>互联网上数据众多，为了能够筛选出我想要的内容，比如我们只想要漫画网站上面的图片而不想要底下的评论，我们还需要对获取的数据进行筛选，这该如何是好呢？<br>最简单粗暴的办法，我们可以使用Python正则表达式库re中的findall方法来匹配我们想要的内容<br>用法就是——re.findall(“style”,text)，其中style就是正则要匹配的内容，text就是所要匹配的数据，style中()内的内容就会被返回，这样我们能够简单地提取出我们想要的内容，比如图片url啊、小说标题和文本啊等等，但是由于网站的元素实在过多，我们可能会匹配到错误的内容，需要一种更高级智能的匹配手段！<br>parsel库向我们提供了三种匹配手段，re、xpath与css选择器，我这里就主要解释一下css选择器的使用<br>网页上的html元素都有着不同的css标签，可以通过css标签来选择出我们想要的元素。parsel提供了Selector(text)方法，实例使用css(css_selector).getall()的方法可以获取到所有匹配的元素内容，所以我们只需要知道这一系列元素所共同具有的css选择器就可以了。<br>同理，xpath也是html元素的属性，也可以由浏览器调试获得！我们不过多赘述（好吧其实是因为不会(*￣;(￣ *)）</p>
 <h2 id="批量爬取"><a href="#批量爬取" class="headerlink" title="批量爬取"></a>批量爬取</h2><p>刚刚我们只获取到一页内容的数据，如果我们想翻页，或者想去自动地爬另一个内容，怎么办呢？<br>批量爬取是一只爬虫必备的能力，做到批量爬取，其实就是获取下一个想爬的url在一个循环里来回爬就行啦，获取url成为了我们的首要目标<br>如何获取url呢？最简单粗暴的办法就是，观察网页变化的<br>如果下一页是一个超链接，那就简单了，获取到下一页的url即可<br>如果下一页是get请求，也没啥太大问题，使用get方法，模拟网页发出一个一模一样的请求就行，当然get请求也是包含在url里面的，我们也可以直接获取url<br>如果下一页是个AJAX请求（即动态地在同一个url下面显示不同内容），抱歉目前我还不太会（＞人＜；）<br>获取到下一页内容后，再把他们循环起来，重复上面的工作就行啦！我们的爬虫就可以运行起来啦!</p>
-<h2 id="实战：爬取某网站整部漫画"><a href="#实战：爬取某网站整部漫画" class="headerlink" title="实战：爬取某网站整部漫画"></a>实战：爬取某网站整部漫画</h2><p>话不多说，直接上代码<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/340887529.png" alt="2020-03-14 20-05-24 的屏幕截图.png"><br>你没有看错，只用了29行（这就或许是Python的魅力吧）<br>原理也很简单</p>
+<h2 id="实战：爬取某网站整部漫画"><a href="#实战：爬取某网站整部漫画" class="headerlink" title="实战：爬取某网站整部漫画"></a>实战：爬取某网站整部漫画</h2><p>话不多说，直接上代码<br><img src="/old_images/2020/03/340887529.png" alt="2020-03-14 20-05-24 的屏幕截图.png"><br>你没有看错，只用了29行（这就或许是Python的魅力吧）<br>原理也很简单</p>
 <ol>
 <li>查看是否存在文件夹image，没有则创建</li>
 <li>最外面的循环是章节循环，由于每一章网页url上面的数字是连起来的，简单的字符串拼接就可以遍历了</li>
@@ -163,7 +165,7 @@
 <li>再次get请求，使用css选择器获得符合要求的img的html元素（也就是漫画图片），再使用正则筛选出图片url（个人网站加个延时防止网站崩溃）</li>
 <li>最后按页数保存下来就大功告成啦！</li>
 </ol>
-<p><strong>最后运行的结果：</strong><br>（爬了租借女友的23到27话做个示范）<br><img src="http://www.starydy.xyz/usr/uploads/2020/03/999894680.png" alt="2020-03-14 20-17-10 的屏幕截图.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/03/3846485483.png" alt="2020-03-14 20-17-15 的屏幕截图.png"></p>
+<p><strong>最后运行的结果：</strong><br>（爬了租借女友的23到27话做个示范）<br><img src="/old_images/2020/03/999894680.png" alt="2020-03-14 20-17-10 的屏幕截图.png"><br><img src="/old_images/2020/03/3846485483.png" alt="2020-03-14 20-17-15 的屏幕截图.png"></p>
 <p><strong>爬虫真的是一种便捷获取网络数据的利器！<br>但白嫖可耻，也请大家不要学习盗版行为！<br>真的已经在哔哩哔哩漫画补过票了！(❤ ω ❤)</strong></p>
 
             </div>
@@ -255,7 +257,7 @@ Python requests库...`;
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -513,6 +515,25 @@ Python requests库...`;
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-05-08T23:01:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.847Z">
+<meta property="article:modified_time" content="2020-12-12T15:05:42.619Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -153,7 +155,7 @@
 <li>将一个初始点送入梯度下降算法（小球放在初始某个位置）</li>
 <li>使用差分代替微分，求出初始点位置函数的梯度（地面的梯度方向即为小球下降趋势的方向）</li>
 <li>使当前这个点向梯度<strong>反方向</strong>前进，速度为梯度大小，时间为步长τ，得到一个新的点（<strong>近似</strong>模拟小球下降的过程）</li>
-<li>将新得到的点作为起始点，重复执行此过程，直到梯度大小小于某个阈值δ，停止迭代，得到结果（小球稳定在地面的最低点处）<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/4174507093.gif" alt="v2-05bafbc0557270f96773e544b2ae683e_hd (1).gif"></li>
+<li>将新得到的点作为起始点，重复执行此过程，直到梯度大小小于某个阈值δ，停止迭代，得到结果（小球稳定在地面的最低点处）<br><img src="/old_images/2020/05/4174507093.gif" alt="v2-05bafbc0557270f96773e544b2ae683e_hd (1).gif"></li>
 </ol>
 <p>实际上这是一个很简单的算法，我们只需要规定步长τ与阈值δ就能求出函数的极值点<br>其中，步长τ越大，算法收敛的也就越快，但是在步长过大时可能出现在极值点附近震荡而无法进入阈值范围而陷入死循环；<br>而阈值δ越大，限制条件相当于越宽松，收敛也会更容易，但是精度相对变差，δ越小则反之。</p>
 <p>这个简单的算法也有着诸多限制条件：</p>
@@ -163,14 +165,14 @@
 <li>目标函数在一定范围内一定要连续</li>
 <li>没有全局性。可能会求得局部极小值，即最优化问题中的局部最优解</li>
 </ol>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/05/3433924516.png" alt="无标题.png"></p>
+<p><img src="/old_images/2020/05/3433924516.png" alt="无标题.png"></p>
 <h2 id="牛顿迭代法"><a href="#牛顿迭代法" class="headerlink" title="牛顿迭代法"></a>牛顿迭代法</h2><p>同梯度下降法一样得思路，牛顿迭代法是用来解决方程的解的问题的</p>
 <p>我们通过对f(x)的迭代，可以的出一元方程f(x) = 0的近似数值解，方法如下：</p>
 <ol>
 <li>同样，选取起始点</li>
 <li>求出起始点位置函数f(x)导数</li>
 <li>向着导数反方向移动该点，步长τ，得到新的点</li>
-<li>将新点当作初始点，迭代运算，直至新点处函数值小于阈值δ，得到方程近似解<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/557249455.jpg" alt="f703738da97739126a4f98f3ff198618367ae233.jpg"></li>
+<li>将新点当作初始点，迭代运算，直至新点处函数值小于阈值δ，得到方程近似解<br><img src="/old_images/2020/05/557249455.jpg" alt="f703738da97739126a4f98f3ff198618367ae233.jpg"></li>
 </ol>
 <p>可以看到梯度下降与牛顿迭代具有很强的相似性，二者的方法与性质也大体类似，本质上，二者都是通过对f(x)泰勒展开式进行近似（取一阶导数项），通过近似式进行迭代求解。这种迭代求数值解的思想值得我们借鉴与学习。</p>
 
@@ -262,7 +264,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -520,6 +522,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

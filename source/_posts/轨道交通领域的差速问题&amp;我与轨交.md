@@ -24,7 +24,7 @@ tags: []
 谢谢。
 
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/07/623017393.jpg
-  [2]: http://www.starydy.xyz/usr/uploads/2020/07/2822560807.jpg
-  [3]: http://www.starydy.xyz/usr/uploads/2020/07/1405371260.gif
-  [4]: http://www.starydy.xyz/usr/uploads/2020/07/3520035333.gif
+  [1]: /old_images/2020/07/623017393.jpg
+  [2]: /old_images/2020/07/2822560807.jpg
+  [3]: /old_images/2020/07/1405371260.gif
+  [4]: /old_images/2020/07/3520035333.gif

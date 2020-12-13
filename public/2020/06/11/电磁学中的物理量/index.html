@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-06-10T23:11:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:52.303Z">
+<meta property="article:modified_time" content="2020-12-12T15:02:27.030Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -149,8 +151,8 @@
                 <hr />
                 <p>感谢6系电机专业的<strong>刘逸舟</strong>同学用生动形象的例子为我讲解了电磁学的基础知识，没有他就没有这篇文章。</p>
 <p>电路中的物理量我们十分熟悉，在电阻上施加电压，就会形成电流。<br>但是对于磁场的各种物理量，能否用类似的“磁路”来进行描述呢？答案是肯定的！</p>
-<p>首先，电能来源于电场，是电子具有的电势能（这个电势能可能来自于化学能——电池，也可能源自于机械能——发电机……等等）进行的释放所产生的能量。那么磁场的能量来自于哪里？<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2730705132.jpg" alt="Snipaste_2020-06-11_19-05-22.jpg"><br>由安培环路定律，我们可以发现，电流是产生磁场的方法之一，我们把这个产生磁场的能力定义为磁动势F（永磁体当然也能够产生磁场，因此也具有磁动势），磁动势在磁路中的定位就如同电动势在电路中的定位，具有给予磁场应力的属性。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/3332546483.jpg" alt="Snipaste_2020-06-11_18-16-23.jpg"><br>其中I表示电流，N表示线圈匝数，它的单位是 安*匝。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/4143798911.jpg" alt="Snipaste_2020-06-11_18-26-45.jpg"><br>有了磁动势，磁场中就会产生出类似电路中电流的东西，这就是磁通Φ；同样能够描述的还有磁感应强度B，它表示单位面积的磁通，更能够描述磁场的散布情况，磁通的单位是韦伯Wb，磁感应强度的单位是特斯拉T。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/3579642186.jpg" alt="Snipaste_2020-06-11_18-27-07.jpg"><br>有了电压（磁动势）电流（磁通），磁路中电阻的概念就是磁阻，与电阻类似，可表示成：<br>其中L表示磁路长度，μ表示磁场的，S表示磁通流过的面积。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/275706257.jpg" alt="Snipaste_2020-06-11_18-39-42.jpg"><br>又由于介质的存在，实际磁<strong>场</strong>强度H与磁<strong>感应</strong>强度B相差一个系数μ（正是之前的μ），H=μB<br>这样一来，磁动势方程又可以写成：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/3831150800.jpg" alt="Snipaste_2020-06-11_18-41-34.jpg"></p>
-<p>磁路是怎样向外界回馈能量的呢？这就涉及到一个电机中经常说到的量了——反电动势<br>我们知道一根通有电流的导线在磁场中会产生力的作用，事实上大部分电机的工作原理就是这个简单的原理。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/1085139085.jpg" alt="Snipaste_2020-06-11_18-49-27.jpg"><br>但是如果这根导线仅拥有电流就能产生能量，那岂不是能量不守恒了？为了能让能量守恒，磁场会在移动中的导线（也就是常说的切割磁感线）两端加上一个反电动势，这样一来电流与电动势所产生的功率就是导线受力运动所消耗的功率。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/3795421197.jpg" alt="Snipaste_2020-06-11_18-50-15.jpg"><br>后来我们进一步拓展这个公式，就变成了人们熟知的反电势公式：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/1930281352.jpg" alt="Snipaste_2020-06-11_18-53-47.jpg"><br>（未归定方向，按一般规定的正方向的话确实应该加一个负号）<br>这个公式说明了反电动势取决于磁通变化率，N代表的仍是线圈匝数，在多匝线圈中，产生的电动势叠加起来，就会产生N倍的效果。<br>研究电机的人觉得这很麻烦，于是就把匝数与磁通合体，就有了我们常提到的磁链ψ。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/348952594.jpg" alt="Snipaste_2020-06-11_18-57-42.jpg"><br>于是反电势就与磁链变化率相等了。<br>磁链与电流成正比，这个比例关系就是我们熟知的电感。<br><img src="http://www.starydy.xyz/usr/uploads/2020/07/3570375741.jpg" alt="Snipaste_2020-07-15_11-24-28.jpg"></p>
+<p>首先，电能来源于电场，是电子具有的电势能（这个电势能可能来自于化学能——电池，也可能源自于机械能——发电机……等等）进行的释放所产生的能量。那么磁场的能量来自于哪里？<br><img src="/old_images/2020/06/2730705132.jpg" alt="Snipaste_2020-06-11_19-05-22.jpg"><br>由安培环路定律，我们可以发现，电流是产生磁场的方法之一，我们把这个产生磁场的能力定义为磁动势F（永磁体当然也能够产生磁场，因此也具有磁动势），磁动势在磁路中的定位就如同电动势在电路中的定位，具有给予磁场应力的属性。<br><img src="/old_images/2020/06/3332546483.jpg" alt="Snipaste_2020-06-11_18-16-23.jpg"><br>其中I表示电流，N表示线圈匝数，它的单位是 安*匝。<br><img src="/old_images/2020/06/4143798911.jpg" alt="Snipaste_2020-06-11_18-26-45.jpg"><br>有了磁动势，磁场中就会产生出类似电路中电流的东西，这就是磁通Φ；同样能够描述的还有磁感应强度B，它表示单位面积的磁通，更能够描述磁场的散布情况，磁通的单位是韦伯Wb，磁感应强度的单位是特斯拉T。<br><img src="/old_images/2020/06/3579642186.jpg" alt="Snipaste_2020-06-11_18-27-07.jpg"><br>有了电压（磁动势）电流（磁通），磁路中电阻的概念就是磁阻，与电阻类似，可表示成：<br>其中L表示磁路长度，μ表示磁场的，S表示磁通流过的面积。<br><img src="/old_images/2020/06/275706257.jpg" alt="Snipaste_2020-06-11_18-39-42.jpg"><br>又由于介质的存在，实际磁<strong>场</strong>强度H与磁<strong>感应</strong>强度B相差一个系数μ（正是之前的μ），H=μB<br>这样一来，磁动势方程又可以写成：<br><img src="/old_images/2020/06/3831150800.jpg" alt="Snipaste_2020-06-11_18-41-34.jpg"></p>
+<p>磁路是怎样向外界回馈能量的呢？这就涉及到一个电机中经常说到的量了——反电动势<br>我们知道一根通有电流的导线在磁场中会产生力的作用，事实上大部分电机的工作原理就是这个简单的原理。<br><img src="/old_images/2020/06/1085139085.jpg" alt="Snipaste_2020-06-11_18-49-27.jpg"><br>但是如果这根导线仅拥有电流就能产生能量，那岂不是能量不守恒了？为了能让能量守恒，磁场会在移动中的导线（也就是常说的切割磁感线）两端加上一个反电动势，这样一来电流与电动势所产生的功率就是导线受力运动所消耗的功率。<br><img src="/old_images/2020/06/3795421197.jpg" alt="Snipaste_2020-06-11_18-50-15.jpg"><br>后来我们进一步拓展这个公式，就变成了人们熟知的反电势公式：<br><img src="/old_images/2020/06/1930281352.jpg" alt="Snipaste_2020-06-11_18-53-47.jpg"><br>（未归定方向，按一般规定的正方向的话确实应该加一个负号）<br>这个公式说明了反电动势取决于磁通变化率，N代表的仍是线圈匝数，在多匝线圈中，产生的电动势叠加起来，就会产生N倍的效果。<br>研究电机的人觉得这很麻烦，于是就把匝数与磁通合体，就有了我们常提到的磁链ψ。<br><img src="/old_images/2020/06/348952594.jpg" alt="Snipaste_2020-06-11_18-57-42.jpg"><br>于是反电势就与磁链变化率相等了。<br>磁链与电流成正比，这个比例关系就是我们熟知的电感。<br><img src="/old_images/2020/07/3570375741.jpg" alt="Snipaste_2020-07-15_11-24-28.jpg"></p>
 <p>总结一下！<br>磁动势由电流而产生   ————   外界产生磁场的方法（安培环路定律）</p>
 <p>经过磁路中的磁阻生成了磁通  ————  磁场内部的磁芯特性</p>
 <p>磁场与导线相对运动  ————  外界感受磁场存在（法拉第电磁感应定律）</p>
@@ -245,7 +247,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -503,6 +505,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

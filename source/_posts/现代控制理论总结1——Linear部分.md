@@ -86,13 +86,13 @@ O = [C CA CA^2 …… CA^n]^T，需要满足O满秩（即Rank = n）
 
   [1]: https://space.bilibili.com/230105574?spm_id_from=333.788.b_765f7570696e666f.1
   [2]: https://www.bilibili.com/video/av15795540
-  [3]: http://www.starydy.xyz/usr/uploads/2020/03/9722286.png
-  [4]: http://www.starydy.xyz/usr/uploads/2020/03/1272507004.png
-  [5]: http://www.starydy.xyz/usr/uploads/2020/03/1837004197.png
-  [6]: http://www.starydy.xyz/usr/uploads/2020/03/1797764618.png
-  [7]: http://www.starydy.xyz/usr/uploads/2020/03/1201115831.png
-  [8]: http://www.starydy.xyz/usr/uploads/2020/03/691907800.png
-  [9]: http://www.starydy.xyz/usr/uploads/2020/03/2233313056.png
-  [10]: http://www.starydy.xyz/usr/uploads/2020/03/2313483864.png
-  [11]: http://www.starydy.xyz/usr/uploads/2020/03/3142260807.jpg
-  [12]: http://www.starydy.xyz/usr/uploads/2020/03/4226968886.png
+  [3]: /old_images/2020/03/9722286.png
+  [4]: /old_images/2020/03/1272507004.png
+  [5]: /old_images/2020/03/1837004197.png
+  [6]: /old_images/2020/03/1797764618.png
+  [7]: /old_images/2020/03/1201115831.png
+  [8]: /old_images/2020/03/691907800.png
+  [9]: /old_images/2020/03/2233313056.png
+  [10]: /old_images/2020/03/2313483864.png
+  [11]: /old_images/2020/03/3142260807.jpg
+  [12]: /old_images/2020/03/4226968886.png

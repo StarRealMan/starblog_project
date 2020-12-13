@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-04-14T20:10:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:50.907Z">
+<meta property="article:modified_time" content="2020-12-12T15:01:15.254Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -153,9 +155,9 @@
 <li>扩张状态观测器（ESO）</li>
 <li>非线性状态误差反馈控制率（NLSEF）</li>
 </ol>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/04/3257021255.jpg" alt="v2-ba80e3fe72af3e5b746f1919c596f827_r.jpg"><br>这三部分一起，构成了ADRC自抗扰控制理论，但是，这三部分不仅仅只能用在ADRC技术中，还可以单独提取出来，与其他控制理论相结合使用。例如跟踪微分器TD就可以用来产生平滑信号来跟踪输入，并且还可以计算该平滑信号的微分，扩张状态观测器ES还可用在观测系统除状态变量外的一些扰动上等等。由此可见，自抗扰控制不仅是一种控制方法，同时还为工程师们提供了解决工程问题的方法。<br>下面我们分别讨论ADRC这三个重要组成部分。</p>
-<h2 id="跟踪微分器TD"><a href="#跟踪微分器TD" class="headerlink" title="跟踪微分器TD"></a>跟踪微分器TD</h2><p>在讲跟踪微分器之前，想一想平常我们是怎样对数字信号作微分的？是不是用差分替代呢？<br>常用的几种方法：<br>z变换方法：<img src="http://www.starydy.xyz/usr/uploads/2020/04/2906032673.png" alt="Snipaste_2020-04-15_14-41-42.png"><br>后向差分法：<img src="http://www.starydy.xyz/usr/uploads/2020/04/1299645001.png" alt="Snipaste_2020-04-15_14-37-57.png"><br>前向差分法：<img src="http://www.starydy.xyz/usr/uploads/2020/04/2554124242.png" alt="Snipaste_2020-04-15_14-39-22.png"><br>双线性法：<img src="http://www.starydy.xyz/usr/uploads/2020/04/3960144680.png" alt="Snipaste_2020-04-15_14-39-59.png"><br>使用这些方法可以将连续系统传函（s域）转化为离散系统传函（z域），这样即可离散地描述微分，但是往往这样面临着局限性，通常由于传感器测量噪声导致微分噪声明显。</p>
-<p><strong>再让我们来看一下TD是什么样子的，</strong><br><img src="http://www.starydy.xyz/usr/uploads/2020/04/1901336664.png" alt="Snipaste_2020-04-15_14-56-05.png"><br>其中：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/2682758795.png" alt="Snipaste_2020-04-15_15-06-21.png"><br><strong>代码实现：</strong></p>
+<p><img src="/old_images/2020/04/3257021255.jpg" alt="v2-ba80e3fe72af3e5b746f1919c596f827_r.jpg"><br>这三部分一起，构成了ADRC自抗扰控制理论，但是，这三部分不仅仅只能用在ADRC技术中，还可以单独提取出来，与其他控制理论相结合使用。例如跟踪微分器TD就可以用来产生平滑信号来跟踪输入，并且还可以计算该平滑信号的微分，扩张状态观测器ES还可用在观测系统除状态变量外的一些扰动上等等。由此可见，自抗扰控制不仅是一种控制方法，同时还为工程师们提供了解决工程问题的方法。<br>下面我们分别讨论ADRC这三个重要组成部分。</p>
+<h2 id="跟踪微分器TD"><a href="#跟踪微分器TD" class="headerlink" title="跟踪微分器TD"></a>跟踪微分器TD</h2><p>在讲跟踪微分器之前，想一想平常我们是怎样对数字信号作微分的？是不是用差分替代呢？<br>常用的几种方法：<br>z变换方法：<img src="/old_images/2020/04/2906032673.png" alt="Snipaste_2020-04-15_14-41-42.png"><br>后向差分法：<img src="/old_images/2020/04/1299645001.png" alt="Snipaste_2020-04-15_14-37-57.png"><br>前向差分法：<img src="/old_images/2020/04/2554124242.png" alt="Snipaste_2020-04-15_14-39-22.png"><br>双线性法：<img src="/old_images/2020/04/3960144680.png" alt="Snipaste_2020-04-15_14-39-59.png"><br>使用这些方法可以将连续系统传函（s域）转化为离散系统传函（z域），这样即可离散地描述微分，但是往往这样面临着局限性，通常由于传感器测量噪声导致微分噪声明显。</p>
+<p><strong>再让我们来看一下TD是什么样子的，</strong><br><img src="/old_images/2020/04/1901336664.png" alt="Snipaste_2020-04-15_14-56-05.png"><br>其中：<br><img src="/old_images/2020/04/2682758795.png" alt="Snipaste_2020-04-15_15-06-21.png"><br><strong>代码实现：</strong></p>
 <pre><code>void TD_Function(TD *tdtd)
 &#123;
 float d,d0,y,a0,a=0;
@@ -183,8 +185,8 @@ tdtd-&gt;x1 +=  0.001f*tdtd-&gt;x2;
 tdtd-&gt;x2 +=  0.001f*y; 
 &#125;</code></pre>
 <p>跟踪微分器的参数主要有两个：快速因子r和滤波因子h。其中，r与跟踪速度呈正相关，然而，随之带来的是噪声放大的副作用； h与滤波效果呈正相关，但当h增大时，跟踪信号的相位损失也会随之增加。<br>简单来讲，可以将TD理解为一个低通滤波器，输出的x1就是滤波后的结果，它是跟踪输入信号的。输出的x2则代表对x1的微分，这样降低了输入信号噪声对微分效果的影响。<br>在自抗扰控制中，使用跟踪微分器获得状态变量的微分，是用来在系统动态跟踪目标时，前馈掉系统输出中关于x的微分项的。比如在电机伺服控制中，可以通过跟踪微分器跟踪x_des的微分，在速度目标中加以补偿，以达到更好的动态效果，这样的方法常称为速度前馈。</p>
-<h2 id="扩张状态观测器ESO"><a href="#扩张状态观测器ESO" class="headerlink" title="扩张状态观测器ESO"></a>扩张状态观测器ESO</h2><p>为了进一步地消除扰动对系统的影响，我们通过扩张状态观测器对扰动进行观测，通过前馈补偿到系统模型中，这样的方法就叫做扩张状态观测器ESO。在系统微分方程中加入扰动项，并且将扰动视作状态变量（通常视扰动的导数为0），这样构造的新的状态方程就叫做扩张（Extend）的状态方程。使用这个状态方程构建观测器，通过测量量来观测状态量，就能得到扰动。这就是扩张状态观测器ESO的中心思想。<br>当然，与此同时，此观测器还可得到其他状态变量的观测值。<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/604554278.png" alt="20190318105009907.png"></p>
-<h2 id="非线性状态误差反馈控制率NLSEF"><a href="#非线性状态误差反馈控制率NLSEF" class="headerlink" title="非线性状态误差反馈控制率NLSEF"></a>非线性状态误差反馈控制率NLSEF</h2><p>非线性状态误差反馈控制器结构如下：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/3271978332.png" alt="Snipaste_2020-04-15_15-46-46.png"><br>韩老论文中这样描述这个状态变量非线性组合：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/2295689788.png" alt="Snipaste_2020-04-15_15-56-11.png"><br>简单理解的话，NLSEF可以看作是一个非线性PID控制器。</p>
+<h2 id="扩张状态观测器ESO"><a href="#扩张状态观测器ESO" class="headerlink" title="扩张状态观测器ESO"></a>扩张状态观测器ESO</h2><p>为了进一步地消除扰动对系统的影响，我们通过扩张状态观测器对扰动进行观测，通过前馈补偿到系统模型中，这样的方法就叫做扩张状态观测器ESO。在系统微分方程中加入扰动项，并且将扰动视作状态变量（通常视扰动的导数为0），这样构造的新的状态方程就叫做扩张（Extend）的状态方程。使用这个状态方程构建观测器，通过测量量来观测状态量，就能得到扰动。这就是扩张状态观测器ESO的中心思想。<br>当然，与此同时，此观测器还可得到其他状态变量的观测值。<br><img src="/old_images/2020/04/604554278.png" alt="20190318105009907.png"></p>
+<h2 id="非线性状态误差反馈控制率NLSEF"><a href="#非线性状态误差反馈控制率NLSEF" class="headerlink" title="非线性状态误差反馈控制率NLSEF"></a>非线性状态误差反馈控制率NLSEF</h2><p>非线性状态误差反馈控制器结构如下：<br><img src="/old_images/2020/04/3271978332.png" alt="Snipaste_2020-04-15_15-46-46.png"><br>韩老论文中这样描述这个状态变量非线性组合：<br><img src="/old_images/2020/04/2295689788.png" alt="Snipaste_2020-04-15_15-56-11.png"><br>简单理解的话，NLSEF可以看作是一个非线性PID控制器。</p>
 
             </div>
             
@@ -274,7 +276,7 @@ tdtd-&gt;x2 +=  0.001f*y;
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -532,6 +534,25 @@ tdtd-&gt;x2 +=  0.001f*y;
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

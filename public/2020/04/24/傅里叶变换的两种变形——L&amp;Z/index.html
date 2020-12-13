@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-04-23T22:11:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.895Z">
+<meta property="article:modified_time" content="2020-12-12T15:02:44.906Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -147,8 +149,8 @@
             <div class="kratos-post-content">
                 
                 <hr />
-                <h2 id="拉普拉斯变换"><a href="#拉普拉斯变换" class="headerlink" title="拉普拉斯变换"></a>拉普拉斯变换</h2><p>函数能够进行傅里叶变换的条件是绝对可积，但是许多信号都不满足这个条件，为了能对更多信号进行频域分析，引入一个收敛因子σ，这个函数就变成了绝对可积的了：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/2618287092.png" alt="Snipaste_2020-04-24_14-15-26.png"><br>这样对这个新函数的傅里叶变换就成了：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/880508434.png" alt="Snipaste_2020-04-24_14-18-27.png"><br>其中：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/3285543330.png" alt="Snipaste_2020-04-24_14-15-04.png"><br>这个算子e^-st是这样螺旋收敛的：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/3074183323.jpg" alt="v2-43d198199e03853a065ed3e424a761c4_720w.jpg"><br>拉氏变换将微积分运算变为代数运算，可以很方便地用来解微分方程。</p>
-<h2 id="Z变换"><a href="#Z变换" class="headerlink" title="Z变换"></a>Z变换</h2><p>离散时间傅里叶变换DTFT需要序列满足绝对可和的条件，同样的道理，也让它加上一个收敛因子σ：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/2449902183.png" alt="Snipaste_2020-04-24_15-46-10.png"><br>其中：<br><img src="http://www.starydy.xyz/usr/uploads/2020/04/1621410449.png" alt="Snipaste_2020-04-24_15-46-05.png"><br>也可认为z变换就是对离散信号的拉普拉斯变换。<br>z变换将序列的差分求和运算变换为代数运算，可以很方便地用来解差分方程。</p>
+                <h2 id="拉普拉斯变换"><a href="#拉普拉斯变换" class="headerlink" title="拉普拉斯变换"></a>拉普拉斯变换</h2><p>函数能够进行傅里叶变换的条件是绝对可积，但是许多信号都不满足这个条件，为了能对更多信号进行频域分析，引入一个收敛因子σ，这个函数就变成了绝对可积的了：<br><img src="/old_images/2020/04/2618287092.png" alt="Snipaste_2020-04-24_14-15-26.png"><br>这样对这个新函数的傅里叶变换就成了：<br><img src="/old_images/2020/04/880508434.png" alt="Snipaste_2020-04-24_14-18-27.png"><br>其中：<br><img src="/old_images/2020/04/3285543330.png" alt="Snipaste_2020-04-24_14-15-04.png"><br>这个算子e^-st是这样螺旋收敛的：<br><img src="/old_images/2020/04/3074183323.jpg" alt="v2-43d198199e03853a065ed3e424a761c4_720w.jpg"><br>拉氏变换将微积分运算变为代数运算，可以很方便地用来解微分方程。</p>
+<h2 id="Z变换"><a href="#Z变换" class="headerlink" title="Z变换"></a>Z变换</h2><p>离散时间傅里叶变换DTFT需要序列满足绝对可和的条件，同样的道理，也让它加上一个收敛因子σ：<br><img src="/old_images/2020/04/2449902183.png" alt="Snipaste_2020-04-24_15-46-10.png"><br>其中：<br><img src="/old_images/2020/04/1621410449.png" alt="Snipaste_2020-04-24_15-46-05.png"><br>也可认为z变换就是对离散信号的拉普拉斯变换。<br>z变换将序列的差分求和运算变换为代数运算，可以很方便地用来解差分方程。</p>
 <p>以上这二者由于收敛因子的引入，需要注意收敛域的明确。</p>
 <h2 id="离散系统设计"><a href="#离散系统设计" class="headerlink" title="离散系统设计"></a>离散系统设计</h2><p>对于一个连续系统，可以通过系统s域传递函数的零极点判断系统性质；<br>而对于一个离散系统，可以通过系统z域传递函数的零极点判断系统性质；<br>由s到z是一个复平面上一一对应的映射关系，s平面上稳定性分割线Re=0在z平面就变成了|z|=1，称为判断离散系统稳定性的基本判据；</p>
 <p>我们很难实现通过微分方程来更新系统（模拟电路），但很容易实现差分方程更新系统（数字处理器）！<br>对于一个离散控制系统，我们可以先在连续状态下设计控制器（使用微分方程），再离散化（转化为程序能实现的差分方程）：<br>用系统s域传函离散化为系统的z域传函（利用泰勒展开近似为z的多项式形式），再来求出系统的差分方程，即可应用在数字控制器中，这是系统离散化的一种常用的手段。<br>利用z变换的性质，有很重要的方法来求差分方程：<br>x[k]   &lt;-&gt;   X(z)<br>x[k+1] &lt;-&gt; z*X(z)</p>
@@ -242,7 +244,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -500,6 +502,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

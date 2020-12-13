@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-05-06T04:49:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:50.703Z">
+<meta property="article:modified_time" content="2020-12-12T15:05:49.238Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -148,14 +150,14 @@
                 
                 <hr />
                 <p>学习复变函数时，我们一定曾被它折磨得死去活来，但是在实际应用中，这个家伙还算有点用处，今天就来介绍一下这个令人又爱又恨的家伙——留数。主要搬运一下华中科技大学复变函数MOOC的内容。</p>
-<p>首先我们要了解复变函数的一个重要概念——孤立奇点：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/3062393400.jpg" alt="Snipaste_2020-05-06_21-00-24.jpg"><br>我们最常见的孤立奇点当属极点了，极点在判别系统稳定，系统微分方程以及差分方程的求解都有重要的作用，所以研究这些特殊的孤立奇点也很有必要。</p>
-<p>首先我们需要知道一个复变函数积分的重要性质：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/3326287196.jpg" alt="Snipaste_2020-05-06_21-31-56.jpg"></p>
-<p>留数是对复变函数f(z)洛朗级数展开后闭路积分唯一剩余的洛朗系数，它的定义如下：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/3310307667.jpg" alt="Snipaste_2020-05-06_21-29-51.jpg"></p>
-<p>根据那个闭路积分，引出留数定理：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/1571959298.jpg" alt="Snipaste_2020-05-06_21-32-47.jpg"></p>
-<p>对于极点这一类型的孤立奇点，留数有如下的计算法则：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/4002000137.jpg" alt="Snipaste_2020-05-06_21-35-43.jpg"><br>对于一阶极点，有如下法则求取留数：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/1353804718.jpg" alt="Snipaste_2020-05-06_21-37-42.jpg"></p>
+<p>首先我们要了解复变函数的一个重要概念——孤立奇点：<br><img src="/old_images/2020/05/3062393400.jpg" alt="Snipaste_2020-05-06_21-00-24.jpg"><br>我们最常见的孤立奇点当属极点了，极点在判别系统稳定，系统微分方程以及差分方程的求解都有重要的作用，所以研究这些特殊的孤立奇点也很有必要。</p>
+<p>首先我们需要知道一个复变函数积分的重要性质：<br><img src="/old_images/2020/05/3326287196.jpg" alt="Snipaste_2020-05-06_21-31-56.jpg"></p>
+<p>留数是对复变函数f(z)洛朗级数展开后闭路积分唯一剩余的洛朗系数，它的定义如下：<br><img src="/old_images/2020/05/3310307667.jpg" alt="Snipaste_2020-05-06_21-29-51.jpg"></p>
+<p>根据那个闭路积分，引出留数定理：<br><img src="/old_images/2020/05/1571959298.jpg" alt="Snipaste_2020-05-06_21-32-47.jpg"></p>
+<p>对于极点这一类型的孤立奇点，留数有如下的计算法则：<br><img src="/old_images/2020/05/4002000137.jpg" alt="Snipaste_2020-05-06_21-35-43.jpg"><br>对于一阶极点，有如下法则求取留数：<br><img src="/old_images/2020/05/1353804718.jpg" alt="Snipaste_2020-05-06_21-37-42.jpg"></p>
 <p>说了这么多关于留数的性质，留数以及留数定理有什么用呢？</p>
-<p>留数定理的应用：<br>在求取z逆变换时，就可以使用留数法：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/133193778.jpg" alt="Snipaste_2020-05-06_21-59-25.jpg"><br><img src="http://www.starydy.xyz/usr/uploads/2020/05/999634898.jpg" alt="Snipaste_2020-05-06_21-59-37.jpg"></p>
-<p>其实，留数定理化简了闭路积分的运算，我们如果能将实函数的定积分表示成闭路积分，那么就可以利用留数简化定积分的运算。<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/2541652972.jpg" alt="Snipaste_2020-05-06_21-42-59.jpg"></p>
+<p>留数定理的应用：<br>在求取z逆变换时，就可以使用留数法：<br><img src="/old_images/2020/05/133193778.jpg" alt="Snipaste_2020-05-06_21-59-25.jpg"><br><img src="/old_images/2020/05/999634898.jpg" alt="Snipaste_2020-05-06_21-59-37.jpg"></p>
+<p>其实，留数定理化简了闭路积分的运算，我们如果能将实函数的定积分表示成闭路积分，那么就可以利用留数简化定积分的运算。<br><img src="/old_images/2020/05/2541652972.jpg" alt="Snipaste_2020-05-06_21-42-59.jpg"></p>
 
             </div>
             
@@ -246,7 +248,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -504,6 +506,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

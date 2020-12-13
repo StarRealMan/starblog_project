@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-02-19T00:33:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:52.399Z">
+<meta property="article:modified_time" content="2020-12-12T15:05:46.979Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -148,7 +150,7 @@
                 
                 <hr />
                 <p>欢迎新用户加入Star Blog！<br>这里有注册地址–&gt;<a target="_blank" rel="noopener" href="http://www.starydy.xyz/admin/">在这里注册登录哦！</a><br>这里有注册地址–&gt;<a target="_blank" rel="noopener" href="http://www.starydy.xyz/admin/">在这里注册登录哦！</a><br>这里有注册地址–&gt;<a target="_blank" rel="noopener" href="http://www.starydy.xyz/admin/">在这里注册登录哦！</a><br>这里有注册地址–&gt;<a target="_blank" rel="noopener" href="http://www.starydy.xyz/admin/">在这里注册登录哦！</a></p>
-<p>入坑Blog两周之后，我学了CSS，HTML，JS，PHP，但是都只学了个皮毛，<br>为了能快速把Blog搭起来，我放弃了！<br>因为这个开源博客框架真是太好用了！<br>在这里强烈吹一波Typecho，可以说是能和WordPress比肩的开源网站框架<br>也感谢这个Typecho主题Cuckoo的作者Bhao，向大佬学习！<br>中国创造，轻量化，社区建设的也很好，源码开放供大家学习，简直良心！<br>分享我的日常：<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/651860426.jpg" alt="IMG_20190914_165923.jpg"><br>雪中哈工大<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/2294227069.jpg" alt="IMG_20191118_002207.jpg"><br>RoboMaster实况<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/3913045297.jpg" alt="IMG_20190811_140538.jpg"><br>大家要是还想看我自制的旧的，丑的不要命的网站，欢迎访问 <a target="_blank" rel="noopener" href="http://myblog.starydy.xyz/">http://myblog.starydy.xyz</a> </p>
+<p>入坑Blog两周之后，我学了CSS，HTML，JS，PHP，但是都只学了个皮毛，<br>为了能快速把Blog搭起来，我放弃了！<br>因为这个开源博客框架真是太好用了！<br>在这里强烈吹一波Typecho，可以说是能和WordPress比肩的开源网站框架<br>也感谢这个Typecho主题Cuckoo的作者Bhao，向大佬学习！<br>中国创造，轻量化，社区建设的也很好，源码开放供大家学习，简直良心！<br>分享我的日常：<br><img src="/old_images/2020/05/651860426.jpg" alt="IMG_20190914_165923.jpg"><br>雪中哈工大<br><img src="/old_images/2020/05/2294227069.jpg" alt="IMG_20191118_002207.jpg"><br>RoboMaster实况<br><img src="/old_images/2020/05/3913045297.jpg" alt="IMG_20190811_140538.jpg"><br>大家要是还想看我自制的旧的，丑的不要命的网站，欢迎访问 <a target="_blank" rel="noopener" href="http://myblog.starydy.xyz/">http://myblog.starydy.xyz</a> </p>
 
             </div>
             
@@ -239,7 +241,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -493,6 +495,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

@@ -34,6 +34,6 @@ tags: []
 
 本质上讲，锁相环相当于一个低通滤波器！
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/04/2133134256.jpg
-  [2]: http://www.starydy.xyz/usr/uploads/2020/04/691379040.png
-  [3]: http://www.starydy.xyz/usr/uploads/2020/04/4102771430.png
+  [1]: /old_images/2020/04/2133134256.jpg
+  [2]: /old_images/2020/04/691379040.png
+  [3]: /old_images/2020/04/4102771430.png

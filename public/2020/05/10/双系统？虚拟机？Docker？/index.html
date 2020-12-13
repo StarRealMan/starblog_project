@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-05-10T00:20:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:52.091Z">
+<meta property="article:modified_time" content="2020-12-12T15:05:35.912Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -151,15 +153,15 @@
 <p>今天我们来讨论一下在一台机器上运行Windows环境与Linux环境的方法。</p>
 <h2 id="为什么程序对操作系统环境有要求"><a href="#为什么程序对操作系统环境有要求" class="headerlink" title="为什么程序对操作系统环境有要求"></a>为什么程序对操作系统环境有要求</h2><p>首先，我们抛出一个问题，是不是所有程序运行都需要操作系统的支持？<br>紧接着，又有几个问题，为什么Linux下编译的程序不能再Windows环境下运行，反之也不行呢？</p>
 <p>对于第一个问题，不是所有程序都需要操作系统才能够运行，最常见的，<strong>单片机</strong>里跑的程序，<strong>U-Boot</strong>、<strong>grub</strong>这样的引导操作系统程序，还有<strong>操作系统本身</strong>，这些都是不需要运行在操作系统环境下运行的，我们称之为裸机程序。<br>逻辑程序唯一要求的，就是芯片的架构。ARM、x86、RISC-V架构的芯片跑的一定不是相同的程序。这也就是操作系统需要对不同架构芯片做版本移植的原因。</p>
-<p>第一点就是编译器的问题。不同的操作系统，有不同的内核提供的系统调用，这就对应着不同的编译器，才能编译不同操作系统下的程序。默认的编译器总是编译自己操作系统的代码，如果想编译运行在其他操作系统的代码，就需要交叉编译工具链（编译器、链接器……）<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/3174243626.jpg" alt="Snipaste_2020-05-10_16-59-38.jpg"><br>平时一点就ok的按钮，其实就使用了交叉编译工具链，这就是IDE的力量(。・∀・)ノ</p>
+<p>第一点就是编译器的问题。不同的操作系统，有不同的内核提供的系统调用，这就对应着不同的编译器，才能编译不同操作系统下的程序。默认的编译器总是编译自己操作系统的代码，如果想编译运行在其他操作系统的代码，就需要交叉编译工具链（编译器、链接器……）<br><img src="/old_images/2020/05/3174243626.jpg" alt="Snipaste_2020-05-10_16-59-38.jpg"><br>平时一点就ok的按钮，其实就使用了交叉编译工具链，这就是IDE的力量(。・∀・)ノ</p>
 <p>还有就是库的问题。Win下动态链接库是.dll文件，静态链接库则是.lib文件，目标文件是.obj，而在Linux下，对应的分别是.so，.a，.o文件。<br>最终一点，可执行文件格式也不同，Win是大家耳熟能详的.exe文件，而Linux没有特定的后缀名。<br>最后两点本质上也是由于编译器、链接器不同导致生成的文件格式也不同。</p>
 <h2 id="双系统"><a href="#双系统" class="headerlink" title="双系统"></a>双系统</h2><p>解决方案一：双系统，最简单粗暴的方法，在一台电脑中安装两个操作系统。方便的是拥有完整的环境，操作系统可享用完整的计算机资源，缺点则是切换麻烦，文件传输麻烦，多个操作系统不能同时工作。<br>这里还要注意的是，操作系统的引导是由引导程序来进行的。BIOS会<strong>按顺序</strong>对每个硬盘分区最前面的区域进行查找，如果找到了引导程序，就执行它。如果不想启动先被找到的操作系统，则由引导程序将启动权交给下个分区内的引导程序。不过，由于Windows自带的引导程序无法启动Linux，但是grub却可以启动Windows，所以需要先安装Windows再安装Linux，否则Linux的引导会被覆盖。</p>
-<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><img src="http://www.starydy.xyz/usr/uploads/2020/05/3462557488.png" alt="vm-logo.png"><br>解决方案二：虚拟机（VMWare）。虚拟机的具体实现需要OS的知识才能够理解，本菜鸡就不做过多解释了，总之可以理解为这是一个应用程序，在应用程序内又跑着一个操作系统。<br>虚拟机的优势就在于两个操作系统可以同时运行，交互良好（可以互相传文件），缺点就是两个操作系统共同占有一块计算机资源，性能下降，并且还有虚拟机对显卡支持不好的缺点。<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/904172395.jpg" alt="v2-ee27d299f5e38ed460218ac087518bba_720w.jpg"></p>
-<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p><img src="http://www.starydy.xyz/usr/uploads/2020/05/1820938573.jpg" alt="u=3999212251,2537480795&amp;fm=74&amp;app=80&amp;f=JPEG&amp;size=f121,90.jpg"><br>与虚拟机类似，Docker也是跑在宿主OS中的程序（更准确是<strong>容器</strong>）<br>这个<strong>容器</strong>能够隔离内部程序与操作系统，且内部不需要安装操作系统，就能跨平台运行程序，上手容易，轻量化，很好用！<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/3518464858.jpg" alt="v2-0d67e01d75d19e227fb44104eca28f43_720w.jpg"></p>
-<p>对比Docker与虚拟机<br><img src="http://www.starydy.xyz/usr/uploads/2020/05/1170183205.png" alt="20180711090727241.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/05/664969895.png" alt="20180711094611205.png"></p>
+<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><img src="/old_images/2020/05/3462557488.png" alt="vm-logo.png"><br>解决方案二：虚拟机（VMWare）。虚拟机的具体实现需要OS的知识才能够理解，本菜鸡就不做过多解释了，总之可以理解为这是一个应用程序，在应用程序内又跑着一个操作系统。<br>虚拟机的优势就在于两个操作系统可以同时运行，交互良好（可以互相传文件），缺点就是两个操作系统共同占有一块计算机资源，性能下降，并且还有虚拟机对显卡支持不好的缺点。<br><img src="/old_images/2020/05/904172395.jpg" alt="v2-ee27d299f5e38ed460218ac087518bba_720w.jpg"></p>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p><img src="/old_images/2020/05/1820938573.jpg" alt="u=3999212251,2537480795&amp;fm=74&amp;app=80&amp;f=JPEG&amp;size=f121,90.jpg"><br>与虚拟机类似，Docker也是跑在宿主OS中的程序（更准确是<strong>容器</strong>）<br>这个<strong>容器</strong>能够隔离内部程序与操作系统，且内部不需要安装操作系统，就能跨平台运行程序，上手容易，轻量化，很好用！<br><img src="/old_images/2020/05/3518464858.jpg" alt="v2-0d67e01d75d19e227fb44104eca28f43_720w.jpg"></p>
+<p>对比Docker与虚拟机<br><img src="/old_images/2020/05/1170183205.png" alt="20180711090727241.png"><br><img src="/old_images/2020/05/664969895.png" alt="20180711094611205.png"></p>
 <h2 id="基于Docker的人工智能小助手艾拉"><a href="#基于Docker的人工智能小助手艾拉" class="headerlink" title="基于Docker的人工智能小助手艾拉"></a>基于Docker的人工智能小助手艾拉</h2><p>前几天突然心血来潮，拿图灵机器人+酷Q做了一个简单的人工智障小助手，结果发现酷Q只能在Win下运行，想尽一切办法最终发现酷Q有一个on docker版本，赶紧拿来使用。几行命令，这个人工智障就已经跑在我的Linux服务器下了。这个Docker使用VNC远程桌面作为图形界面交互，我把它放在了我服务器的7070端口，进入VNC界面，你就会发现里面是一个实打实的Windows环境。</p>
 <p>具体命令见这篇：<a target="_blank" rel="noopener" href="https://www.vpsjxw.com/vps_use/kuq_docker/">酷Q on docker 安装部署、使用及二次开发教程</a></p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/05/2761601438.jpg" alt="Snipaste_2020-05-10_17-35-21.jpg"><br><img src="http://www.starydy.xyz/usr/uploads/2020/05/1424232658.jpg" alt="Snipaste_2020-05-10_17-34-58.jpg"></p>
+<p><img src="/old_images/2020/05/2761601438.jpg" alt="Snipaste_2020-05-10_17-35-21.jpg"><br><img src="/old_images/2020/05/1424232658.jpg" alt="Snipaste_2020-05-10_17-34-58.jpg"></p>
 <p>顺便吐槽一下，现在的腾讯对QQ的外部接口是越来越不上心了，果然微信才是主流嘛……</p>
 
             </div>
@@ -250,7 +252,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -508,6 +510,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

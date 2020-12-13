@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-02-28T20:06:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:50.443Z">
+<meta property="article:modified_time" content="2020-12-12T14:58:25.049Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -148,8 +150,8 @@
                 
                 <hr />
                 <p>在上一篇文章中我们已经知道了如何表示旋转，但是现实世界中直接得到四元数或欧拉角的方法少之又少，那么新的问题就是如何通过角速度、加速度甚至地磁计这些我们能够容易测量的量得到旋转呢？<br>本期我们来讨论通过姿态解算的问题！</p>
-<h2 id="旋转的微分"><a href="#旋转的微分" class="headerlink" title="旋转的微分"></a>旋转的微分</h2><p>我们都知道，使用陀螺仪，可以很轻松地得到物体的角速度，而角速度又是角度的微分，通过角速度我们计算出“旋转的微分”，再解这个微分方程，不就可以得到角度了吗！但是说的轻巧做起来难，到底该使用哪种角度（旋转）表示法才能够计算简便并且容易理解呢？欧拉角在微分时会出现万向节死锁的现象，如图：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/4039222537.png" alt="eularerr.PNG"><br>此时分母上产生了0，在计算时就会出问题，因此我们不能采用这种方法。<br>而轴角法没有办法表示旋转的叠加，就不能进行积分，因此也不可取。<br>最终答案就是四元数！我们能够很方便的通过角速度计算出四元数的微分方程（具体推导省略），就像下面这样:<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/1475506760.png" alt="4diff.PNG"><br>（四元数乘法，转换为矩阵乘法可表示为下式）<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/3523885477.png" alt="4diff2.PNG"><br>其中wb代表机体坐标系下的角速度向量，也就是直接从陀螺仪读取的值！<br>接下来初始化一个q（根据需求），然后解微分方程，就能够随时得到世界-&gt;机体的四元数啦！<br>（注：得到的四元数表示的是坐标系的旋转，即从世界坐标系到机体坐标系的旋转，即第一种理解）</p>
-<h2 id="四元数、旋转矩阵、欧拉角的互相转换"><a href="#四元数、旋转矩阵、欧拉角的互相转换" class="headerlink" title="四元数、旋转矩阵、欧拉角的互相转换"></a>四元数、旋转矩阵、欧拉角的互相转换</h2><p>四元数与旋转矩阵的转换很容易完成：<br><img src="http://www.starydy.xyz/usr/uploads/2020/02/1605118435.jpg" alt="rocol24.jpg"><br><img src="http://www.starydy.xyz/usr/uploads/2020/02/2575250596.png" alt="42rocol.PNG"><br>突破q0后再依照关系一一突破即可</p>
+<h2 id="旋转的微分"><a href="#旋转的微分" class="headerlink" title="旋转的微分"></a>旋转的微分</h2><p>我们都知道，使用陀螺仪，可以很轻松地得到物体的角速度，而角速度又是角度的微分，通过角速度我们计算出“旋转的微分”，再解这个微分方程，不就可以得到角度了吗！但是说的轻巧做起来难，到底该使用哪种角度（旋转）表示法才能够计算简便并且容易理解呢？欧拉角在微分时会出现万向节死锁的现象，如图：<br><img src="/old_images/2020/02/4039222537.png" alt="eularerr.PNG"><br>此时分母上产生了0，在计算时就会出问题，因此我们不能采用这种方法。<br>而轴角法没有办法表示旋转的叠加，就不能进行积分，因此也不可取。<br>最终答案就是四元数！我们能够很方便的通过角速度计算出四元数的微分方程（具体推导省略），就像下面这样:<br><img src="/old_images/2020/02/1475506760.png" alt="4diff.PNG"><br>（四元数乘法，转换为矩阵乘法可表示为下式）<br><img src="/old_images/2020/02/3523885477.png" alt="4diff2.PNG"><br>其中wb代表机体坐标系下的角速度向量，也就是直接从陀螺仪读取的值！<br>接下来初始化一个q（根据需求），然后解微分方程，就能够随时得到世界-&gt;机体的四元数啦！<br>（注：得到的四元数表示的是坐标系的旋转，即从世界坐标系到机体坐标系的旋转，即第一种理解）</p>
+<h2 id="四元数、旋转矩阵、欧拉角的互相转换"><a href="#四元数、旋转矩阵、欧拉角的互相转换" class="headerlink" title="四元数、旋转矩阵、欧拉角的互相转换"></a>四元数、旋转矩阵、欧拉角的互相转换</h2><p>四元数与旋转矩阵的转换很容易完成：<br><img src="/old_images/2020/02/1605118435.jpg" alt="rocol24.jpg"><br><img src="/old_images/2020/02/2575250596.png" alt="42rocol.PNG"><br>突破q0后再依照关系一一突破即可</p>
 <p>而旋转矩阵化为欧拉角则比较麻烦，需要先约定好欧拉角的种类（24种之一）<br>详情就不贴了，论坛上一抓一大把的（＞人＜；）</p>
 <p><strong>至此，我们已经通过角速度计算出欧拉角！</strong></p>
 <p>但是我们解微分方程的方法是积分，由于传感器零偏，积分就难免会产生漂移，我们需要纠正这个偏移，就需要这种积分传感器以外的绝对传感器，就像SLAM中的里程计+激光雷达的组合一样，我们也常用陀螺仪与加速度计、地磁计的组合进行角度测量！<br>下面介绍一种较为简便的AHRS（航姿参考系）算法，MahonyAHRS<br>Mahony的中心思想是陀螺仪更新角度，加速度计与地磁计以较缓慢的方式纠正更新的角度。<br>就拿加速度计来说，静止状态下，加速度计测量为g，方向指向世界坐标z轴负方向，利用上一次计算得到的四元数，我们把世界坐标系中z轴负方向在机体坐标系下的坐标解出来，再将其与加速度计做叉乘来计算误差（产生误差正是由于你从世界转换到机体的这个旋转是不准的），这时我们得到了一个误差向量，要注意它在机体坐标系下的方向可能是任意的，但在世界坐标系下一定是在xOy平面上的（这时由于先叉乘再旋转与先旋转再叉乘得到的结果是一样的），这也是加速度计仅能矫正pitch与roll轴漂移而不能矫正yaw轴的原因，误差向量在世界坐标系下根本没有z轴的分量啊！！<br>误差向量经过PI控制器后可以得到一个矫正向量，这个向量是一个角速度量，把它和陀螺仪所测得的角速度相加，即可得到最终的角速度，具体系统请自行分析一哈，这样一来我们就能够通过加速度计的修正角度漂移！<br>与此同理，若我们知道了地磁计的数据，拿它和机体坐标系下的地磁方向作比较，即可得到存在z轴分量的误差向量，这样一来我们就可以修正yaw轴的零偏啦！<br>（这里存在一个问题，即地磁方向的确定，大家可以想一想如何解决）<br>如此迭代，MahonyAHRS就完成啦！</p>
@@ -244,7 +246,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -502,6 +504,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

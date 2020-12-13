@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-07-13T05:33:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.163Z">
+<meta property="article:modified_time" content="2020-12-12T15:08:08.141Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -153,79 +155,79 @@
 <li>常用虚拟样机软件<br>自然界广泛存在四种物理场：温度场、电磁场、结构(位移、应力、应变)场、流场 。<br>不同的工程所分析的物理场不一样,不同的物理场所应用的公式理论和仿真软件也不一样.本文主要针对robomaster 比赛中机械仿真案例进行阐述.目前来看主要是运用结构场和流场 进行建模分析.其中涉及到多体动力学分析和静力学分析以及流体力学分析。一般涉及到软件Solidworks、Adams、Ansys workbench、Fluent… 等。<br>Solidworks 主要进行三维建模设计也可进行关键零件的静力学分析(Simulition静力学模块)和动力学模型搭建(motion模块)。<br>Adams 是多体动力学仿真计算中最常用的软件,也是本文的中点阐述对象.可以进行动力学模型搭建(View模块)仿真求解(Solver模块)以及数据处理模块(Postprocessor模块)<br>Ansys 是有限元仿真中常用软件，可以进行静力学分析(Static Structural模块)也可以进行碰撞分析(LS-dyna模块)还有流场分析(Fluid Flow模块)，Workbench集成了很多有限元模块，可以共享各自的结果数据使Ansys的功能异常强大。<br>结构场是最主要的分析场.本文是在结构场中以步兵拨弹模块 为例进行展开系统的虚拟样机搭建过程.研究Adams虚拟样机中17mm子弹在弹仓中的运动状态和拨轮受力情况，指导拨弹模块的改进，进而提高射频满足比赛要求。</li>
 <li>搭建虚拟样机的动力学模型<br>简单的机械系统可以搭建数学模型进行动力学分析,但是像拨弹这中多自由度的复杂系统很难或者无法直接搭建整个拨弹过程的数学模型,只能通过多体动力学软件搭间接搭建数学模型进行迭代计算和过程动画模拟来分析问题。<br>虚拟样机其实包括建模、仿真、后处理.建模即创建样机添加工况,仿真即是求解方程,由计算机幕后完成,后处理主要是查看动画以及输出一些感兴趣的物理量,复杂的由专业后处理模块Adams/PostProcessor进行。<br>在Solidworks中的motion模块和Adams View中均可搭建动力学模型。Solidworks中操作比较简单，对于大多数同学来讲上手比较快。可以把模型在SW中搭建好之后导入到Adams进行求解计算，这样可以在短时间内完成一个简单系统的仿真工作，不过如果需要更精确的求解计算建议还是使用Adams搭建模型比较好，求解更精确。</li>
 </ol>
-<p>4.在Solidworks中简化模型导入Adams计算和后处理<br>（1）在solidworks中简化拨弹模块，压缩不影响本次研究问题的无关零件(发射模块、弹舱盖、其他保护壳等)。并添加上子弹,子弹是阵列生成,需要右键解散阵列 .所有零件应赋材料(子弹材料TPE,用PA代替)如图4-1到图4-2的简化。<br><img src="http://www.starydy.xyz/usr/uploads/2020/07/1225674126.png" alt="1.PNG"></p>
-<p>图4-1简化前    图4-2简化后<br>（2）打开【motion】插件,进入motion模块(如没有在→插件中勾选motion),在左下角将页面切换至【运动算例1】 ,将下拉菜单【动画】切换到【motion分析】 ,依次添加各个实体间的接触力contact(球与球之间、球与拨轮之间、球与弹舱之间),检查弹舱为固定状态,最后设置重力 .到此为止,模型搭建完毕,驱动马达可以不添加,放在Adams 中操作.图4-3是各按钮位置。<br><img src="http://www.starydy.xyz/usr/uploads/2020/07/51341367.png" alt="2.PNG"></p>
-<p>图4-3 motion模块的操作界面<br>在动力学模型中每个实体之间的接触是靠添加两个物体间的接触力实现的,在Adams和Solidworks中每个接触均有8个参数(图4-7中标出),四个碰撞参数:Stiffness(刚度系数)、Force Exponent(刚度指数)、Damping(阻尼系数)、Penetration Depth(最大穿透值),四个库仑摩擦参数:Static Coefficient(静摩擦系数)、Dynamic Coefficient(动摩擦系数)、Stiction Transition Vel(静摩擦过渡速度)、Friction Transition Vel(动摩擦过渡速度), 表3-1给出大致参数确定方法，也可参考附件data文件夹下《ADAMS中接触的定义及参数设置》.图4-4和图4-5方便理解各个参数的意义。<br><img src="http://www.starydy.xyz/usr/uploads/2020/07/1260733011.png" alt="3.PNG"></p>
+<p>4.在Solidworks中简化模型导入Adams计算和后处理<br>（1）在solidworks中简化拨弹模块，压缩不影响本次研究问题的无关零件(发射模块、弹舱盖、其他保护壳等)。并添加上子弹,子弹是阵列生成,需要右键解散阵列 .所有零件应赋材料(子弹材料TPE,用PA代替)如图4-1到图4-2的简化。<br><img src="/old_images/2020/07/1225674126.png" alt="1.PNG"></p>
+<p>图4-1简化前    图4-2简化后<br>（2）打开【motion】插件,进入motion模块(如没有在→插件中勾选motion),在左下角将页面切换至【运动算例1】 ,将下拉菜单【动画】切换到【motion分析】 ,依次添加各个实体间的接触力contact(球与球之间、球与拨轮之间、球与弹舱之间),检查弹舱为固定状态,最后设置重力 .到此为止,模型搭建完毕,驱动马达可以不添加,放在Adams 中操作.图4-3是各按钮位置。<br><img src="/old_images/2020/07/51341367.png" alt="2.PNG"></p>
+<p>图4-3 motion模块的操作界面<br>在动力学模型中每个实体之间的接触是靠添加两个物体间的接触力实现的,在Adams和Solidworks中每个接触均有8个参数(图4-7中标出),四个碰撞参数:Stiffness(刚度系数)、Force Exponent(刚度指数)、Damping(阻尼系数)、Penetration Depth(最大穿透值),四个库仑摩擦参数:Static Coefficient(静摩擦系数)、Dynamic Coefficient(动摩擦系数)、Stiction Transition Vel(静摩擦过渡速度)、Friction Transition Vel(动摩擦过渡速度), 表3-1给出大致参数确定方法，也可参考附件data文件夹下《ADAMS中接触的定义及参数设置》.图4-4和图4-5方便理解各个参数的意义。<br><img src="/old_images/2020/07/1260733011.png" alt="3.PNG"></p>
 <p>表3-1 Impact接触参数与Coulomb摩擦参数</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/4243678235.png" alt="4.PNG"></p>
+<p><img src="/old_images/2020/07/4243678235.png" alt="4.PNG"></p>
 <p>图4-4 Impact接触参数参考图    图4-5 Coulomb摩擦参数参考图</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3134056928.png" alt="5.PNG">    </p>
+<p><img src="/old_images/2020/07/3134056928.png" alt="5.PNG">    </p>
 <p>图4-6 各球之间接触    图4-7各球之间的接触参数设置<br>图4-6为添加球和球接触中实体选择操作,可以看出不勾选接触组时,添加的是所选择各实体间的接触,17颗球之间一共有136个接触.图4-7为球和球之间的接触参数设置(推荐)。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3001651570.png" alt="6.PNG"></p>
+<p><img src="/old_images/2020/07/3001651570.png" alt="6.PNG"></p>
 <p>图4-8球和各个弹舱零件的接触    图4-9 球与弹舱之间的接触参数设置<br>图4-8使用【接触组】添加接触,球和拨轮以及球和弹舱的接触需要使用接触组,即球为一组与另外三个零件分别添加接触,各球之间接触不会被重复添加,在图中看出17个子弹与四个零件间分别添加接触,共68个接触. 图4-9为球和弹舱之间的接触参数设置(推荐)。<br>另外拨轮和球之间的接触同样使用接触组,系数设置中将图4-9中【Stiffness】(刚度)系数改为400即可。<br>使用Solidworks 方便交互式批量添加各实体间的接触力,Adams 中接触力的添加比较难操作.多个实体之间只有用脚本命令进行添加比较方便。<br>最后添加上重力。<br>（3）导入到Adams中,检查模型,稍作修改,一些复杂的约束用简单约束来替换,在Solidworks 中的互相固连的零件可以进行两种操作①两个零件用Fixed约束锁死②使用Boolean运算进行零件合并,给拨轮添加Revolute铰接约束,在铰接约束上添加motion驱动.打开求解器进行运算即可。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/2541934723.png" alt="7.PNG"></p>
+<p><img src="/old_images/2020/07/2541934723.png" alt="7.PNG"></p>
 <p>图4-10计算按钮    图4-11 Solidworks与Adams的接口<br>把模型按照第一第二步搭建完之后,点击【计算】按钮(图4-10),计算结果一般都会报错可以忽略,Solidworks中的求解器计算很容易失败,所以只用motion做模型搭建这种前处理工作.右键模型名称输出Adams(图4-11),输出英文命名的.adm文件和一些.xmt_bin以及.res文件均保存在英文路径下.附件中例程保存在 adams_file\project\model\adams_1中。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/723480778.png" alt="8.PNG"></p>
+<p><img src="/old_images/2020/07/723480778.png" alt="8.PNG"></p>
 <p>图4-12导入.adm文件    图4-13 MKS单位制设置<br>打开Adams导入.adm文件,新建模型“loader_1”,设置单位制。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/962343059.png" alt="9.PNG"></p>
+<p><img src="/old_images/2020/07/962343059.png" alt="9.PNG"></p>
 <p>图4-14 Connectors约束    图4-15 添加Fixed约束</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/2140554824.png" alt="10.PNG"></p>
+<p><img src="/old_images/2020/07/2140554824.png" alt="10.PNG"></p>
 <p>图4-15 Fixed(固定)和Revolute(旋转)约束<br>在Adams中删除【Connectors】中所有约束,将几个固定零件间添加Fixed约束(固定锁死)。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/4097717059.png" alt="11.PNG"></p>
+<p><img src="/old_images/2020/07/4097717059.png" alt="11.PNG"></p>
 <p>图4-16 右键→Appearance    图4-17 Appearance→Color<br>更改拨轮颜色为Red,方便观察和操作,如图4-16和图4-17.也可以根据需要更改其他零件颜色.图4-17中【Visibility】点选off即可隐藏该零件,该操作同样适用于其他类型信息,如Connectors、Motion、Force等。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/551017501.png" alt="12.PNG"></p>
+<p><img src="/old_images/2020/07/551017501.png" alt="12.PNG"></p>
 <p>图4-18添加Revolute(旋转)约束    图4-19 Revolute(旋转)约束结果<br>在拨轮和弹舱中间添加旋转副,操作如图4-18结果如图4-19。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3819593002.png" alt="13.PNG"></p>
+<p><img src="/old_images/2020/07/3819593002.png" alt="13.PNG"></p>
 <p>图4-20 Rotational Joint motion(旋转驱动)</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3351283967.png" alt="14.PNG">    </p>
+<p><img src="/old_images/2020/07/3351283967.png" alt="14.PNG">    </p>
 <p>图4-20 motion结果    图4-21 motion参数<br>    将旋转驱动添加到拨轮的旋转副上。<br>在joint_4上添加motion_1,参数设置如图4-21。<br>17mm子弹材料为TPE,密度970 kg/m³弹性模量3.4GPa,泊松比0.32(近似)。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/1559317015.png" alt="15.PNG"></p>
+<p><img src="/old_images/2020/07/1559317015.png" alt="15.PNG"></p>
 <p>图4-22 新建材料    图4-23 TPE材料参数<br>【body】树下右键其中一个球单击【Modify】, 出现对话框如图4-22在【Define Mass By】下拉菜单选择【Geometry and Material Type】,在【Material Type】中右键出现图中对话框,依次选取【Material】→【Create】会跳出对话框如图4-23，按照TPE参数设置单击【Apply】→【ok】,然后单击图4-22中【Apply】即发现图中材料参数刷新至新建TPE材料.依次添加剩余球的材料和弹仓材料(【Material】→【Guesses】→【aluminum】)。模型搭建完毕,进入simulation进行求解计算。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3888322204.png" alt="16.PNG"></p>
+<p><img src="/old_images/2020/07/3888322204.png" alt="16.PNG"></p>
 <p>图4-24仿真参数设置<br>如图4-24仿真正在进行中,左上角为仿真计算过的模型时间,右下角为仿真进程百分比,在Simulation Control对话框中【End Time】为仿真总时长,【Step Size】为仿真步长根据模型复杂程度给定,合理的步长节省仿真时间、提高仿真精度.如果计算报错则检查模型有无物理干涉和严重死点,调整仿真时间继续进行仿真计算,多次仿真计算应勾选【Reset before running】保证每次仿真计算前参数重置.仿真时间由模型复杂度和电脑CPU以及内存而定,如果模型复杂则仿真时间会十几个小时甚至几天，电脑配置稍好些会加快运算效率.另外合理的模型化简和模型搭建也能影响仿真时间。<br>关于充分利用电脑性能加快仿真速度,可以开从多线程运算和增大可调用内存两个方面入手。<br>多线程运算途径&gt;在Adams/View界面下通过“settings&gt;solver&gt;Executable”菜单打开设置窗口，并勾选More选项，在Thread Count位置输入参与计算的线程数(128).如图4-25。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/2310258600.png" alt="17.PNG"></p>
+<p><img src="/old_images/2020/07/2310258600.png" alt="17.PNG"></p>
 <p>图4-25<br>增大调用内存途径&gt;开始–程序–MSC.software–MSC.ADAMS–ADAMS settings分别打开Aview和Asolver中的Preference，在右侧memsize一栏中选择huge点击ok保存。重新运行ADAMS即可.如图4-26。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/291067937.png" alt="18.PNG"></p>
+<p><img src="/old_images/2020/07/291067937.png" alt="18.PNG"></p>
 <p>图4-26<br>（4）进入后处理模块Postprocessor,观察动画可以看到子弹在拨轮中的运状态,进行子弹轨迹追踪和一些感兴趣物理量的测量.比如输出电机的驱动扭矩值,进行电机选型.通过仿真动画和数据指导版本迭代改进。<br>5.Solidworks提供三维模型,Adams中进行模型搭建和计算及后处理<br>（1）Solidworks简化模型,操作过程和流程和4.1中相同,最后将装配体另存成Parasolid(*.x_t)格式如图5-1,导入Adams做前处理.注意:Adams不支中文路径和中文文件名。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/755844939.png" alt="19.PNG"></p>
+<p><img src="/old_images/2020/07/755844939.png" alt="19.PNG"></p>
 <p>图5-1导出x_t<br>打开Adams View,新建模型导入.x_t文件.单击【New Model】输入自定义模型名称(英文),单击【ok】会新建一个空白模型,【主菜单】&gt;【File】&gt;【import】下拉菜单第一个【File Type】中选择Parasolid,在【File To Read】中右键&gt;【Browse】浏览到目标.x_t文件,在【Model Name】右键选择新建的模型名称.单击【Ok】.模型导入完成.如图5-2。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/270229372.png" alt="20.PNG"></p>
+<p><img src="/old_images/2020/07/270229372.png" alt="20.PNG"></p>
 <p>图5-2 .x_t导入Adams<br>（2）在Adams里面搭建动力学模型.在此之前应掌握Adams图形界面基本操作和工具栏的分布.模型需要用cmd脚本搭建,准确高效,所以要求能读懂简单的编程语言.本章节均用一些简单的命令语言来实现建模操作.这里的脚本编辑器使用的是VScode,桌面新建.txt英文命名后缀改为.cmd,用VScode打开编辑后保存即可。<br>【主菜单】&gt;【View】&gt;【Command Window】打开命令窗口,每一步界面操作的命令都会在命令窗口中滚动.可以复制出来修改后使用。<br>Cmd脚本对拨弹部分建模流程如下①修改Bodies Name②布尔运算操作③定义材料④添加约束⑤添加驱动⑥定义接触力(部分步骤的先后顺序可调)。<br>①基本设置<br>设置单位制(MKS)和重力方向(-Z)。<br>!————-setting———————-!<br>default units length=mm mass=kg force=newton &amp;<br> time=Second angle=degrees frequency=hz!units_MKS!</p>
 <p>int dia disp dia=gravity_panel!打开对话框重力设置对话框!<br>force modify body gravitational gravity = ACCGRAV_1 &amp;<br>      x_comp = 0 &amp;<br>      y_comp = 0 &amp;<br>      z_comp = -9806.65!-Z轴gravity!<br>!—————–end————————!<br>②修改Bodies Name<br>在模型树中【Bodies】下可以查看各个实体.如果在Solidworks中是中文命名,导入后会重新命名,但是命名均有规律.现需要修改实体名字,方便查看和操作。<br>图形界面操作按钮如图5-3,【模型树】&gt;【Bodies】&gt;【任意一组件右键】。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3548240241.png" alt="21.PNG"></p>
+<p><img src="/old_images/2020/07/3548240241.png" alt="21.PNG"></p>
 <p>图5-3 Rename按钮</p>
 <pre><code>图形界面操作按钮如图5-3,【模型树】&gt;【Bodies】&gt;【任意一组件右键】，根据模型树中的信息,编写modify_name命令如下,</code></pre>
 <p>!————-modify_part_name—————!<br>entity modify entity =____002    new = wheel_loader<br>entity modify entity =<strong>__       new = magazin_1<br>entity modify entity =_______2   new = sheet<br>entity modify entity =____</strong>     new = magazin_2</p>
 <p>entity modify entity =<em>17mm____  new = <em>17mm_____1<br>for variable_name=ip  start_value=1  end_value=17 !for循环批量修改球的name,ip为变量名!<br>entity modify entity =(eval(“<em>17mm__</em></em></em>“//rtoi(ip))) new =(eval(“ball_”//rtoi(ip)))<br>end</p>
 <p>entity modify entity =<strong>____</strong>   new = _________1<br>for variable_name=ip  start_value=1  end_value=2<br>entity modify entity =(eval(“_________”//rtoi(ip))) new = (eval(“pipe_”//rtoi(ip)))<br>end<br>!——————-end———————-!<br>根据模型树中的信息,编写modify_name命令如下,通过【主菜单】&gt;【File】&gt;【import】导入.cmd实现对模型的操作如图5-4，</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/2308466294.png" alt="22.PNG"></p>
+<p><img src="/old_images/2020/07/2308466294.png" alt="22.PNG"></p>
 <p>图5-4 .cmd导入Adams<br>操作前后的对比如图5-5和图5-6</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3991564688.png" alt="23.PNG"></p>
+<p><img src="/old_images/2020/07/3991564688.png" alt="23.PNG"></p>
 <p>图5-5 Bodies Name修改前    图5-6 Bodies Name修改后<br>③布尔运算操作<br>在三维模型为DFM(面向制造的设计),不影响功能情况下,使用布尔运算将多个零件合成一个。<br>图形界面操作按钮如图5-7,【功能区】&gt;【Bodies】&gt;【Booleans】。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/162826487.png" alt="24.PNG"></p>
+<p><img src="/old_images/2020/07/162826487.png" alt="24.PNG"></p>
 <p>图5-7 Booleans操作按钮<br>根据模型,编写Booleans命令操作如下,<br>!————-Booleans_parts—————–!<br>part merge rigid_body part_name=pipe_2 into_part=pipe_1!将pipe_2合并到pipe_1!<br>!——————-end———————-!<br>操作前和操作后的区别如图5-8和图5-9</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/995794732.png" alt="25.PNG"></p>
+<p><img src="/old_images/2020/07/995794732.png" alt="25.PNG"></p>
 <p>图5-8 布尔合并前</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/1501298663.png" alt="26.PNG"></p>
+<p><img src="/old_images/2020/07/1501298663.png" alt="26.PNG"></p>
 <p>图5-9 布尔合并后<br>④定义材料<br>图形界面操作按钮,【模型树】&gt;【Bodies】&gt;【任意一个构件右键】&gt;【Modify】接下来的操作设置如图5-10和图5-11</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3087868713.png" alt="27.PNG"></p>
+<p><img src="/old_images/2020/07/3087868713.png" alt="27.PNG"></p>
 <p>图5-10 新建材料    图5-11TPE材料参数<br>材料参数:①密度(Density)②弹性模量(Youngs Modulus)③泊松比(Poissons Ratio)<br>根据模型,编写Material命令操作如下,<br>!————-modify_material—————–!<br>material create  &amp;                !新建材料TPE!<br>      material_name = .materials.TPE  &amp;<br>      density = 0.97e-6 &amp;<br>      youngs_modulus = 3400  &amp;<br>      poissons_ratio = 0.32<br>for variable_name=ip start_value=1 end_value=17!for循环批量修改!<br> part modify rigid mass_properties  &amp;<br>      part_name = (eval(“ball_”//rtoi(ip)))  &amp;<br>      material_type = .materials.TPE<br>end</p>
 <p>part modify rigid mass_properties  &amp;<br>      part_name = pipe_1  &amp;<br>      material_type = .materials.aluminum<br>part modify rigid mass_properties  &amp;<br>      part_name = magazin_1  &amp;<br>      material_type = .materials.aluminum<br>part modify rigid mass_properties  &amp;<br>      part_name = sheet  &amp;<br>      material_type = .materials.aluminum<br>part modify rigid mass_properties  &amp;<br>      part_name = wheel_loader  &amp;<br>      material_type = .materials.aluminum<br>!——————-end———————-!<br>修改前后对比如图5-12和图5-13</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/2048957230.png" alt="28.PNG"></p>
+<p><img src="/old_images/2020/07/2048957230.png" alt="28.PNG"></p>
 <p>图5-12 新建材料    图5-13 TPE材料参数<br>⑤添加约束<br>在此模型中每个子弹都有6个自由度,不存在约束,剩余零部件都有自己的固定方式.如图5-14中,wheel_loader和ground有个旋转约束,其余零件和ground都是固定约束。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/1700994165.png" alt="29.PNG"></p>
+<p><img src="/old_images/2020/07/1700994165.png" alt="29.PNG"></p>
 <p>图5-14 模型树中需要约束的零部件<br>图形界面操作按钮如图5-15</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/2612196784.png" alt="30.PNG"></p>
+<p><img src="/old_images/2020/07/2612196784.png" alt="30.PNG"></p>
 <p>图5-15 Fixed(固定)和Revolute(旋转)约束<br>·固定约束(Fixed Joint)<br>根据模型,编写Fixed_joint命令操作如下,<br>!—————Fixed_Joint——————!<br>marker create marker=.ground.MAR_fixed_1 &amp; !在ground上创建marker点命MAR_fixed_1!<br>location=(LOC_RELATIVE_TO({0,0,0},ground.cm)) &amp;!MAR_fixed_1和ground.cm位置重合!<br>orientation=0.0,0.0,0.0                          !MAR_fixed_1和ground.cm坐标重合!<br>marker create marker=.sheet.MAR_fixed_1 &amp;!在ground上创建marker点命名MAR_fixed_1!<br>  location=(LOC_RELATIVE_TO({0,0, 0},ground.cm)) &amp;!MAR_fixed_1和ground.cm位置合!<br>  orientation=0.0, 0.0, 0.0                       !MAR_fixed_1和点ground.cm坐标重合!<br>constraint create joint Fixed &amp;           !在上述创建的两个marker间创建一个固定约束!<br>    joint_name=fixed_1 &amp;                   !Fixed约束的名称!<br>    i_marker_name=.sheet.MAR_fixed_1 &amp;<br>    j_marker_name=.ground.MAR_fixed_1</p>
 <p>marker create marker=.ground.MAR_fixed_1 &amp;<br>    location=(LOC_RELATIVE_TO({0,0, 0},ground.cm)) &amp;<br>    orientation=0.0, 0.0, 0.0<br>marker create marker=.magazin_1.MAR_fixed_1 &amp;<br>    location=(LOC_RELATIVE_TO({0,0, 0},ground.cm)) &amp;<br>    orientation=0.0, 0.0, 0.0<br>constraint create joint Fixed &amp;                     !创建固定约束!<br>    joint_name=fixed_2 &amp;<br>    i_marker_name=.magazin_1.MAR_fixed_1 &amp;<br>    j_marker_name=.ground.MAR_fixed_1</p>
 <p>marker create marker=.ground.MAR_fixed_1 &amp;<br>    location=(LOC_RELATIVE_TO({0,0,0},ground.cm)) &amp;<br>    orientation=0.0, 0.0, 0.0<br>marker create marker=.pipe_1.MAR_fixed_1 &amp;<br>    location=(LOC_RELATIVE_TO({0,0,0},ground.cm)) &amp;<br>    orientation=0.0, 0.0, 0.0<br>constraint create joint Fixed &amp;                     !创建固定约束!<br>    joint_name=fixed_3 &amp;<br>    i_marker_name=.pipe_1.MAR_fixed_1 &amp;<br>    j_marker_name=.ground.MAR_fixed_1<br>!——————-end———————-!<br>创建Fixed后如图5-16</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/2817136246.png" alt="31.PNG"></p>
+<p><img src="/old_images/2020/07/2817136246.png" alt="31.PNG"></p>
 <p>图5-16 固定约束的结果图<br>·旋转约束(Revolute Joint)<br>需要在拨盘(wheel_loader)和ground之间添加旋转约束，根据模型,编写Revolute_joint命令操作如下,<br>variable create variable_name=wheel_name string_value=”wheel_loader” !定义变量”wheel_name”,string_value代表字符串类型!<br>marker create marker=.ground.run_MAR_1 &amp;<br>    location=(LOC_RELATIVE_TO({0,0,0},(eval(wheel_name//“.cm”)))) &amp;!<br>    orientation=(ORI_RELATIVE_TO({90,90,0},(eval(wheel_name//“.cm”))))<br>marker create marker=.wheel_loader.run_MAR_2 &amp;<br>    location=(LOC_RELATIVE_TO({0,0,0},(eval(wheel_name//“.cm”)))) &amp;<br>    orientation=(ORI_RELATIVE_TO({90,90,0},(eval(wheel_name//“.cm”))))<br>constraint create joint Revolute &amp;              !创建Joint_Revolute!<br>    joint_name=run_1 &amp;            !约束名称!<br>    i_marker_name=.ground.run_MAR_1 &amp;<br>    j_marker_name=.wheel_loader.run_MAR_2<br>variable delete variable_name=wheel_name                    !删除变量!<br>Adams中建模命令均是对是通过对Marker点的操作来完成的,拿创建旋转副举例(固定约束同理),分为三步：<br>i.创建一个坐标点run_MAR_1,该点在ground上,与wheel_loader.cm重合。<br>ii.创建另外一个坐标点run_MAR_2,该点在wheel_loader上,依旧与wheel_loader.cm重合。<br>iii.创建一个转动副,转动副名字为.loader_2.run_1,他是由于两个坐标点发生相对转动构成的,这两个坐标点分是上述两步创建的坐标。<br>此外上述脚本开头定义了一个字符串变量wheel_name,在创建Joint中使用,结尾删除.使用变量可以方便代码移植。<br>⑥添加驱动<br>Adams中驱动一般添加在旋转副或者移动副上,拨弹模块只需添加拨盘旋转，图形界面操作按钮如图5-17</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3860621436.png" alt="32.PNG"></p>
+<p><img src="/old_images/2020/07/3860621436.png" alt="32.PNG"></p>
 <p>图5-17 Rotational Joint motion(旋转驱动)<br>根据模型,编写Joint Motion命令操作如下，<br>!————-Revolute_Joint—————-!<br>variable creat variable_name=MC_run_1 string_value=”step(time,0.1,0,0.3,-360d)”!电机转速!<br>constraint create motion motion_name=.loader_2.motion_1 &amp;<br>           joint=.loader_2.run_1 &amp;                 !motion添加在run_1上!<br>           type=rotational &amp;                       !类型是转动!<br>           time_derivative=velocity &amp;              !驱动类型为velocity(速度)!<br>           function=(eval(MC_run_1))               !调用定义的变量MC_run_1!<br>!——————-end———————-!<br>使用step函数定义驱动,step函数：<br>STEP（time，1，0d，2，20d）+STEP（time，6，0d，12，-40）<br>意义：1秒到2秒：从0递增至20d；<br>2秒到6秒：保持电机输出数值为20d不变；<br>6秒到12秒：由20d递减40d，结果为-20d<br>旋转约束和驱动添加之后的结果如图5-18</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3240034142.png" alt="33.PNG"></p>
+<p><img src="/old_images/2020/07/3240034142.png" alt="33.PNG"></p>
 <p>图5-18添加旋转约束和驱动<br>⑦定义接触力<br>在Adams中所有的碰撞接触的均应添加接触力。<br>该模型中接触力的添加操作要稍微复杂,每个球都有6个自由度,所以每两个球之间都要有添加接触力,第四节中已经说明球之间需要添加136个接触力,需要使用命令批量添加，准确高效。<br>图形界面操作按钮如图5-19【功能区】&gt;【Forces】&gt;【Special Forces】&gt;【Create a contact】。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/2422714402.png" alt="34.PNG"></p>
+<p><img src="/old_images/2020/07/2422714402.png" alt="34.PNG"></p>
 <p>图5-19 添加实体间接触力按钮<br>根据模型,编写Create contact命令操作如下<br>!————create_contact_between_solids————–!<br>variable create variable_name=MODEL_name string_value=”loader_2”!模型名称!<br>variable create variable_name=part_box string_value=”CSG_4”!被接触对象!</p>
 <p>variable create variable_name=add_1 integer_value=6!子弹Body名称和SOLID名称的序号差!</p>
 <p>variable create variable_name=MC_stiffness  real_value=164 !刚度系数,计算公式参考stiffness.m!<br>variable create variable_name=MC_damping    real_value=0.5 !阻尼系数!<br>variable create variable_name=MC_exponent   real_value=2 !指数!<br>variable create variable_name=MC_dmax       real_value=0.00005!最大实体入侵!</p>
@@ -237,19 +239,19 @@
 <p>variable delete variable_name=MODEL_name<br>variable delete variable_name=part_box</p>
 <p>variable delete variable_name=add_1<br>variable delete variable_name=add_2<br>!———————–end——————————!</p>
 <p>到此为止动力学模型已经搭建完毕,其中一些参数设置一般指接触力参数和仿真步长参数,尤其使接触力参数中的刚度系数和阻尼系数需要查询资料来确定,作者在这一块也没有太明确的方法,文献中显示stiffness标准值是在1.0<em>e+7~1.0</em>e+9(N/m)之间，阻尼系数一般取stiffness的0.01%。<br>材料参数如表5-1</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/81368647.png" alt="35.PNG"></p>
+<p><img src="/old_images/2020/07/81368647.png" alt="35.PNG"></p>
 <p>表5-1</p>
 <p>⑧设置仿真时长和步长开始仿真<br>本模型中有17个子弹,200个接触,如果40个子弹,各部分接触达到1000个.仿真时长取决于具体物理场景，仿真步长取决于模型复杂度，步长越小，计算结果越容易收敛，模型越精确，步长过大结果发散后就会报错。但是步长过小计算就变慢，合适的步长有利于模型仿真计算。<br>本案例中步长给0.0005~0.001比较合适，时长给2s既可以说明问题如图。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/249903794.png" alt="36.PNG"></p>
+<p><img src="/old_images/2020/07/249903794.png" alt="36.PNG"></p>
 <p>图5-21仿真细节参数<br>⑨查看仿真结果输出物理量曲线或者动画,细化模型参数,模型正确即可指导方案迭代。<br>⑩一般的搭建过程如图,徐要验证和迭代框图5-21。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/489071846.png" alt="37.PNG"></p>
+<p><img src="/old_images/2020/07/489071846.png" alt="37.PNG"></p>
 <pre><code>虚拟样机的需要按照上述的流程循环迭代,不能凭空搭建样机,要有实验数据做基础,有样机迭代使虚拟样机模型越来越精确,模型越精确越有利于实际工程的分析。当一个模型搭建正确之后,类似的机构搭建周期将会缩短。</code></pre>
 <p>⑪查看仿真结果输出物理量曲线或者动画,细化模型参数,模型正确即可指导方案迭代。<br>（3）后处理模块将样机的虚拟数据输出成曲线或者生成直观的动画来查看。<br>后处理数据需要在模型中调用，采用measure命令即可调取其中的参数，本例中关心拨弹电机的扭矩是够用，故在【模型树】&gt;【motions】&gt;【右键motion_1】&gt;【measure】按照如图5-22设置&gt;【apply】。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/2066845163.png" alt="38.PNG"></p>
+<p><img src="/old_images/2020/07/2066845163.png" alt="38.PNG"></p>
 <p>图5-22 Measure按钮<br>输出的扭矩图如5-23</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/1264423062.png" alt="39.PNG"></p>
+<p><img src="/old_images/2020/07/1264423062.png" alt="39.PNG"></p>
 <p>另外可以通【功能区】&gt;【Results】&gt;【Postprocessor】进入后处理模块【空白页右键】&gt;【Load Animation】进行动画输出如图5-33，红色框中是播放暂停好和录制按钮。</p>
-<p><img src="http://www.starydy.xyz/usr/uploads/2020/07/3794064227.png" alt="40.PNG"></p>
+<p><img src="/old_images/2020/07/3794064227.png" alt="40.PNG"></p>
 <p>还有其他感兴趣的任意物理量均可输出，通过对数据和动画的分析寻找结构优化的突破点，事半功倍。<br>6.结论<br>所提到的Solidwoks搭建动力学模型导入Adams中进行计算,对于新手来讲比较容易上手,能在短时间内搭建出动力学模型,并且简单的机械系统的仿真计算结果是可信的.而一些复杂些的系统求解精度就很低,和实际情况不太相符.在做拨弹仿真中就出现实体实体间的互相侵入太多的情况,目前还没找到原因.故复杂模型建议使用以下叙述的模型搭建方法。<br>虚拟样机需要在建立后，根据物理样机修改才能得到更精确的仿真结果。<br>各种仿真软件都只是工具，建模的关键还在于正确的工况分析与合理的参数设置，这些都是在仿真过程中逐渐完成的。如何把建立正确的物理样机以及仿真后数据的分析与改进方向是需要人工分析完成的。<br>7.写在最后的预告<br>各位朋友们，如果大家觉得这部分比较有趣的话，下一次可以和大家分享机器人学的部分知识，先从运动学和动力学开始吧，比如D-H法，拉格朗日方程，牛顿-欧拉方程，以及这些数理知识是如何应用在机器人设计中的，有机会的话下次见啦！</p>
 
             </div>
@@ -340,7 +342,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -598,6 +600,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

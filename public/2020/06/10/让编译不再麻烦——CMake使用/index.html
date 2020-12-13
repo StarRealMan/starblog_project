@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-06-09T21:41:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:50.383Z">
+<meta property="article:modified_time" content="2020-12-12T15:05:40.478Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -147,8 +149,8 @@
             <div class="kratos-post-content">
                 
                 <hr />
-                <p>相信大家在进行C/C++开发时，经常会遇到项目管理的问题。如果你只有一个源文件，那么这将不是什么难事，一条gcc/g++指令，配合上合适的参数，就能够做得很好。但是对于像这样庞大的工程：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/3640866494.jpg" alt="Snipaste_2020-06-10_13-40-06.jpg"><br>每个源文件需要一行编译命令，之后还需要链接，才能编译成二进制可执行文件与库，想着想着，我人都傻了Σ(っ °Д °;)っ<br>幸好有的IDE已经很智能地帮我们做了这一点，我们只需要用图形界面配置好工程中文件的组织形式，引用路径，库的位置，就能够一键编译了。（比如交叉编译IDE 我们熟知的Keil）<br>但是IDE灵活性不足，并且有平台的局限性，不能做到轻量化，在使用VSCode这种不带编译器的编辑器的时候，想要更多地自己配置编译方式，就需要用到我们今天的主角Makefile与CMake了！</p>
-<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><p>为了能够自动化地配置工程，完成编译，人们发明了Makefile这样的文件。在含有Makefile文件的目录下执行make命令就可以执行编译动作。使用设定好的编译器，系统会读取Makefile文件的内容进行编译。<br>Makefile按照目标：依赖的结构组织工程，后面紧接着由依赖变化到目标的gcc（g++）命令。使用自动化变量加上自动寻找依赖的机制，Makefile的确使得编译更加方便，但是要写好Makefile，还是离不开gcc（g++）繁琐的语法，同时还要满足Makefile的语法格式。人们又发明了自动生成Makefile文件的工具CMake。<br>##<img src="http://www.starydy.xyz/usr/uploads/2020/06/2855613712.jpg" alt="Snipaste_2020-06-10_14-42-50.jpg"><br>Makefile的语法</p>
+                <p>相信大家在进行C/C++开发时，经常会遇到项目管理的问题。如果你只有一个源文件，那么这将不是什么难事，一条gcc/g++指令，配合上合适的参数，就能够做得很好。但是对于像这样庞大的工程：<br><img src="/old_images/2020/06/3640866494.jpg" alt="Snipaste_2020-06-10_13-40-06.jpg"><br>每个源文件需要一行编译命令，之后还需要链接，才能编译成二进制可执行文件与库，想着想着，我人都傻了Σ(っ °Д °;)っ<br>幸好有的IDE已经很智能地帮我们做了这一点，我们只需要用图形界面配置好工程中文件的组织形式，引用路径，库的位置，就能够一键编译了。（比如交叉编译IDE 我们熟知的Keil）<br>但是IDE灵活性不足，并且有平台的局限性，不能做到轻量化，在使用VSCode这种不带编译器的编辑器的时候，想要更多地自己配置编译方式，就需要用到我们今天的主角Makefile与CMake了！</p>
+<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><p>为了能够自动化地配置工程，完成编译，人们发明了Makefile这样的文件。在含有Makefile文件的目录下执行make命令就可以执行编译动作。使用设定好的编译器，系统会读取Makefile文件的内容进行编译。<br>Makefile按照目标：依赖的结构组织工程，后面紧接着由依赖变化到目标的gcc（g++）命令。使用自动化变量加上自动寻找依赖的机制，Makefile的确使得编译更加方便，但是要写好Makefile，还是离不开gcc（g++）繁琐的语法，同时还要满足Makefile的语法格式。人们又发明了自动生成Makefile文件的工具CMake。<br>##<img src="/old_images/2020/06/2855613712.jpg" alt="Snipaste_2020-06-10_14-42-50.jpg"><br>Makefile的语法</p>
 <h2 id="CMake"><a href="#CMake" class="headerlink" title="CMake"></a>CMake</h2><p>想要使用Makefile，一般的Linux系统都会自带Makefile工具。但是CMake需要自行安装。CMake的设计初衷就是使用简单易懂的CMake语法生成晦涩难懂的Makefile语法，使得配置编译设置就像在IDE使用图形化配置一样方便（事实上确实有图形化的CMake——CMake GUI）。<br>在工程目录创建一个CMakeLists.txt文件，并且创建子目录build，用于放置编译生成的中间文件，进入build，执行cmake ..（注意这个..，表示上一级目录），就会生成我们想要的Makefile文件了，相信这个步骤使用源码安装Linux软件的同学都不陌生。</p>
 <p>CMake语句：</p>
 <pre><code>project(main)
@@ -311,7 +313,7 @@ target_link_libraries(common $&#123;G2O_LIBS&#125;)</code></pre>
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -569,6 +571,25 @@ target_link_libraries(common $&#123;G2O_LIBS&#125;)</code></pre>
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

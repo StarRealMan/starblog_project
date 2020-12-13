@@ -58,14 +58,14 @@ B站接到这个请求后，会进行处理，返回给我们一个Response Head
 ![Snipaste_2020-05-14_17-25-22.jpg][11]
 
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/05/1596536276.jpg
-  [2]: http://www.starydy.xyz/usr/uploads/2020/05/1113348697.jpg
-  [3]: http://www.starydy.xyz/usr/uploads/2020/05/330527918.jpg
+  [1]: /old_images/2020/05/1596536276.jpg
+  [2]: /old_images/2020/05/1113348697.jpg
+  [3]: /old_images/2020/05/330527918.jpg
   [4]: https://baike.baidu.com/item/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/5053660?fr=aladdin
-  [5]: http://www.starydy.xyz/usr/uploads/2020/05/1088359098.jpg
-  [6]: http://www.starydy.xyz/usr/uploads/2020/05/3068723404.jpg
-  [7]: http://www.starydy.xyz/usr/uploads/2020/05/2576890486.jpg
-  [8]: http://www.starydy.xyz/usr/uploads/2020/05/2978689860.jpg
-  [9]: http://www.starydy.xyz/usr/uploads/2020/05/1187310326.jpg
-  [10]: http://www.starydy.xyz/usr/uploads/2020/05/910319602.jpg
-  [11]: http://www.starydy.xyz/usr/uploads/2020/05/963849757.jpg
+  [5]: /old_images/2020/05/1088359098.jpg
+  [6]: /old_images/2020/05/3068723404.jpg
+  [7]: /old_images/2020/05/2576890486.jpg
+  [8]: /old_images/2020/05/2978689860.jpg
+  [9]: /old_images/2020/05/1187310326.jpg
+  [10]: /old_images/2020/05/910319602.jpg
+  [11]: /old_images/2020/05/963849757.jpg

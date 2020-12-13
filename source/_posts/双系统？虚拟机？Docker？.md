@@ -56,13 +56,13 @@ Linux环境由于它可移植性强，轻量化，底层化的特点，得到了
 
 顺便吐槽一下，现在的腾讯对QQ的外部接口是越来越不上心了，果然微信才是主流嘛……
 
-  [1]: http://www.starydy.xyz/usr/uploads/2020/05/3174243626.jpg
-  [2]: http://www.starydy.xyz/usr/uploads/2020/05/3462557488.png
-  [3]: http://www.starydy.xyz/usr/uploads/2020/05/904172395.jpg
-  [4]: http://www.starydy.xyz/usr/uploads/2020/05/1820938573.jpg
-  [5]: http://www.starydy.xyz/usr/uploads/2020/05/3518464858.jpg
-  [6]: http://www.starydy.xyz/usr/uploads/2020/05/1170183205.png
-  [7]: http://www.starydy.xyz/usr/uploads/2020/05/664969895.png
-  [8]: http://www.starydy.xyz/usr/uploads/2020/05/2761601438.jpg
-  [9]: http://www.starydy.xyz/usr/uploads/2020/05/1424232658.jpg
+  [1]: /old_images/2020/05/3174243626.jpg
+  [2]: /old_images/2020/05/3462557488.png
+  [3]: /old_images/2020/05/904172395.jpg
+  [4]: /old_images/2020/05/1820938573.jpg
+  [5]: /old_images/2020/05/3518464858.jpg
+  [6]: /old_images/2020/05/1170183205.png
+  [7]: /old_images/2020/05/664969895.png
+  [8]: /old_images/2020/05/2761601438.jpg
+  [9]: /old_images/2020/05/1424232658.jpg
   [10]: https://www.vpsjxw.com/vps_use/kuq_docker/

@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-08-13T02:18:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:50.955Z">
+<meta property="article:modified_time" content="2020-12-12T15:01:30.748Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -151,7 +153,7 @@
 <h2 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h2><p>拿到刚到手的树莓派，首先要做的肯定是配环境！但是在VNC连接树莓派时遇到了问题：<br>当我使用WIFI连接树莓派时，由于带宽限制，界面很卡，影响体验。<br>当我使用有线连接树莓派时，由于有线网卡的优先级高于无线网卡，导致树莓派只能浏览内网（也就是我笔记本的网络），如果使用笔记本共享外网的话只能使用DHCP自动分配IP，这样则会导致IP变化不方便我们连接 树莓派。<br>但是我明明有一个无线网卡连接外网啊！！！怎样才能把它利用起来，成了我要解决的问题。</p>
 <h2 id="原理探究"><a href="#原理探究" class="headerlink" title="原理探究"></a>原理探究</h2><p>找了好久，终于发现了路由表这个神奇的东西，<br><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1%E8%A1%A8">百度百科</a>这样说道：<br>在计算机网络中，路由表（routing table）或称路由择域信息库（RIB, Routing Information Base），是一个存储在<strong>路由器</strong>或者<strong>联网计算机</strong>中的电子表格（文件）或类数据库。路由表存储着指向特定网络地址的路径（在有些情况下，还记录有路径的路由度量值）。路由表中含有网络周边的拓扑信息。路由表建立的主要目标是为了实现路由协议和静态路由选择。</p>
 <p>简单来讲，路由表可以规定发往何处的信息使用哪一个路由，也就是决定要发出的信息（对于计算机）或收到的信息（对于路由器）的下一跳是哪里。</p>
-<p>在linux中配置路由表很简单，因为它全部被集成到了route这一个指令中。<br>首先我们来看路由表长什么样。<br>拿我的服务器举例，在终端中输入（sudo）route，可以看到：<br><img src="http://www.starydy.xyz/usr/uploads/2020/08/75184131.jpg" alt="Snipaste_2020-08-13_17-38-05.jpg"><br>其中Destination表示目标的IP地址；<br>Gateway表示选择下一跳网关IP地址（所有跨网段传输的信息均需要通过该网段的网关传输）；<br>GenMask代表掩码，用于确定一个网段；<br>Flags是用于区分的标志位；<br>Iface是网卡设备的名称（可以使用（sudo）ifconfig来查看）；<br><img src="http://www.starydy.xyz/usr/uploads/2020/08/1049549032.jpg" alt="Snipaste_2020-08-13_17-44-12.jpg"><br>Flags标志位确定了一系列的路由类型，主要有以下几种：<br><strong>主机路由：</strong><br>顾名思义，主机路由表示单独指向某个特定主机（IP）的路由，所有目标为该主机的信息都发送到所设定的网关，同时也确定了用哪个网卡设备传输信息。<br>主机路由除了Flags的区别，最明显的特征就是它的Destination是一个完整的IP地址，并且它的GenMask是255.255.255.255。这说明了它的目标不是一个网络而是一个特定的主机（IP）。</p>
+<p>在linux中配置路由表很简单，因为它全部被集成到了route这一个指令中。<br>首先我们来看路由表长什么样。<br>拿我的服务器举例，在终端中输入（sudo）route，可以看到：<br><img src="/old_images/2020/08/75184131.jpg" alt="Snipaste_2020-08-13_17-38-05.jpg"><br>其中Destination表示目标的IP地址；<br>Gateway表示选择下一跳网关IP地址（所有跨网段传输的信息均需要通过该网段的网关传输）；<br>GenMask代表掩码，用于确定一个网段；<br>Flags是用于区分的标志位；<br>Iface是网卡设备的名称（可以使用（sudo）ifconfig来查看）；<br><img src="/old_images/2020/08/1049549032.jpg" alt="Snipaste_2020-08-13_17-44-12.jpg"><br>Flags标志位确定了一系列的路由类型，主要有以下几种：<br><strong>主机路由：</strong><br>顾名思义，主机路由表示单独指向某个特定主机（IP）的路由，所有目标为该主机的信息都发送到所设定的网关，同时也确定了用哪个网卡设备传输信息。<br>主机路由除了Flags的区别，最明显的特征就是它的Destination是一个完整的IP地址，并且它的GenMask是255.255.255.255。这说明了它的目标不是一个网络而是一个特定的主机（IP）。</p>
 <hr>
 <p><strong>网络路由：</strong><br>理解了主机路由 在来理解网络路由并不是很难。网络路由指向一个特定的网段，因此它的GenMask不全是 1（比如是255.255.0.0）。它的Destination中也包含0（比如192.168.0.0），0的含义就是任意，这个网段表示整个192.168.*.*的网络。<br>同理，所有目标为该网络的信息都发送到所设定的网关。</p>
 <hr>
@@ -274,7 +276,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -532,6 +534,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-06-24T01:47:00.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.471Z">
+<meta property="article:modified_time" content="2020-12-12T15:05:37.043Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -151,8 +153,8 @@
 <h2 id="课设题目"><a href="#课设题目" class="headerlink" title="课设题目"></a>课设题目</h2><p>天文摄影师常常用照相机对夜晚的天空进行拍摄。v1.avi和v2.avi是两段持续几秒的夜晚天空景象的视频。可以注意到，夜晚较暗的光照使得视频中有明显的噪声。设计一个算法用于去除这两组图像数据中的噪声。<br>根据学过的图像处理知识可知，为了实现通过多帧图像数据获取一幅去除噪声后的图像，一种常用的方法是平均去噪法，即计算多帧图像的平均值。<br>分别计算这两组多帧图像数据的平均值，获得两幅去噪图像。<br>用上述方法可以发现去噪结果并不令人满意，原因是各帧图像间存在一定的偏移。请设计一个算法克服这种偏移同时获得较好的平均法去噪结果。</p>
 <h2 id="实验原理"><a href="#实验原理" class="headerlink" title="实验原理"></a>实验原理</h2><p>以视频中的第一帧为基准，逐帧遍历视频图片，由于图片位移间隔时间小，位移小，可以通过特殊方法获得当前帧图片与第一帧基准图片的相对运动大小，求出变换矩阵，通过变换的逆矩阵反向平移当前帧，即可认为观察者未运动，再使用平均值法去噪即可。<br>由于运动时间短，我们忽略运动的旋转部分，仅考虑平移运动。平移运动为二自由度，因此我们只需要找到两张图中一个对应的特征点，即可求得变换矩阵。</p>
 <h2 id="涉及的-MATLAB-函数"><a href="#涉及的-MATLAB-函数" class="headerlink" title="涉及的 MATLAB 函数"></a>涉及的 MATLAB 函数</h2><p><strong>VideoReader</strong>;<br>用于读取视频中的内容，将其每一帧都读出来。<br><strong>im2double</strong>；<br>将读入的图像转换为浮点形式，便于后期处理。<br><strong>rgb2gray</strong>；<br>将rgb图像转化为灰度图，便于后期处理。<br><strong>strel</strong>；<br>创建形态学操作的构造元素。<br><strong>imerode</strong>；<br>图像形态学腐蚀处理。<br><strong>edge</strong><br>边缘检测。<br><strong>find、max</strong>；<br>求得数组最大值并确定最大值的位置。 </p>
-<h2 id="实验内容与方法"><a href="#实验内容与方法" class="headerlink" title="实验内容与方法"></a>实验内容与方法</h2><p>首先观察两个视频，可以看出，视频中图像含有许多噪声：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2065354894.jpg" alt="Snipaste_2020-06-24_17-44-11.jpg"><br><img src="http://www.starydy.xyz/usr/uploads/2020/06/1235922839.jpg" alt="Snipaste_2020-06-24_17-44-38.jpg"><br>这些噪声分布均匀且均值基本为0，可以通过均值滤波的方法消除噪声。但是，由于视频拍摄的抖动导致直接进行多帧均值滤波会使运动物体产生模糊，导致滤波效果变差：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/4291764818.png" alt="3.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/06/4074491988.png" alt="4.png"><br>因此，想到了使用特征点的方法求出前后两帧的相对运动关系，将后一帧移动到前一帧对应的位置，以消除运动产生的影响。<br>首先使用im2double与rgb2gray将图像处理为浮点型的单值图，之后对两段视频分别选择寻找特征点的方法。<br>对于第一个视频，使用缩小范围的寻找特征点的方法，在原图中找到一个sector区域，作为特征点运动的范围。选取这个位置要保证范围内有且仅有一个比较明亮的点，并且在运动过程中这个点不会跑出这个范围。<br>sector = frame(421:472,681:728);<br>处理前的sector<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2270251422.png" alt="5.png"><br>对其进行处理，首先进行形态学的腐蚀处理<br>形态学操作可以改变物体形状<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/3183017928.png" alt="6.png"><br>形态学腐蚀就是求局部最小值的操作<br>se = strel(‘disk’,1);<br>sector = imerode(sector,se);<br>之后使用find函数找到图片中幅值最大的像素，以这个点的位置作为特征点。<br>[x_1,y_1] = find(sector == max(max(sector)));<br>处理后的sector<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/3043677073.png" alt="8.png"><br>选择这个点作为特征点进行唯一判断。<br>对于第二个视频，我们使用图中月亮的圆心作为特征点。<br>首先对图像进行canny边缘检测：<br>result_frame = edge(frame,’canny’,[0.3,0.5]);<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/1460216437.png" alt="9.png"><br>Canny边缘检测包含以下四个步骤：<br>1.高斯滤波<br>滤波的主要目的是降噪，一般的图像处理算法都需要先进行降噪。而高斯滤波主要使图像变得平滑（模糊），同时也有可能增大了边缘的宽度。<br>2.计算图片梯度<br>边缘一定就是图像中像素变化较快的区域，因此使用梯度就可以检测出边缘。我们使用sobel算子对图片进行滤波，就可以计算出它的梯度。<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/385346141.png" alt="10.png"><br>3.过滤非最大值<br>在高斯滤波过程中，边缘有可能被放大了。这个步骤使用一个规则来过滤不是边缘的点，使边缘的宽度尽可能为1个像素点：如果一个像素点属于边缘，那么这个像素点在梯度方向上的梯度值是最大的。否则不是边缘，将灰度值设为0。这样就可以使检测到的边缘始终是一个像素。<br>4.使用上下阈值确定边缘<br>通过给定的上下阈值确定最终哪些地方属于边缘，哪些地方不是。梯度过小的地方不应该是边缘，而梯度过大的地方也不应被视为边缘 。</p>
-<p>想要检测图片中的圆首先想到，可以使用Hough圆变换来求解圆的圆心：<br>首先理解霍夫线变换。霍夫线变换的基本理论，就是二进制图片中每一个点都可能属于某些线。如果将过(x0,y0)的这些条线参数化为一个斜率为a，截距为b的线，由于这条线过这一点，可以将a，b作为变量，画出这个点对应的所有直线参数，在a，b平面中的形式：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2947829010.jpg" alt="Snipaste_2020-06-24_17-49-13.jpg"><br>也是一条直线，并且斜率与截距都是确定的。对于每一个图像中的非零点，都进行这样的操作，并且在a，b平面表示出来。当所有的非零点都表示出来，并进行累加后，a，b平面上数值比较大的点就是原图中可能的直线的参数。<br>同理，霍夫圆变换与直线变换的原理相同，先将圆参数化，只不过这时需要三个参数，得到的参数平面将会是一个三位体中的坐标。这样也是可行的，只不过运算缓慢，通常使用霍夫梯度法来检测圆。圆心是圆所有法线的交汇点，通过梯度，确定这些法线，并求出他们的交点中最有可能的那一个，就能检测到圆心。随后再判断圆心到圆周上点的距离，相同或相近距离数量多，就能确定圆的半径，并且也能检验圆心选择的正确性。<br>在思考过程中，又发现进行完canny边缘检测后，这张图像十分完美，故使用运算更为简便的方法进行圆检测。<br>使用扫描算法检测这个圆的圆心，具体方法为：<br>逐<strong>列</strong>遍历整个图像，若在每一<strong>列</strong>检测到两次白点，计算两个白点之间的距离，所有距离中最长的距离就是圆的直径，这时两个点中间的的那个点就是圆的圆心。</p>
+<h2 id="实验内容与方法"><a href="#实验内容与方法" class="headerlink" title="实验内容与方法"></a>实验内容与方法</h2><p>首先观察两个视频，可以看出，视频中图像含有许多噪声：<br><img src="/old_images/2020/06/2065354894.jpg" alt="Snipaste_2020-06-24_17-44-11.jpg"><br><img src="/old_images/2020/06/1235922839.jpg" alt="Snipaste_2020-06-24_17-44-38.jpg"><br>这些噪声分布均匀且均值基本为0，可以通过均值滤波的方法消除噪声。但是，由于视频拍摄的抖动导致直接进行多帧均值滤波会使运动物体产生模糊，导致滤波效果变差：<br><img src="/old_images/2020/06/4291764818.png" alt="3.png"><br><img src="/old_images/2020/06/4074491988.png" alt="4.png"><br>因此，想到了使用特征点的方法求出前后两帧的相对运动关系，将后一帧移动到前一帧对应的位置，以消除运动产生的影响。<br>首先使用im2double与rgb2gray将图像处理为浮点型的单值图，之后对两段视频分别选择寻找特征点的方法。<br>对于第一个视频，使用缩小范围的寻找特征点的方法，在原图中找到一个sector区域，作为特征点运动的范围。选取这个位置要保证范围内有且仅有一个比较明亮的点，并且在运动过程中这个点不会跑出这个范围。<br>sector = frame(421:472,681:728);<br>处理前的sector<br><img src="/old_images/2020/06/2270251422.png" alt="5.png"><br>对其进行处理，首先进行形态学的腐蚀处理<br>形态学操作可以改变物体形状<br><img src="/old_images/2020/06/3183017928.png" alt="6.png"><br>形态学腐蚀就是求局部最小值的操作<br>se = strel(‘disk’,1);<br>sector = imerode(sector,se);<br>之后使用find函数找到图片中幅值最大的像素，以这个点的位置作为特征点。<br>[x_1,y_1] = find(sector == max(max(sector)));<br>处理后的sector<br><img src="/old_images/2020/06/3043677073.png" alt="8.png"><br>选择这个点作为特征点进行唯一判断。<br>对于第二个视频，我们使用图中月亮的圆心作为特征点。<br>首先对图像进行canny边缘检测：<br>result_frame = edge(frame,’canny’,[0.3,0.5]);<br><img src="/old_images/2020/06/1460216437.png" alt="9.png"><br>Canny边缘检测包含以下四个步骤：<br>1.高斯滤波<br>滤波的主要目的是降噪，一般的图像处理算法都需要先进行降噪。而高斯滤波主要使图像变得平滑（模糊），同时也有可能增大了边缘的宽度。<br>2.计算图片梯度<br>边缘一定就是图像中像素变化较快的区域，因此使用梯度就可以检测出边缘。我们使用sobel算子对图片进行滤波，就可以计算出它的梯度。<br><img src="/old_images/2020/06/385346141.png" alt="10.png"><br>3.过滤非最大值<br>在高斯滤波过程中，边缘有可能被放大了。这个步骤使用一个规则来过滤不是边缘的点，使边缘的宽度尽可能为1个像素点：如果一个像素点属于边缘，那么这个像素点在梯度方向上的梯度值是最大的。否则不是边缘，将灰度值设为0。这样就可以使检测到的边缘始终是一个像素。<br>4.使用上下阈值确定边缘<br>通过给定的上下阈值确定最终哪些地方属于边缘，哪些地方不是。梯度过小的地方不应该是边缘，而梯度过大的地方也不应被视为边缘 。</p>
+<p>想要检测图片中的圆首先想到，可以使用Hough圆变换来求解圆的圆心：<br>首先理解霍夫线变换。霍夫线变换的基本理论，就是二进制图片中每一个点都可能属于某些线。如果将过(x0,y0)的这些条线参数化为一个斜率为a，截距为b的线，由于这条线过这一点，可以将a，b作为变量，画出这个点对应的所有直线参数，在a，b平面中的形式：<br><img src="/old_images/2020/06/2947829010.jpg" alt="Snipaste_2020-06-24_17-49-13.jpg"><br>也是一条直线，并且斜率与截距都是确定的。对于每一个图像中的非零点，都进行这样的操作，并且在a，b平面表示出来。当所有的非零点都表示出来，并进行累加后，a，b平面上数值比较大的点就是原图中可能的直线的参数。<br>同理，霍夫圆变换与直线变换的原理相同，先将圆参数化，只不过这时需要三个参数，得到的参数平面将会是一个三位体中的坐标。这样也是可行的，只不过运算缓慢，通常使用霍夫梯度法来检测圆。圆心是圆所有法线的交汇点，通过梯度，确定这些法线，并求出他们的交点中最有可能的那一个，就能检测到圆心。随后再判断圆心到圆周上点的距离，相同或相近距离数量多，就能确定圆的半径，并且也能检验圆心选择的正确性。<br>在思考过程中，又发现进行完canny边缘检测后，这张图像十分完美，故使用运算更为简便的方法进行圆检测。<br>使用扫描算法检测这个圆的圆心，具体方法为：<br>逐<strong>列</strong>遍历整个图像，若在每一<strong>列</strong>检测到两次白点，计算两个白点之间的距离，所有距离中最长的距离就是圆的直径，这时两个点中间的的那个点就是圆的圆心。</p>
 <h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>实验所使用代码（Matlab）如下：<br>对于第一个视频：</p>
 <pre><code>clear,clc;
 vidobj = VideoReader([&#39;v1&#39; &#39;.avi&#39;]);
@@ -294,7 +296,7 @@ end
 
 sum_frame = sum_frame/60;
 imshow(sum_frame);</code></pre>
-<p>运行结果：<br><img src="http://www.starydy.xyz/usr/uploads/2020/06/142298572.png" alt="11.png"><br><img src="http://www.starydy.xyz/usr/uploads/2020/06/2236493176.png" alt="12.png"><br>可以看到，经过处理的图像噪声明显减少，并且并未受到观察者视角移动而出现动态模糊的影响。</p>
+<p>运行结果：<br><img src="/old_images/2020/06/142298572.png" alt="11.png"><br><img src="/old_images/2020/06/2236493176.png" alt="12.png"><br>可以看到，经过处理的图像噪声明显减少，并且并未受到观察者视角移动而出现动态模糊的影响。</p>
 
             </div>
             
@@ -385,7 +387,7 @@ imshow(sum_frame);</code></pre>
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -643,6 +645,25 @@ imshow(sum_frame);</code></pre>
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

@@ -420,11 +420,11 @@ specular：镜面反射
 
 
   [1]: https://learnopengl-cn.github.io/
-  [2]: http://www.starydy.xyz/usr/uploads/2020/06/4288438894.jpg
-  [3]: http://www.starydy.xyz/usr/uploads/2020/06/890806100.jpg
-  [4]: http://www.starydy.xyz/usr/uploads/2020/06/1099674099.jpg
-  [5]: http://www.starydy.xyz/usr/uploads/2020/06/2875422330.jpg
-  [6]: http://www.starydy.xyz/usr/uploads/2020/06/1829637362.jpg
-  [7]: http://www.starydy.xyz/usr/uploads/2020/06/4103478537.jpg
-  [8]: http://www.starydy.xyz/usr/uploads/2020/09/3319805378.png
-  [9]: http://www.starydy.xyz/usr/uploads/2020/09/2082677778.png
+  [2]: /old_images/2020/06/4288438894.jpg
+  [3]: /old_images/2020/06/890806100.jpg
+  [4]: /old_images/2020/06/1099674099.jpg
+  [5]: /old_images/2020/06/2875422330.jpg
+  [6]: /old_images/2020/06/1829637362.jpg
+  [7]: /old_images/2020/06/4103478537.jpg
+  [8]: /old_images/2020/09/3319805378.png
+  [9]: /old_images/2020/09/2082677778.png

@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/null">
 <meta property="article:published_time" content="2020-04-04T00:32:51.000Z">
-<meta property="article:modified_time" content="2020-12-10T07:53:51.611Z">
+<meta property="article:modified_time" content="2020-12-12T15:08:46.015Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/null">
@@ -45,6 +45,8 @@
   <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
   <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
   
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
@@ -147,7 +149,7 @@
             <div class="kratos-post-content">
                 
                 <hr />
-                <p><img src="http://www.starydy.xyz/usr/uploads/2020/04/4165605798.jpeg" alt="d37b7bcd2f0c4f03a00a8684eff7a87d.jpeg"><br>特别敬佩那些奋战在抗疫一线的战士们，深刻缅怀那些在抗疫战场上逝去的英雄们。<br>作为新时代的中国青年，我会更加努力，致敬时刻保卫中国的最可爱的人们，为祖国奉献自己的生命价值！<br>我为我是中国人而自豪！</p>
+                <p><img src="/old_images/2020/04/4165605798.jpeg" alt="d37b7bcd2f0c4f03a00a8684eff7a87d.jpeg"><br>特别敬佩那些奋战在抗疫一线的战士们，深刻缅怀那些在抗疫战场上逝去的英雄们。<br>作为新时代的中国青年，我会更加努力，致敬时刻保卫中国的最可爱的人们，为祖国奉献自己的生命价值！<br>我为我是中国人而自豪！</p>
 
             </div>
             
@@ -238,7 +240,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-10</span>
+                    <span>最后编辑：2020-12-12</span>
                     </div>
                 </div>
             </footer>
@@ -496,6 +498,25 @@
     </div>
 
 <script async src="/js/candy.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <div id="aplayer"></div>
+<script>
+$.ajax({
+    type:"get",
+    url:"",
+    dataType:"json",
+    success: function(data){
+        new APlayer({
+            container: document.getElementById('aplayer'),
+            fixed: true,
+            order: 'random',
+            lrcType: 3,
+            audio: data
+        });
+    }
+});
+</script>
 
 
     <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
