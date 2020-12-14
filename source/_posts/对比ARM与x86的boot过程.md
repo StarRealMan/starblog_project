@@ -2,6 +2,7 @@ title: 对比ARM与x86的boot过程
 date: 2020-02-20 10:30:00
 categories: 开发
 tags: []
+toc: true
 ---
 大家都应该熟悉x86架构cpu的启动方式
 **首先是BIOS芯片，是一个固化了程序的CMOS芯片：**

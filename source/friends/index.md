@@ -9,8 +9,8 @@ description: 好伙伴们在哪里~
 <script type="text/javascript">
 {
     const myFriends = [
-        ["https://yochamzheng.github.io/", "https://avatars3.githubusercontent.com/u/39761153?s=64&v=4", "zyc1", "喵喵喵~"],
-        ["https://github.com/hit-zyc", "https://avatars3.githubusercontent.com/u/56548980?s=64&v=4", "zyc2", "喵喵喵~"]
+        ["https://yochamzheng.github.io/", "https://avatars3.githubusercontent.com/u/39761153?s=64&v=4", "阿虎", "中国微电子行业栋梁之材"],
+        ["https://hit-zyc.github.io/", "https://avatars3.githubusercontent.com/u/56548980?s=64&v=4", "驰酱", "ZJU-BE"]
     ];
 
     let friendNodes = '';

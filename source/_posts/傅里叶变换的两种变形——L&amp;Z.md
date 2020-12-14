@@ -2,6 +2,7 @@ title: 傅里叶变换的两种变形——L&amp;Z
 date: 2020-04-24 06:11:00
 categories: 物数
 tags: []
+toc: true
 ---
 ## 拉普拉斯变换 ##
 

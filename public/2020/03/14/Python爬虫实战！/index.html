@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://starydy.xyz/images/system/ico3232.ico">
 <meta property="article:published_time" content="2020-03-13T22:21:00.000Z">
-<meta property="article:modified_time" content="2020-12-13T08:42:16.228Z">
+<meta property="article:modified_time" content="2020-12-14T12:20:28.107Z">
 <meta property="article:author" content="Star YDY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://starydy.xyz/images/system/ico3232.ico">
@@ -78,11 +78,15 @@
                                     
                                 
                                     
-                                        <li><a href="/archives/"><i class="fa fa-file"></i>档案馆</a></li>
+                                        <li><a href="/archives/"><i class="fa fa-book"></i>档案馆</a></li>
                                     
                                 
                                     
                                         <li><a href="/friends/"><i class="fa fa-mars-double"></i>好伙伴</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/about/"><i class="fa fa-paper-plane"></i>关于我</a></li>
                                     
                                 
                                     
@@ -97,7 +101,7 @@
                                                     
                                                 
                                                     
-                                                        <li><a target="_blank" rel="noopener" href="https://github.com/StarRealMan/StarRealMan.github.io">项目链接</a></li>
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/StarRealMan/StarRealMan.github.io">项目</a></li>
                                                     
                                                 
                                             </ul>
@@ -149,6 +153,10 @@
                 </div>
             </header>
             <div class="kratos-post-content">
+                
+                    <div class="kratos-post-inner-toc">
+                        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-requests%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">Python requests库的基础使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E7%9A%84%E4%BF%9D%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text">内容的保存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E7%AD%9B%E9%80%89-%E6%AD%A3%E5%88%99re%E4%B8%8Eparsel%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text">数据的筛选 正则re与parsel库##</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E7%88%AC%E5%8F%96"><span class="toc-number">4.</span> <span class="toc-text">批量爬取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9A%E7%88%AC%E5%8F%96%E6%9F%90%E7%BD%91%E7%AB%99%E6%95%B4%E9%83%A8%E6%BC%AB%E7%94%BB"><span class="toc-number">5.</span> <span class="toc-text">实战：爬取某网站整部漫画</span></a></li></ol>
+                    </div>
                 
                 <hr />
                 <p>老早就有闻爬虫的鼎鼎大名，但一直找不到合适的机会去试一试。正好前几天刚学习了Python的语法，拿爬虫练练手正合适，顺便在网上找到了漫画的资源正好下载下来看一看，省了我几个漫读券了，一举两得，美滋滋！</p>
@@ -261,7 +269,7 @@ Python requests库...`;
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2020-12-13</span>
+                    <span>最后编辑：2020-12-14</span>
                     </div>
                 </div>
             </footer>
@@ -281,6 +289,35 @@ Python requests库...`;
             </nav>
         
         
+            <div id="disqus_thread" class="post-comments lazy-load"></div>
+
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://starydy.xyz/2020/03/14/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98%EF%BC%81/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '2020/03/14/Python爬虫实战！/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    var load_comm = () => {
+        if (typeof DISQUS == 'undefined') {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://starydyxyz.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        } else {
+            DISQUS.reset({
+                reload: true,
+                config: function () {  
+                    this.page.url = 'http://starydy.xyz/2020/03/14/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98%EF%BC%81/';  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = '2020/03/14/Python爬虫实战！/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                }
+            });
+        }
+    };
+    
+</script>
+<script async id="dsq-count-scr" src="//starydyxyz.disqus.com/count.js"></script>
+
+<noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        
     </article>
 </section>
         </div>
@@ -297,17 +334,21 @@ Python requests库...`;
     </div>
     <div class="textwidget">
         
-            <p class="text-center">Recording my everyday life!</p>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-requests%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">Python requests库的基础使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E7%9A%84%E4%BF%9D%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text">内容的保存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E7%AD%9B%E9%80%89-%E6%AD%A3%E5%88%99re%E4%B8%8Eparsel%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text">数据的筛选 正则re与parsel库##</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E7%88%AC%E5%8F%96"><span class="toc-number">4.</span> <span class="toc-text">批量爬取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9A%E7%88%AC%E5%8F%96%E6%9F%90%E7%BD%91%E7%AB%99%E6%95%B4%E9%83%A8%E6%BC%AB%E7%94%BB"><span class="toc-number">5.</span> <span class="toc-text">实战：爬取某网站整部漫画</span></a></li></ol>
         
     </div>
+    <div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="//music.163.com/outchain/player?type=0&id=5380319791&auto=1&height=430"></iframe>
+    </div>
 </aside>
+
                 
                     <!-- Moved to about.ejs -->
                 
                     
   <aside id="krw-categories" class="widget widget-categories clearfix">
     <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A7%E5%88%B6/">控制</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%89%A9%E6%95%B0/">物数</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">4</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A7%E5%88%B6/">控制</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%89%A9%E6%95%B0/">物数</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">4</span></li></ul>
   </aside>
 
 
@@ -320,6 +361,12 @@ Python requests库...`;
   <div class="tab-content">
       <ul class="list-group">
         
+        
+          
+          
+            <a class="list-group-item" href="/2020/12/14/%E5%BC%80%E5%90%AF%E6%96%B0%E7%9A%84%E6%97%85%E7%A8%8B%EF%BC%81/"><i class="fa  fa-book"></i> 开启新的旅程！</a>
+            
+          
         
           
           
@@ -346,11 +393,7 @@ Python requests库...`;
           
         
           
-          
-            <a class="list-group-item" href="/2020/08/15/%E5%88%A9%E7%94%A8ANSYS%E8%BF%9B%E8%A1%8C%E5%8F%B6%E8%BD%AE%E5%8A%A8%E6%80%81%E6%B5%81%E5%9C%BA%E4%BB%BF%E7%9C%9F%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B/"><i class="fa  fa-book"></i> 利用ANSYS进行叶轮动态流场仿真分析实例</a>
             
-          
-        
           
             
           
@@ -533,5 +576,5 @@ Python requests库...`;
     <script defer src="/js/kr-dark.min.js"></script>
 
 
-    </body>
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":180,"height":300,"position":"right","hOffset":140,"vOffset":100},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
