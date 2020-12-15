@@ -114,7 +114,7 @@ live2d:
     width: 180
     height: 300
     position: right
-    hOffset: 140
+    hOffset: 40
     vOffset: 100
   mobile:
     show: false
