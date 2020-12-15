@@ -1,0 +1,130 @@
+# Global
+site_analytics: 
+hoster: <a href="https://github.io" target="_blank">Github Pages</a>
+site_logo: /images/system/ico3232.ico
+snow: true
+enable_dark: true
+cdn: false
+
+# Index
+index:
+  post_type: false
+
+# Top Menu
+menu:
+  index: /
+  archives: /archives/
+  friends: /friends/
+  about : /about/
+  comment: /comment-policy/
+  sites:
+    submenu: true
+    bilibili: https://space.bilibili.com/139101336
+    project: https://github.com/StarRealMan/StarRealMan.github.io
+
+label:
+  index: <i class="fa fa-home"></i>首页
+  archives: <i class="fa fa-book"></i>档案馆
+  friends: <i class="fa fa-mars-double"></i>好伙伴
+  about: <i class="fa fa-paper-plane"></i>关于我
+  comment: <i class="fa fa-file"></i>评论政策
+  sites:
+    submenu: <i class="fa fa-link"></i>链接
+    bilibili: Bilibili
+    project: 项目
+
+# Footer
+group_link: 
+contact:
+  weibo: 
+  mail: starydyxyz@gmail.com
+  telegram: 
+  twitter: StaReallyMan
+  facebook: 
+  linkedin: 
+  fediverse:
+    instance: 
+    username: 
+  github: StarRealMan
+  rss:
+timenotice: 本站已萌萌地运行了
+icp: 
+psr: 
+  
+# Post Page
+posts:
+  show_cc: true
+  donate: true
+  share: true
+  comments: disqus #valine disqus
+
+# Disqus
+disqus:
+  shortname: starydyxyz
+
+# DisqusJS
+disqusjs:
+  shortname: 
+  sitename: 
+  api: 
+  apikey: 
+  admin: 
+  adminlabel: 
+
+# Valine
+valine:
+  app_id: rGq9JFilWf96Ob16JSdbS9Q9-gzGzoHsz
+  app_key: AkT26JVq5BD0fPiqmW0afnQV
+  visitor: true
+  enableQQ: true
+
+# Twikoo
+twikoo:
+  env_id: 
+
+# APlayer
+aplayer:
+  enabled: false
+  playlist: https://api.lcy.moe/aplayer.php?p=tencent&m=ap&t=playlist&id=7491784163
+  order: random
+
+# Widgets
+sidebar: right
+widgets:
+- about
+- toc
+- category
+- tagcloud
+- posts
+avatarUri: /images/system/avatar.png
+
+# Fancybox
+fancybox: true
+
+# 搜索
+search:
+  enable: true
+  path: search.json
+  field: post # page | post | all. Default post
+  content: true # Include post | page content
+
+# JavaScript相关的配置
+# 由于Javascript被压缩后难以有效编辑与生成，因而为了简化操作，将相关的配置项在生成文件时以独立的json文件写出，调用时使用fetch API获取。
+jsconfig:
+  main:
+    picCDN: false
+    createTime: "2020/01/31 11:42:14"
+    donateBtn: "支持我~"
+    scanNotice: "扫一扫，好不好？"
+    qr_alipay: "/images/system/alipay.jpg"
+    qr_wechat: "/images/system/wechatpay.jpg"
+    siteLeaveEvent: false
+    leaveTitle: "{{{(>_<)}}}哦哟，崩溃啦~"
+    returnTitle: "(*´∇｀*)欸，又好啦~"
+    copyrightNotice: "该内容采用 CC BY-NC-SA 4.0 许可协议，著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"
+
+# Site verify related
+site_verify:
+  google: 
+  baidu: 
+  bing: 
