@@ -6,11 +6,11 @@ on:
       - master
 
 env:
-  GIT_USER: Sanonz
-  GIT_EMAIL: sanonz@126.com
-  THEME_REPO: sanonz/hexo-theme-concise
+  GIT_USER: StarRealMan
+  GIT_EMAIL: 965669036@qq.com
+  THEME_REPO: StarRealMan/Kratos-Rebirth
   THEME_BRANCH: master
-  DEPLOY_REPO: sanonz/sanonz.github.io
+  DEPLOY_REPO: StarRealMan/StarRealMan.github.io
   DEPLOY_BRANCH: master
 
 jobs:
