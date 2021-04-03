@@ -11,7 +11,7 @@ env:
   THEME_REPO: StarRealMan/Kratos-Rebirth
   THEME_BRANCH: master
   DEPLOY_REPO: StarRealMan/StarRealMan.github.io
-  DEPLOY_BRANCH: master
+  DEPLOY_BRANCH: main
 
 jobs:
   build:
