@@ -128,5 +128,6 @@ live2d:
 deploy:
   type: git
   repo:
-    github: https://github.com/StarRealMan/StarRealMan.github.io.git
+    #github: https://github.com/StarRealMan/StarRealMan.github.io.git
+    git@github.com:StarRealMan/StarRealMan.github.io.git
   branch: main
