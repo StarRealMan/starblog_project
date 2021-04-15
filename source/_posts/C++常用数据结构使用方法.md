@@ -159,7 +159,7 @@ toc: true
 	```
 	mystring("Hello")
 	mystring(size, 'A')		//注意C++中 'A'表示一个字符（char），"A"表示一个字符串（char\*）
-	char* 					//与 string的转换：
+	//char* 与 string的转换：
 	char* mychar = "Hello";
 	mystring = mychar;
 	mychar = mystring.c_str();
