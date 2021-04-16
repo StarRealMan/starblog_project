@@ -107,6 +107,7 @@ toc: true
 	empty()
 	//由于没有迭代器，所以不能进行遍历，唯一方法是遍历容器内容，并移除访问过的每一个元素
 	```
+	
 * queue<typeA>
 	最常见的队列结构，一种先入先出的结构，但是不具有迭代器，主要用于某种状态下待处理元素的记录，常见于BFS算法中。
 
@@ -120,11 +121,12 @@ toc: true
 	empty()
 	//与stack一样没有迭代器，所以不能进行遍历，唯一方法是遍历容器内容，并移除访问过的每一个元素
 	```
+	
 * deque<typeA>
 	与queue相似的双向队列结构，能够进行首尾的读取，加入与弹出，拥有迭代器。
 
 	常用方法：
-
+	```
 	push_back(a)
 	pop_back()
 	push_front(a)
@@ -135,6 +137,7 @@ toc: true
 	size()
 	clear()
 	empty()
+	```
 
 * heap
 	实际上C++并没有堆这个类，使用的是对另一个数据结构的迭代器进行建堆操作来创建一个堆。
@@ -143,13 +146,29 @@ toc: true
 	常用方法：
 	```
 	vector<typeA> myvector;
-	make_heap(myvector.begin(), myvector.end());				//默认为小根堆
-	make_heap(myvector.begin(), myvector.end(), greater<type>);	//创建大根堆，创建堆会改变原始数据结构的顺序为堆树的层次遍历
+	make_heap(myvector.begin(), myvector.end());				//默认为大根堆
+	make_heap(myvector.begin(), myvector.end(), greater<type>);		//创建小根堆，创建堆会改变原始数据结构的顺序为堆树的层次遍历
 	myvector.push_back(a);
 	push_heap(myvector.begin(), myvector.end());				//push操作先对原数据进行
-	pop_heap(myvector.begin(), myvector.end());					//pop操作先对堆进行
+	pop_heap(myvector.begin(), myvector.end());				//pop操作先对堆进行
 	myvector.pop_back(a);
 	sort_heap(myvector.begin(), myvector.end());				//核心操作，进行堆排序（大根堆进行升序排序，小根堆进行降序排序）
+	```
+
+* priority_queue
+	C++没有堆，但是我们还可以通过priority_queue来实现有排序功能的数据结构，当然，内部结构还是堆的原理。
+	priority_queue的方法与上面的队列queue基本相同，只不过在我们把新元素入队时，会自动更新这个堆，使得我们每次出队的元素都是当前队列最大/最小的。
+	
+	常用方法：
+	```
+	priority_queue<int, vector<int>, greater<int>> up;		//升序队列（小根堆）
+	priority_queue <int, vector<int>, less<int>> down;		//降序队列（大根堆）
+	push(a)
+	pop()
+	front()
+	back()
+	size()
+	empty()
 	```
 
 * string
@@ -158,20 +177,16 @@ toc: true
 	常用方法：
 	```
 	mystring("Hello")
-	mystring(size, 'A')		//注意C++中 'A'表示一个字符（char），"A"表示一个字符串（char\*）
-	//char* 与 string的转换：
-	char* mychar = "Hello";
+	mystring(size, 'A')				//注意C++中 'A'表示一个字符（char），"A"表示一个字符串（char\*）
+	char* mychar = "Hello";				//char* 与 string的转换：
 	mystring = mychar;
 	mychar = mystring.c_str();
-	//字符串的拼接：
-	mystring = mystring1 + mystring2;
+	mystring = mystring1 + mystring2;		//字符串的拼接：
 	mystring.append(mystring1);
-	//提取、插入、删除、替换子串：
-	substring = mystring.substr(start, size);
+	substring = mystring.substr(start, size);	//提取、插入、删除、替换子串：
 	newstring = mystring.insert(start, substring);
 	mystring.erase(start, size);
 	mystring.replace(start, size, substring);
-	//索引读写：
-	char mychar = mystring[i];
+	char mychar = mystring[i];			//索引读写：
 	//与其他STL数据结构类似，也可以使用迭代器进行string的操作。
 	```
