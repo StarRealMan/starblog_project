@@ -10,7 +10,8 @@ toc: true
 
 最近为了找实习，简单地复习了一下C++常用的数据结构，在此做个笔记。
 
-* vector<typeA>
+vector<typeA>
+-----
 	首先是最常见的vector，和数组很类似，可以使用索引进行读写操作。
 
 	常用方法：
@@ -30,7 +31,8 @@ toc: true
 	```
 	迭代器使用begin()、end()进行正向遍历，由于不支持减一操作，使用rbegin()、rend()进行反向遍历，其他数据结构都类似。
 
-* list<typeA>
+list<typeA>
+-----
 	实现了链表的结构，不同于vector，在进行插入删除操作时效率很高，但是在进行随机读取时效率较低。
 
 	常用方法：
@@ -49,7 +51,8 @@ toc: true
 	erase(it, num)
 	```
 
-* set<typeA>, unordered_set<typeA>
+set<typeA>, unordered_set<typeA>
+-----
 	使用红黑树实现的set，主要用于保留一系列**不重复**的值，并且进行了排序，查找具有O(logn)的复杂度。
 	使用哈希表实现的unordered_set，基本方法与set相同，但是不具备顺序，查找具有O(1)的复杂度。
 
@@ -71,7 +74,8 @@ toc: true
 	}
 	```
 
-* map<typeA, typeB>, unordered_map<typeA, typeB>
+map<typeA, typeB>, unordered_map<typeA, typeB>
+-----
 	使用红黑树实现的map，主要用于保留一系列**不重复**的键值对，即可以使用键进行索引，并且对键进行了排序，查找具有O(logn)的复杂度。
 	使用哈希表实现的unordered_map，基本方法与map相同，但是不具备顺序，查找具有O(1)的复杂度。
 
@@ -95,7 +99,8 @@ toc: true
 	}
 	```
 
-* stack<typeA>
+stack<typeA>
+-----
 	最常见的栈结构，一种先入后出的结构，但是不具有迭代器，主要用于存储某些状态的特定元素使用。
 
 	常用方法：
@@ -108,7 +113,8 @@ toc: true
 	//由于没有迭代器，所以不能进行遍历，唯一方法是遍历容器内容，并移除访问过的每一个元素
 	```
 	
-* queue<typeA>
+queue<typeA>
+-----
 	最常见的队列结构，一种先入先出的结构，但是不具有迭代器，主要用于某种状态下待处理元素的记录，常见于BFS算法中。
 
 	常用方法：
@@ -122,7 +128,8 @@ toc: true
 	//与stack一样没有迭代器，所以不能进行遍历，唯一方法是遍历容器内容，并移除访问过的每一个元素
 	```
 	
-* deque<typeA>
+deque<typeA>
+-----
 	与queue相似的双向队列结构，能够进行首尾的读取，加入与弹出，拥有迭代器。
 
 	常用方法：
@@ -139,7 +146,8 @@ toc: true
 	empty()
 	```
 
-* heap
+heap
+-----
 	实际上C++并没有堆这个类，使用的是对另一个数据结构的迭代器进行建堆操作来创建一个堆。
 	堆使用完全二叉树实现的，大根堆即代表根节点大于（或等于）叶子节点，小根堆同理。堆方便指出就在于便于进行排序（处在堆顶的一定是最大值）。
 
@@ -155,7 +163,8 @@ toc: true
 	sort_heap(myvector.begin(), myvector.end());				//核心操作，进行堆排序（大根堆进行升序排序，小根堆进行降序排序）
 	```
 
-* priority_queue
+priority_queue
+-----
 	C++没有堆，但是我们还可以通过priority_queue来实现有排序功能的数据结构，当然，内部结构还是堆的原理。
 	priority_queue的方法与上面的队列queue基本相同，只不过在我们把新元素入队时，会自动更新这个堆，使得我们每次出队的元素都是当前队列最大/最小的。
 	
@@ -171,7 +180,8 @@ toc: true
 	empty()
 	```
 
-* string
+string
+-----
 	不同于C语言中使用char\*或char[]来维护字符串，C++使用string类进行字符串的操作，其中之前C语言对于char\*字符串的操作方法大多数也适用于string类型。
 
 	常用方法：
