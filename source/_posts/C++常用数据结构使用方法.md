@@ -15,7 +15,6 @@ toc: true
 首先是最常见的vector，和数组很类似，可以使用索引进行读写操作。
 
 常用方法：
-
 	```
 	myvector(size, a)
 	resize(size)
@@ -29,7 +28,7 @@ toc: true
 	reverse(myvector.begin(), myvector.end())
 	sort(myvector.begin(), myvector.end())
 	```
-	迭代器使用begin()、end()进行正向遍历，由于不支持减一操作，使用rbegin()、rend()进行反向遍历，其他数据结构都类似。
+迭代器使用begin()、end()进行正向遍历，由于不支持减一操作，使用rbegin()、rend()进行反向遍历，其他数据结构都类似。
 
 ## list<typeA> ##
 
@@ -167,7 +166,7 @@ toc: true
 
 C++没有堆，但是我们还可以通过priority_queue来实现有排序功能的数据结构，当然，内部结构还是堆的原理。
 priority_queue的方法与上面的队列queue基本相同，只不过在我们把新元素入队时，会自动更新这个堆，使得我们每次出队的元素都是当前队列最大/最小的。
-	
+
 常用方法：
 	```
 	priority_queue<int, vector<int>, greater<int>> up;		//升序队列（小根堆）
