@@ -35,7 +35,7 @@ Besides jioning in competitions, I and my team members also joined Innovation an
 We build up a Hand Exoskeleton which can help patients with muscle weakness to lift up heavy things and rehab.
 This project has won Silver Medal in China College Students' 'Internet+' Innovation and Entrepreneurship Competition and Silver Medal in 'Zu Guang' Cup.
 
-![project2](/images/system/project2.jpg)
+![project2](/images/system/projects.png)
 
 We also designed a strong PMSM system from hardware to software which is widely used in our robots.
 We have also assigned a patent for this project.
