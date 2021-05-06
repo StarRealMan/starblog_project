@@ -42,9 +42,9 @@ We have submit a patent application for this PMSM system.
 
 ## Honors
 
-Aug. 2019, China University Robot Competition First Prize - Harbin Institute of Technology
-
 May. 2019, JLMag scholarship - Harbin Institute of Technology
+
+Aug. 2019, China University Robot Competition First Prize - Harbin Institute of Technology
 
 May. 2020, Infineon scholoarship - Harbin Institute of Technology
 
