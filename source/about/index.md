@@ -1,6 +1,6 @@
 ---
-title: 关于我
-date: 2021-5-6 14:44:02
+title: Resume
+date: 2021-5-6 15:24:02
 comments: true
 description: 我有许多小秘密~
 ---
@@ -25,6 +25,36 @@ I am interested in SLAM, computer vision and robotics. Currently I am working on
 
 As a member of control group of HIT Competition Robotics Team, I am mainly responsible for coding and designing the control algorithm for the robots in the [Robomaster](https://www.robomaster.com/en-US) 2019. We ranked [6/200+](https://www.robomaster.com/en-US/resource/pages/announcement/1035) in the competition.
 In 2020 and 2021, I become the Technical Director of HIT Competition Robotics Team, mainly responsible of developing high performance robot actuator and designing accurate robot positioning and navigation algorithm. We both won First Prize in the competition of [Robomaster](https://www.robomaster.com/en-US) and [Robocon](http://www.robocon2021.com/) 2020.
+
+## Projects
+
+Besides jioning in competitions, I and my team members also joined Innovation and Entrepreneurship Projects.
+
+![project1](/images/system/project1.jpg)
+
+We build up a Hand Exoskeleton which can help patients with muscle weakness to lift up heavy things and rehab.
+This project has won Silver Medal in China College Students' 'Internet+' Innovation and Entrepreneurship Competition and Silver Medal in 'Zu Guang' Cup.
+
+![project2](/images/system/project2.jpg)
+
+We also designed a strong PMSM system from hardware to software which is widely used in our robots.
+We have also assigned a patent for this project.
+
+## Honors
+
+Aug. 2019, China University Robot Competition First Prize - Harbin Institute of Technology
+
+May. 2019, JLMag scholarship - Harbin Institute of Technology
+
+May. 2020, Infineon scholoarship - Harbin Institute of Technology
+
+Aug. 2020, ICRA DJI AI Challenge Second Prize - Harbin Institute of Technology
+
+Oct. 2020, China University Robot Competition First Prize - Harbin Institute of Technology
+
+Jun. 2021, Outstanding Graduate - Harbin Institute of Technology
+
+Aug. 2021, Academic scholarship - Harbin Institute of Technology, ShenZhen
 
 ## Skills
 
