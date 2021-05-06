@@ -58,4 +58,4 @@ Aug. 2021, Academic scholarship - Harbin Institute of Technology, ShenZhen
 
 ## Skills
 
-C / C++ / Python / Matlab, Linux / Embedded Programing, Pytorch / OpenCV.
+C / C++ / Python / Matlab, Linux / ROS / Embedded Programing, Pytorch / OpenCV.
