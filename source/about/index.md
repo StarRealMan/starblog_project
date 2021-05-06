@@ -38,7 +38,7 @@ This project has won Silver Medal in China College Students' 'Internet+' Innovat
 ![project2](/images/system/projects.png)
 
 We also designed a strong PMSM system from hardware to software which is widely used in our robots.
-We have also assigned a patent for this project.
+We have assigned a patent for this PMSM system.
 
 ## Honors
 
