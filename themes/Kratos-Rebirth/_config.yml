@@ -20,7 +20,7 @@ menu:
   sites:
     submenu: true
     bilibili: https://space.bilibili.com/139101336
-    project: https://github.com/StarRealMan/StarRealMan.github.io
+    project: https://github.com/StarRealMan/
 
 label:
   index: <i class="fa fa-home"></i>首页
@@ -31,7 +31,7 @@ label:
   sites:
     submenu: <i class="fa fa-link"></i>链接
     bilibili: Bilibili
-    project: 项目
+    project: Github
 
 # Footer
 group_link: 
