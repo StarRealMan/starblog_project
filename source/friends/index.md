@@ -12,7 +12,8 @@ description: 好伙伴们在哪里~
         ["https://yochamzheng.github.io/", "https://avatars3.githubusercontent.com/u/39761153?s=64&v=4", "阿虎", "中国微电子行业栋梁之材"],
         ["https://hit-zyc.github.io/", "https://avatars3.githubusercontent.com/u/56548980?s=64&v=4", "驰酱", "生物医学工程治不了脑溢血"],
         ["https://shawlyu.github.io/", "https://avatars.githubusercontent.com/u/34409608?v=4", "晓阳学长", "教练，我想搞机器人"],
-        ["https://AlbertFeng.github.io/", "https://avatars.githubusercontent.com/u/63229950?v=4", "冯少", "RoboMaster"]
+        ["https://AlbertFeng.github.io/", "https://avatars.githubusercontent.com/u/63229950?v=4", "冯少", "RoboMaster"],
+        ["https://bigbird.fun", "https://avatars.githubusercontent.com/u/46832648?v=4", "鸟哥",  "屌丝"]
     ];
 
     let friendNodes = '';
