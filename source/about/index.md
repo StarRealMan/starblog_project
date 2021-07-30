@@ -17,7 +17,7 @@ I am a research intern (May. 2021 - September. 2021) at Megvii Research Center o
 
 ## Research
 
-I am interested in SLAM, computer vision and robotics. Currently I am working on my [graduation project](https://github.com/StarRealMan/SSVIO), which is about creating marked object map using 3D reconstruction and 3D pointcloud semantic segmentation methods. In my future research, I am eager to develop new methods by combining multiple sensors to help computers understand surroundings better and interact with environments smarterly, which is a key problem faced by Autonomous Driving Cars and Navigation Robots.
+I am interested in SLAM, computer vision and robotics. My [graduation project](https://github.com/StarRealMan/SSVIO) is about creating marked object map using 3D reconstruction and 3D pointcloud semantic segmentation methods. Currently I am working on 3D Object detection tasks in Autonomous Driving scenario. In my future research, I am eager to develop new methods by combining multiple sensors to help computers understand surroundings better and interact with environments smarterly, which is a key problem faced by Autonomous Driving Cars and Navigation Robots.
 
 ![research](/images/system/result.jpg)
 
