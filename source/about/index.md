@@ -56,7 +56,9 @@ Oct. 2020, China University Robot Competition First Prize - Harbin Institute of 
 
 Jun. 2021, Outstanding Graduate - Harbin Institute of Technology
 
-Aug. 2021, Academic scholarship - Harbin Institute of Technology, ShenZhen
+Aug. 2021, China University Robot Competition First Prize - Harbin Institute of Technology
+
+Aug. 2021, Academic Scholarship - Harbin Institute of Technology, ShenZhen
 
 ## Skills
 
