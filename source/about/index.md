@@ -11,15 +11,16 @@ description: 我有许多小秘密~
 
 ## Brief
 
-I am a Master student in the [School of Mechanical Engineering and Automation](http://smea.hitsz.edu.cn/index.htm) at [Harbin Institute of Technology, ShenZhen](http://www.hitsz.edu.cn/), supervised by [Prof. Haoyao Chen](http://faculty.hitsz.edu.cn/chenhaoyao). Prior to HITSZ, I obtained a B.Eng from [Harbin Institute of Technology](http://www.hit.edu.cn/), and majored in  elctrical engineering in the [School of Electrical Engineering and Automation](http://hitee.hit.edu.cn/).
+I am a Master student in the [School of Mechanical Engineering and Automation](http://smea.hitsz.edu.cn/index.htm) at [Harbin Institute of Technology, ShenZhen](http://www.hitsz.edu.cn/), supervised by [Prof. Haoyao Chen](http://faculty.hitsz.edu.cn/chenhaoyao). Prior to HITSZ, I obtained a B.Eng from [Harbin Institute of Technology](http://www.hit.edu.cn/), and majored in  electrical engineering in the [School of Electrical Engineering and Automation](http://hitee.hit.edu.cn/).
 
-I am a research intern (May. 2021 - September. 2021) at Megvii Research Center of [Megvii](https://megvii.com/) (Beijing, China). In my undergraduate study, I was a team member of the control group in [Harbin Institute of Technology Competition Robotics Team ](https://baike.baidu.com/item/%E5%93%88%E5%B0%94%E6%BB%A8%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E7%AB%9E%E6%8A%80%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%98%9F) (HITCRT), named I Hiter (Harbin, China).
+At the first year of my master study, I am a research intern (December. 2021 - August. 2021) at Flight System Department of [DJI](https://dji.com). We explore the research field of Implicit Representation and Neural Radiance Field(NeRF). I was a research intern (May. 2021 - September. 2021) at Megvii Research Center of [Megvii](https://megvii.com/) (Beijing, China). We mainly focused on the task of Object Detection by vision (Monocular and Stereo) in Autonomous Driving scenarios. In my undergraduate study, I was a team member of the control group in [Harbin Institute of Technology Competition Robotics Team ](https://baike.baidu.com/item/%E5%93%88%E5%B0%94%E6%BB%A8%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E7%AB%9E%E6%8A%80%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%98%9F) (HITCRT), named I Hiter (Harbin, China).
 
 ## Research
 
-I am interested in SLAM, computer vision and robotics. My [graduation project](https://github.com/StarRealMan/SSVIO) is about creating marked object map using 3D reconstruction and 3D pointcloud semantic segmentation methods. Currently I am working on 3D Object detection tasks in Autonomous Driving scenario. In my future research, I am eager to develop new methods by combining multiple sensors to help computers understand surroundings better and interact with environments smarterly, which is a key problem faced by Autonomous Driving Cars and Navigation Robots.
+I am interested in SLAM, computer vision and robotics. My [graduation project](https://github.com/StarRealMan/SSVIO) is about creating marked object map using 3D reconstruction and 3D pointcloud semantic segmentation methods. Currently I am working on Implicit Representation, which is a new research field having potential in Novel View Synthesis and 3D Reconstruction. In my future research, I am eager to develop new methods by combining multiple sensors to help computers understand surroundings better and interact with environments smarterly, which is a key problem faced by Autonomous Driving Cars and Navigation Robots.
 
 ![research](/images/system/result.jpg)
+![research1](/images/system/result1.jpg)
 
 ## Competitions
 
@@ -27,6 +28,8 @@ I am interested in SLAM, computer vision and robotics. My [graduation project](h
 
 As a member of the control group of HIT Competition Robotics Team, I am mainly responsible for coding and designing the control algorithm for the robots in the [Robomaster](https://www.robomaster.com/en-US) 2019. We ranked [6/200+](https://www.robomaster.com/en-US/resource/pages/announcement/1035) in the competition.
 In 2020 and 2021, I became the Technical Director of HIT Competition Robotics Team, mainly responsible for developing high performance robot actuator and designing accurate robot positioning and navigation algorithms. We both won First Prize in the competitions of [Robomaster](https://www.robomaster.com/en-US) and [Robocon](http://www.robocon2021.com/) 2020.
+
+Recently, our team won the second place in Robomaster2022. Congradulations to our teammates!
 
 ## Projects
 
