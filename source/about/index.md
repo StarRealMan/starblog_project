@@ -20,7 +20,7 @@ At the first year of my master study, I am a research intern (December. 2021 - A
 I am interested in SLAM, computer vision and robotics. My [graduation project](https://github.com/StarRealMan/SSVIO) is about creating marked object map using 3D reconstruction and 3D pointcloud semantic segmentation methods. Currently I am working on Implicit Representation, which is a new research field having potential in Novel View Synthesis and 3D Reconstruction. In my future research, I am eager to develop new methods by combining multiple sensors to help computers understand surroundings better and interact with environments smarterly, which is a key problem faced by Autonomous Driving Cars and Navigation Robots.
 
 ![research](/images/system/result.jpg)
-![research1](/images/system/result1.jpg)
+![research1](/images/system/result1.png)
 
 ## Competitions
 
